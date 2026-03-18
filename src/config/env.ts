@@ -5,12 +5,16 @@ import AppErrors from '../app/errorHandler/AppErrors';
 dotenv.config();
 
 interface EnvConfig {
-    PORT: string;
+    PORT: string
+    DATABASE_URL: string
+    FRONTEND_URL: string
 }
 
 const loadEnvVariables = (): EnvConfig =>{
     const requireEnvVariables = [
-        "PORT"
+        "PORT",
+        "DATABASE_URL",
+        "FRONTEND_URL"
     ];
 
     requireEnvVariables.forEach((variable) => {
@@ -21,6 +25,8 @@ const loadEnvVariables = (): EnvConfig =>{
 
     return {
         PORT: process.env.PORT as string,
+        DATABASE_URL: process.env.DATABASE_URL as string,
+        FRONTEND_URL: process.env.FRONTEND_URL as string
     }
 }
 

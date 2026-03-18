@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Boat {
+  id       String @id @default(uuid())
+  boatName String @db.VarChar(150)
+
+  boatType BoatType
+  status   BoatStatus
+
+  capacity Int
+  ownerId  String
+
+  // owner              User     @relation(fields: [ownerId], references: [id])
+
+  licenseNumber String
+  licenseExpiry DateTime
+
+  registrationNumber String @unique
+
+  boatCondition String
+  location      String
+
+  pricePerTrip Int
+
+  length         Float
+  width          Float
+  engineCapacity Int
+
+  manufacturer      String
+  manufacturingYear Int
+
+  amenities          String[]
+  cancellationPolicy String
+
+  rating       Float @default(0)
+  totalReviews Int   @default(0)
+
+  isApproved Boolean @default(false)
+
+  // images             String[]   // Cloudinary URLs
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // schedules          Schedule[]
+  // bookings           Booking[]
+  // reviews            Review[]
+}
+
+enum BoatType {
+  SPEEDBOAT
+  FERRY
+  LAUNCH
+  PRIVATE
+}
+
+enum BoatStatus {
+  ACTIVE
+  INACTIVE
+  MAINTENANCE
+  SUSPENDED
+}
