@@ -28,9 +28,34 @@ const registerCustomer = catchAsync( async (req: Request, res: Response) => {
     })
 })
 
+const login = catchAsync( async (req: Request, res: Response) => {
+    const payload = req.body;
+    const result = await AuthService.login(payload);
+
+    const {accessToken, refreshToken, token, ...rest} = result;
+
+    tokenUtils.setAccessTokenCookie(res, accessToken);
+    tokenUtils.setRefreshTokenCookie(res, refreshToken);
+    tokenUtils.setBetterAuthCookie(res, token as string);
+
+    sendResponse(res, {
+        httpStatusCode: 201,
+        success: true,
+        message: "Login successfully",
+        data: {
+            accessToken,
+            refreshToken,
+            token,
+            ...rest
+        }
+    })
+})
+
+
 
 
 
 export const AuthController = {
-    registerCustomer
+    registerCustomer,
+    login
 }
