@@ -1,0 +1,10 @@
+model Boat_Images {
+    id     String @id @default(uuid(7))
+    boatId String @unique
+
+    imageUrl   String[]
+    isPrimary  Boolean
+    caption    String?
+    uploadedAt DateTime
+    boat       Boat     @relation(fields: [boatId], references: [id])
+}

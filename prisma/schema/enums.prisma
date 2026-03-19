@@ -1,0 +1,37 @@
+enum BoatType {
+    SPEEDBOAT
+    FERRY
+    LAUNCH
+    PRIVATE
+}
+
+enum BoatStatus {
+    ACTIVE
+    INACTIVE
+    MAINTENANCE
+    SUSPENDED
+}
+
+enum VerificationStatus {
+    PENDING
+    UNDER_REVIEW
+    APPROVED
+    REJECTED
+    EXPIRED
+    SUSPENDED
+}
+
+enum UserRole {
+    CUSTOMER
+    BOAT_OWNER
+    ADMIN
+    SUPER_ADMIN
+}
+
+enum UserStatus {
+    ACTIVE
+    INACTIVE
+    SUSPENDED
+    BANNED
+    PENDING_VERIFICATION
+}

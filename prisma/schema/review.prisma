@@ -1,0 +1,18 @@
+model Review {
+    id String @id @default(uuid(7))
+
+    userId String
+    boatId String
+
+    rating  Float
+    commont String?
+
+    images     String[]
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    isVerified Boolean
+
+    boat Boat @relation(fields: [boatId], references: [id])
+}
+
+

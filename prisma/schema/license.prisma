@@ -1,0 +1,19 @@
+model License {
+    id     String @id @default(uuid(7))
+    userId String
+    boatId String @unique
+
+    licenseType        String
+    licenseNumber      String
+    registrationNumber String @unique
+
+    issueDate  DateTime
+    expiryDate DateTime
+
+    documentUrl        String[]
+    verificationStatus VerificationStatus
+    verifiedAt         DateTime
+    isVerified         Boolean
+
+    boat Boat @relation(fields: [boatId], references: [id])
+}
