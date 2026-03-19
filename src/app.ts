@@ -3,6 +3,8 @@ import { IndexRoutes } from "./app/routes"
 import cors from "cors";
 import { envVariables } from "./config/env";
 import cookieParser from "cookie-parser";
+import { toNodeHandler } from "better-auth/node";
+import { auth } from "./app/lib/auth";
 
 const app: Application = express()
 
@@ -13,8 +15,15 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"],
 }))
 
+app.use('/api/auth', toNodeHandler(auth))
+
+
+
 app.use(express.json());
 app.use(cookieParser());
+
+
+
 
 app.use("/api/v1", IndexRoutes)
 
