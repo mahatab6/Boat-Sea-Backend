@@ -2,90 +2,86 @@ import { Request, Response } from "express";
 import { catchAsync } from "../../shared/catchAsync";
 import { sendResponse } from "../../shared/sendResponse";
 import status from "http-status";
+import { userService } from "./user.service";
 
 
-
-const getAllBoats = catchAsync(async (req: Request, res: Response) => {
+const getProfile = catchAsync(async (req: Request, res: Response) => {
+    
     sendResponse(res, {
         httpStatusCode: status.OK,
         success: true,
         message: "Password reset successful",
+        
     });
 });
 
-const createBoat = catchAsync(async (req: Request, res: Response) => {
+const updateProfile = catchAsync(async (req: Request, res: Response) => {
+   
     sendResponse(res, {
         httpStatusCode: status.OK,
         success: true,
         message: "Password reset successful",
+        
     });
 });
 
-const getBoatById = catchAsync(async (req: Request, res: Response) => {
+const getMyBookings = catchAsync(async (req: Request, res: Response) => {
+    
     sendResponse(res, {
         httpStatusCode: status.OK,
         success: true,
         message: "Password reset successful",
+        
     });
 });
 
-const getBoatReviews = catchAsync(async (req: Request, res: Response) => {
+const getMyReviews  = catchAsync(async (req: Request, res: Response) => {
+    
     sendResponse(res, {
         httpStatusCode: status.OK,
         success: true,
         message: "Password reset successful",
+        
     });
 });
 
-const updateBoat = catchAsync(async (req: Request, res: Response) => {
+const getNotifications = catchAsync(async (req: Request, res: Response) => {
+    
     sendResponse(res, {
         httpStatusCode: status.OK,
         success: true,
         message: "Password reset successful",
+        
     });
 });
 
-const deleteBoat = catchAsync(async (req: Request, res: Response) => {
+const markNotificationRead = catchAsync(async (req: Request, res: Response) => {
+    
     sendResponse(res, {
         httpStatusCode: status.OK,
         success: true,
         message: "Password reset successful",
+        
     });
 });
 
-const getMyBoats = catchAsync(async (req: Request, res: Response) => {
+const deleteAccount = catchAsync(async (req: Request, res: Response) => {
+    
     sendResponse(res, {
         httpStatusCode: status.OK,
         success: true,
         message: "Password reset successful",
-    });
-});
-
-const addSchedule = catchAsync(async (req: Request, res: Response) => {
-    sendResponse(res, {
-        httpStatusCode: status.OK,
-        success: true,
-        message: "Password reset successful",
-    });
-});
-
-const checkAvailability = catchAsync(async (req: Request, res: Response) => {
-    sendResponse(res, {
-        httpStatusCode: status.OK,
-        success: true,
-        message: "Password reset successful",
+        
     });
 });
 
 
-export const boatController = {
-    getAllBoats,
-    createBoat,
-    getBoatById,
-    getBoatReviews,
-    updateBoat,
-    deleteBoat,
-    getMyBoats,
-    addSchedule,
-    checkAvailability
+export const userController = {
+    getProfile,
+    updateProfile,
+    getMyBookings,
+    getMyReviews,
+    getNotifications,
+    markNotificationRead,
+    deleteAccount
 }

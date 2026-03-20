@@ -45,6 +45,20 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
+    async sendResetPassword({ user, url, token }) {
+      const resetLink = `${envVariables.FRONTEND_URL}/reset-password/${token}`;
+      await sendEmail({
+        to: user.email,
+        subject: "Reset Your Password",
+        templateName: "otp",
+        templateData: {
+          name: user.name,
+          otp: token,
+          resetLink,
+          url,
+        },
+      });
+    },
   },
 
   session: {
