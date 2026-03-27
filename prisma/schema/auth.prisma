@@ -12,6 +12,8 @@ model User {
     deletedAt     DateTime?
     sessions      Session[]
     accounts      Account[]
+    bookings      Booking?
+    boats         Boat[]
 
     @@unique([email])
     @@map("user")

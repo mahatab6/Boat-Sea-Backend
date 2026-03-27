@@ -1,0 +1,26 @@
+model Schedule {
+    id String @id @default(uuid(7))
+
+    boatId String
+    boat   Boat   @relation(fields: [boatId], references: [id])
+
+    routeId String
+    route   Route  @relation(fields: [routeId], references: [id])
+
+    departureDate DateTime
+    departureTime String // e.g. "08:30 AM"
+    arrivalTime   String // e.g. "12:00 PM"
+
+    price Float
+
+    availableSeats Int
+
+    status ScheduleStatus @default(UPCOMING)
+
+    recurringPattern RecurringPattern?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    bookings Booking[]
+}

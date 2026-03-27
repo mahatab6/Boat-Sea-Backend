@@ -7,6 +7,7 @@ import { Ilogin, IregisterCustomer } from "./auth.interface";
 import { tokenUtils } from "../../utils/token";
 import { prisma } from "../../lib/prisma";
 import { envVariables } from "../../../config/env";
+import { UserStatus } from "../../../generated/prisma/enums";
 
 const registerCustomer = async (payload: IregisterCustomer) => {
   const { name, email, password } = payload;
@@ -96,6 +97,7 @@ const verifyEmail = async (email: string, otp: string) => {
       },
       data: {
         emailVerified: true,
+        status: UserStatus.ACTIVE
       },
     });
   }
@@ -155,34 +157,55 @@ const logout = async (sessionToken?: string) => {
 };
 
 const forgotPassword = async (email: string) => {
-  if (!email) {
-    throw new AppErrors(status.BAD_REQUEST, "Email is required for forgot password");
-  }
-
-  const result = await auth.api.requestPasswordReset({
+  await auth.api.requestPasswordReset({
     body: {
       email,
       redirectTo: `${envVariables.FRONTEND_URL}/reset-password`,
     },
   });
 
-  return result;
+  return { success: true };
 };
 
-const resetPassword = async (token: string, newPassword: string) => {
-  if (!token || !newPassword) {
-    throw new AppErrors(status.BAD_REQUEST, "Token and new password are required");
-  }
 
-  const result = await auth.api.resetPassword({
-    body: {
-      token,
-      newPassword,
+const goolgeLoginSuccess = async (session: Record<string, any>) => {
+
+  const isCustomerExists = await prisma.user.findUnique({
+    where: {
+      id: session.user.id,
     },
   });
 
-  return result;
-};
+  if(!isCustomerExists) {
+    await prisma.user.create({
+      data: {
+        id: session.user.id,
+        name: session.user.name,
+        email: session.user.email
+      },
+    });
+  }
+
+  const accessToken = tokenUtils.getAccessToken({
+    userId: session.user.id,
+    role: session.user.role,
+    name: session.user.name,
+    email: session.user.email,
+  });
+
+  const refreshToken = tokenUtils.getRefreshToken({
+    userId: session.user.id,
+    role: session.user.role,
+    name: session.user.name,
+    email: session.user.email,
+  });
+
+  return {
+    accessToken,
+    refreshToken
+  }
+}
+
 
 
 
@@ -193,5 +216,5 @@ export const AuthService = {
     refreshToken,
     logout,
     forgotPassword,
-    resetPassword,
+    goolgeLoginSuccess,
 };

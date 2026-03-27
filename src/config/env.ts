@@ -20,6 +20,8 @@ interface EnvConfig {
   SMTP_HOST: string;
   SMTP_PORT: string;
   SMTP_FROM: string;
+  Client_ID: string;
+  Client_Secret: string;
 }
 
 const loadEnvVariables = (): EnvConfig => {
@@ -39,6 +41,8 @@ const loadEnvVariables = (): EnvConfig => {
     "SMTP_HOST",
     "SMTP_PORT",
     "SMTP_FROM",
+    "Client_ID",
+    "Client_Secret",
   ];
 
   requireEnvVariables.forEach((variable) => {
@@ -67,6 +71,8 @@ const loadEnvVariables = (): EnvConfig => {
     SMTP_HOST: process.env.SMTP_HOST as string,
     SMTP_PORT: process.env.SMTP_PORT as string,
     SMTP_FROM: process.env.SMTP_FROM as string,
+    Client_ID: process.env.Client_ID as string,
+    Client_Secret: process.env.Client_Secret as string,
   };
 };
 

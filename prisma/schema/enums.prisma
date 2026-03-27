@@ -35,3 +35,37 @@ enum UserStatus {
     BANNED
     PENDING_VERIFICATION
 }
+
+enum BookingStatus {
+    PENDING
+    CONFIRMED
+    CANCELLED
+    COMPLETED
+}
+
+enum PaymentStatus {
+    PENDING
+    PAID
+    FAILED
+    REFUNDED
+}
+
+enum ScheduleStatus {
+    UPCOMING
+    ONGOING
+    COMPLETED
+    CANCELLED
+}
+
+enum RecurringPattern {
+    DAILY
+    WEEKLY
+    WEEKENDS
+    NONE
+}
+
+enum RouteDifficulty {
+    EASY
+    MODERATE
+    HARD
+}

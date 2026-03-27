@@ -50,7 +50,7 @@ export const auth = betterAuth({
       await sendEmail({
         to: user.email,
         subject: "Reset Your Password",
-        templateName: "otp",
+        templateName: "password-reset",
         templateData: {
           name: user.name,
           otp: token,
@@ -59,6 +59,7 @@ export const auth = betterAuth({
         },
       });
     },
+    expiresIn: 5 * 30
   },
 
   session: {
@@ -131,4 +132,21 @@ export const auth = betterAuth({
       otpLength: 6,
     }),
   ],
+
+   socialProviders: {
+    google: {
+      clientId: envVariables.Client_ID,
+      clientSecret: envVariables.Client_Secret,
+
+      mapProfileToUser: () => {
+        return {
+          role: UserRole.CUSTOMER,
+          status: UserStatus.ACTIVE,
+          needPasswordChange: false,
+          isDeleted: false,
+          deletedAt: null,
+        };
+      },
+    },
+  },
 });

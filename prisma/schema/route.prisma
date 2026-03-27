@@ -1,0 +1,32 @@
+model Route {
+    id String @id @default(uuid())
+
+    routeName String @db.VarChar(150)
+
+    startLocation String
+    endLocation   String
+
+    // GPS coordinates (map integration)
+    startLat Float
+    startLng Float
+    endLat   Float
+    endLng   Float
+
+    waypoints Json? // multiple stops
+
+    distance          Float // km
+    estimatedDuration Int // minutes
+
+    difficulty RouteDifficulty @default(EASY)
+
+    isActive Boolean @default(true)
+
+    description String?
+
+    popularTimes String[] // ["morning", "evening"]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    schedules Schedule[]
+}
