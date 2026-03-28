@@ -6,8 +6,8 @@ enum BoatType {
 }
 
 enum BoatStatus {
-    ACTIVE
-    INACTIVE
+    AVAILABLE
+    UNAVAILABLE
     MAINTENANCE
     SUSPENDED
 }

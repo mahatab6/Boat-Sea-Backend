@@ -31,10 +31,10 @@ export const checkAuth =
             user: true,
           },
         });
-
+      
         if (sessionExists && sessionExists.user) {
           const user = sessionExists.user;
-
+         
           const now = new Date();
           const expiresAt = new Date(sessionExists.expiresAt);
           const createdAt = new Date(sessionExists.createdAt);
@@ -58,11 +58,12 @@ export const checkAuth =
           }
 
           req.user = {
+            id: user.id,
             email: user.email,
             role: user.role as UserRole
           }
         };
-
+        
 
       }
 

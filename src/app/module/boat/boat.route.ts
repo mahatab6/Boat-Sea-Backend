@@ -1,5 +1,9 @@
 import { Router } from "express";
 import { boatController } from "./boat.controller";
+import { checkAuth } from "../../middleware/ckeckAuth";
+import { UserRole } from "../../../generated/prisma/enums";
+import { validateRequest } from "../../middleware/validateRequest";
+import { createBoatSchema } from "./boat.validation";
 
 
 
@@ -7,7 +11,9 @@ const router = Router();
 
 router.get('/', boatController.getAllBoats);
 
-router.post("/create-boat", boatController.createBoat)
+router.post("/create-boat",checkAuth(UserRole.BOAT_OWNER)
+,validateRequest(createBoatSchema)
+, boatController.createBoat)
 
 router.get('/:id', boatController.getBoatById);
 
