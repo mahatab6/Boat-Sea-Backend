@@ -1,13 +1,13 @@
 import status from "http-status";
 import { Boat, Prisma } from "../../../generated/prisma/client";
-import { BoatStatus } from "../../../generated/prisma/enums";
+import { BoatStatus, BookingStatus } from "../../../generated/prisma/enums";
 import AppErrors from "../../errorHandler/AppErrors";
 import { IQueryParams } from "../../interface/query.interface";
 import { IRequestUser } from "../../interface/requestUser.interface";
 import { prisma } from "../../lib/prisma";
 import { QueryBuilder } from "../../utils/QueryBuilder";
 import { boatFilterableFields, boatSearchableFields } from "./boat.constant";
-import { ICreateBoat, IUpdateBoat } from "./boat.interface";
+import { ICreateBoat, ICreateSchedule, IUpdateBoat } from "./boat.interface";
 
 const getAllBoats = async (query: IQueryParams) => {
   const queryBuilder = new QueryBuilder<Boat>(prisma.boat, query, {
@@ -99,11 +99,115 @@ const updateBoat = async (
   return result;
 };
 
+const deleteBoat = async (id: string, ownerId: string) => {
+  const boat = await prisma.boat.findUnique({
+    where: { id },
+  });
 
-const deleteBoat = async () => {};
-const getMyBoats = async () => {};
-const addSchedule = async () => {};
-const checkAvailability = async () => {};
+  if (!boat) {
+    throw new AppErrors(status.NOT_FOUND, "Boat not found");
+  }
+
+  if (boat.ownerId !== ownerId) {
+    throw new AppErrors(
+      status.FORBIDDEN,
+      "Unauthorized action"
+    );
+  }
+
+  const activeBooking = await prisma.booking.findFirst({
+    where: {
+      boatId: id,
+      bookingStatus: BookingStatus.CONFIRMED
+    },
+  });
+
+  if (activeBooking) {
+    throw new AppErrors(
+      status.BAD_REQUEST,
+      "Boat has active bookings"
+    );
+  }
+
+  return prisma.boat.update({
+    where: { id },
+    data: {
+      status: "SUSPENDED",
+      isApproved: false,
+    },
+  });
+};
+
+const getMyBoats = async (
+  ownerId: string,
+  query: IQueryParams
+) => {
+  const queryBuilder = new QueryBuilder<Boat>(
+    prisma.boat,
+    query,
+    {
+      searchableFields: boatSearchableFields,
+      filterableFields: boatFilterableFields,
+    }
+  );
+
+  const result = await queryBuilder
+    .where({ ownerId })
+    .search()
+    .filter()
+    .paginate()
+    .sort()
+    .dynamicInclude(
+      {
+        reviews: true,
+        schedules: true,
+        license: true,
+        boat_images: true,
+      },
+      ["boat_images"] 
+    )
+    .execute();
+
+  return result;
+};
+
+
+const addSchedule = async (
+  boatId: string,
+  ownerId: string,
+  payload: ICreateSchedule
+) => {
+
+  const boat = await prisma.boat.findUnique({ where: { id: boatId } });
+  if (!boat) throw new AppErrors(status.NOT_FOUND, "Boat not found");
+  if (boat.ownerId !== ownerId) throw new AppErrors(status.FORBIDDEN, "Unauthorized");
+
+
+  const route = await prisma.route.findUnique({
+    where: { id: payload.routeId },
+  });
+
+  if (!route) {
+    throw new AppErrors(status.NOT_FOUND, "The specified Route ID does not exist");
+  }
+
+
+  if (payload.availableSeats > boat.capacity) {
+    throw new AppErrors(status.BAD_REQUEST, "Seats exceed capacity");
+  }
+
+
+  const schedule = await prisma.schedule.create({
+    data: {
+      ...payload,
+      boatId, 
+      departureDate: new Date(payload.departureDate),
+    },
+  });
+
+  return schedule;
+};
+
 
 export const boatService = {
   getAllBoats,
@@ -114,5 +218,4 @@ export const boatService = {
   deleteBoat,
   getMyBoats,
   addSchedule,
-  checkAvailability,
 };

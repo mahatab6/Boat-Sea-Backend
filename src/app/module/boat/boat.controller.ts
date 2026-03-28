@@ -71,36 +71,58 @@ const updateBoat = catchAsync(async (req: Request, res: Response) => {
 });
 
 const deleteBoat = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const ownerId = req.user?.id;
+
+  const result = await boatService.deleteBoat(id as string, ownerId as string);
+
   sendResponse(res, {
     httpStatusCode: status.OK,
     success: true,
-    message: "Password reset successful",
+    message: "Boat deleted successfully",
+    data: result,
   });
 });
 
 const getMyBoats = catchAsync(async (req: Request, res: Response) => {
+  console.log('hello')
+  const ownerId = req.user?.id;
+  const query = req.query;
+
+  console.log(ownerId)
+  const result = await boatService.getMyBoats(
+    ownerId as string,
+    query as IQueryParams,
+  );
+
   sendResponse(res, {
     httpStatusCode: status.OK,
     success: true,
-    message: "Password reset successful",
+    message: "Your boats fetched successfully",
+    data: result.data,
+    meta: result.meta,
   });
 });
 
 const addSchedule = catchAsync(async (req: Request, res: Response) => {
+  const boatId = req.params.boatId;
+  const ownerId = req.user?.id;
+
+  const result = await boatService.addSchedule(
+    boatId as string,
+    ownerId as string,
+    req.body
+  );
+
   sendResponse(res, {
-    httpStatusCode: status.OK,
+    httpStatusCode: status.CREATED,
     success: true,
-    message: "Password reset successful",
+    message: "Schedule created successfully",
+    data: result,
   });
 });
 
-const checkAvailability = catchAsync(async (req: Request, res: Response) => {
-  sendResponse(res, {
-    httpStatusCode: status.OK,
-    success: true,
-    message: "Password reset successful",
-  });
-});
+
 
 export const boatController = {
   getAllBoats,
@@ -111,5 +133,4 @@ export const boatController = {
   deleteBoat,
   getMyBoats,
   addSchedule,
-  checkAvailability,
 };

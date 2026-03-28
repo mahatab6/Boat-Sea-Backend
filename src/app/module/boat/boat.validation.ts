@@ -38,3 +38,23 @@ export const updateBoatSchema = z
   .partial();
 
 
+
+export const createScheduleSchema = z.object({
+  routeId: z.string(),
+
+  departureDate: z.string().datetime(),
+
+  departureTime: z.string(),
+
+  arrivalTime: z.string(),
+
+  price: z.number().positive(),
+
+  availableSeats: z.number().int().positive(),
+
+  recurringPattern: z
+    .enum(["DAILY", "WEEKLY", "MONTHLY"])
+    .optional(),
+});
+
+

@@ -1,36 +1,31 @@
 model Booking {
-    id String @id @default(uuid())
-
+    id            String @id @default(uuid())
     bookingNumber String @unique
 
-    userId String @unique
+    userId String
     user   User   @relation(fields: [userId], references: [id])
 
     scheduleId String
     schedule   Schedule @relation(fields: [scheduleId], references: [id])
 
-    seatNumbers String[]
+    boatId String
+    boat   Boat   @relation(fields: [boatId], references: [id])
 
+    seatNumbers String[]
     totalAmount Float
 
     bookingStatus BookingStatus @default(PENDING)
     paymentStatus PaymentStatus @default(PENDING)
 
-    bookingDate DateTime @default(now())
-
+    bookingDate      DateTime @default(now())
     passengerDetails Json
 
-    specialRequests String?
-
+    specialRequests    String?
     cancellationDate   DateTime?
     cancellationReason String?
-
-    emergencyContact String?
-
-    isInsured Boolean @default(false)
+    emergencyContact   String?
+    isInsured          Boolean   @default(false)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-
-    boats Boat[]
 }

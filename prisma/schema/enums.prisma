@@ -60,8 +60,7 @@ enum ScheduleStatus {
 enum RecurringPattern {
     DAILY
     WEEKLY
-    WEEKENDS
-    NONE
+    MONTHLY
 }
 
 enum RouteDifficulty {
