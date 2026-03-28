@@ -7,7 +7,7 @@ import { IRequestUser } from "../../interface/requestUser.interface";
 import { prisma } from "../../lib/prisma";
 import { QueryBuilder } from "../../utils/QueryBuilder";
 import { boatFilterableFields, boatSearchableFields } from "./boat.constant";
-import { ICreateBoat } from "./boat.interface";
+import { ICreateBoat, IUpdateBoat } from "./boat.interface";
 
 const getAllBoats = async (query: IQueryParams) => {
   const queryBuilder = new QueryBuilder<Boat>(prisma.boat, query, {
@@ -70,7 +70,36 @@ const getBoatById = async (id: string) => {
 };
 
 const getBoatReviews = async () => {};
-const updateBoat = async () => {};
+
+const updateBoat = async (
+  id: string,
+  payload: IUpdateBoat,
+  ownerId: string
+) => {
+  const boat = await prisma.boat.findUnique({
+    where: { id },
+  });
+
+  if (!boat) {
+    throw new AppErrors(status.NOT_FOUND, "Boat not found");
+  }
+
+  if (boat.ownerId !== ownerId) {
+    throw new AppErrors(
+      status.FORBIDDEN,
+      "You are not authorized to update this boat"
+    );
+  }
+
+  const result = await prisma.boat.update({
+    where: { id },
+    data: payload,
+  });
+
+  return result;
+};
+
+
 const deleteBoat = async () => {};
 const getMyBoats = async () => {};
 const addSchedule = async () => {};

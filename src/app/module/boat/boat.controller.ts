@@ -44,7 +44,6 @@ const getBoatById = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-
 const getBoatReviews = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     httpStatusCode: status.OK,
@@ -54,10 +53,20 @@ const getBoatReviews = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateBoat = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const ownerId = req.user?.id;
+
+  const result = await boatService.updateBoat(
+    id as string,
+    req.body,
+    ownerId as string,
+  );
+
   sendResponse(res, {
     httpStatusCode: status.OK,
     success: true,
-    message: "Password reset successful",
+    message: "Boat updated successfully",
+    data: result,
   });
 });
 
