@@ -23,7 +23,7 @@ router.put('/:id', boatController.updateBoat);
 
 router.delete('/:id', boatController.deleteBoat);
 
-router.get('/owner/my-boats', boatController.getMyBoats);
+router.get('/my-boats',checkAuth(UserRole.BOAT_OWNER), boatController.getMyBoats);
 
 router.post('/:id/schedules', boatController.addSchedule);
 

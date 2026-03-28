@@ -33,12 +33,17 @@ const createBoat = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getBoatById = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+  const result = await boatService.getBoatById(id as string);
+
   sendResponse(res, {
     httpStatusCode: status.OK,
     success: true,
-    message: "Password reset successful",
+    message: "Boat fetched successfully",
+    data: result,
   });
 });
+
 
 const getBoatReviews = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {

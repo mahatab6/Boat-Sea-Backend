@@ -1,5 +1,7 @@
+import status from "http-status";
 import { Boat, Prisma } from "../../../generated/prisma/client";
 import { BoatStatus } from "../../../generated/prisma/enums";
+import AppErrors from "../../errorHandler/AppErrors";
 import { IQueryParams } from "../../interface/query.interface";
 import { IRequestUser } from "../../interface/requestUser.interface";
 import { prisma } from "../../lib/prisma";
@@ -16,7 +18,7 @@ const getAllBoats = async (query: IQueryParams) => {
   const result = await queryBuilder
     .search()
     .filter()
-    .where({ isApproved: true })
+    .where({ isApproved: true, status: BoatStatus.AVAILABLE })
     .paginate()
     .sort()
     .dynamicInclude(
@@ -45,7 +47,28 @@ const createBoat = async (owner: IRequestUser, boatData: ICreateBoat) => {
   return result;
 };
 
-const getBoatById = async () => {};
+const getBoatById = async (id: string) => {
+  const result = await prisma.boat.findFirst({
+    where: {
+      id,
+      isApproved: true,
+    },
+    include: {
+      owner: true,
+      reviews: true,
+      schedules: true,
+      license: true,
+      boat_images: true,
+    },
+  });
+
+  if (!result) {
+    throw new AppErrors(status.NOT_FOUND, "Boat not found or not approved");
+  }
+
+  return result;
+};
+
 const getBoatReviews = async () => {};
 const updateBoat = async () => {};
 const deleteBoat = async () => {};
