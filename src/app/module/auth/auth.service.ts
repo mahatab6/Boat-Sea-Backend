@@ -3,20 +3,21 @@ import AppErrors from "../../errorHandler/AppErrors";
 import { auth } from "../../lib/auth";
 import { jewUtils } from "../../utils/jwt";
 
-import { Ilogin, IregisterCustomer } from "./auth.interface";
+import { Ilogin, Iregister } from "./auth.interface";
 import { tokenUtils } from "../../utils/token";
 import { prisma } from "../../lib/prisma";
 import { envVariables } from "../../../config/env";
 import { UserStatus } from "../../../generated/prisma/enums";
 
-const registerCustomer = async (payload: IregisterCustomer) => {
-  const { name, email, password } = payload;
+const register = async (payload: Iregister) => {
+  const { name, email, password, role } = payload;
 
   const data = await auth.api.signUpEmail({
     body: {
       name,
       email,
       password,
+      role
     },
   });
 
@@ -210,7 +211,7 @@ const goolgeLoginSuccess = async (session: Record<string, any>) => {
 
 
 export const AuthService = {
-  registerCustomer,
+  register,
     login,
     verifyEmail,
     refreshToken,

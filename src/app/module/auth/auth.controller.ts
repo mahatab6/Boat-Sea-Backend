@@ -10,9 +10,9 @@ import { envVariables } from "../../../config/env";
 import { auth } from "../../lib/auth";
 
 
-const registerCustomer = catchAsync( async (req: Request, res: Response) => {
+const register = catchAsync( async (req: Request, res: Response) => {
     const payload = req.body;
-    const result = await AuthService.registerCustomer(payload);
+    const result = await AuthService.register(payload);
 
     const {accessToken, refreshToken, token, ...rest} = result;
 
@@ -23,7 +23,7 @@ const registerCustomer = catchAsync( async (req: Request, res: Response) => {
     sendResponse(res, {
         httpStatusCode: 201,
         success: true,
-        message: "Customer account created",
+        message: "Account created",
         data: {
             accessToken,
             refreshToken,
@@ -185,7 +185,7 @@ const handleAuthError = catchAsync(async (req: Request, res: Response) => {
 
 
 export const AuthController = {
-    registerCustomer,
+    register,
     login,
     verifyEmail,
     refreshToken,
