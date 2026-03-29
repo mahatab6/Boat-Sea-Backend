@@ -24,7 +24,46 @@ const createBooking = catchAsync(
   }
 );
 
+const getMyBookings = catchAsync(
+  async (req: Request, res: Response) => {
+    const userId = req.user?.id;
+
+    const result =
+      await bookingService.getMyBookings(
+        userId as string,
+      );
+
+    sendResponse(res, {
+      httpStatusCode: status.CREATED,
+      success: true,
+      message: "Get all my Booking successfully",
+      data: result,
+    });
+  }
+);
+
+const cancelBooking = catchAsync(
+  async (req: Request, res: Response) => {
+    const userId = req.user?.id;
+    const bookingId = req.params.id;
+
+    const result = await bookingService.cancelBooking(
+      userId as string,
+      bookingId as string
+    );
+
+    sendResponse(res, {
+      httpStatusCode: status.OK, 
+      success: true,
+      message: "Booking cancelled successfully",
+      data: result,
+    });
+  }
+);
+
 
 export const bookingController = {
-    createBooking
+    createBooking,
+    getMyBookings,
+    cancelBooking
 }

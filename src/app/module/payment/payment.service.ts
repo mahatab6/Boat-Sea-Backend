@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import { prisma } from "../../lib/prisma";
-import { BookingStatus, PaymentStatus, ScheduleStatus } from "../../../generated/prisma/enums";
+import { BoatStatus, BookingStatus, PaymentStatus, ScheduleStatus } from "../../../generated/prisma/enums";
 import { generateInvoicePdf } from "./payment.utils";
 import { sendEmail } from "../../utils/email";
 import { uploadFileToCloudinary } from "../../../config/cloudinary.config";
@@ -21,6 +21,7 @@ const handlerStripeWebhookEvent = async (event: Stripe.Event) => {
       const session = event.data.object as Stripe.Checkout.Session;
       const bookingId = session.metadata?.bookingId;
       const scheduleId = session.metadata?.scheduleId;
+      const boatId = session.metadata?.boatId;
       const paymentId = session.metadata?.paymentId;
 
 
@@ -67,6 +68,17 @@ const handlerStripeWebhookEvent = async (event: Stripe.Event) => {
             },
             data: {
               status: ScheduleStatus.COMPLETED
+            }
+          });
+
+          // Update boat status
+
+          await tx.boat.update({
+            where: {
+              id: boatId
+            },
+            data: {
+              status: BoatStatus.UNAVAILABLE
             }
           })
 

@@ -16,17 +16,17 @@ router.post(
   bookingController.createBooking
 );
 
-// router.get(
-//   "/my-bookings",
-//   checkAuth(UserRole.CUSTOMER),
-//   bookingController.getMyBookings
-// );
+router.get(
+  "/my-bookings",
+  checkAuth(UserRole.CUSTOMER),
+  bookingController.getMyBookings
+);
 
-// router.patch(
-//   "/cancel/:id",
-//   checkAuth(UserRole.CUSTOMER),
-//   bookingController.cancelBooking
-// );
+router.patch(
+  "/cancel/:id",
+  checkAuth(UserRole.CUSTOMER),
+  bookingController.cancelBooking
+);
 
 
 
