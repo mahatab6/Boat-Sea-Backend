@@ -7,10 +7,11 @@ import { bookingService } from "./booking.service";
 const createBooking = catchAsync(
   async (req: Request, res: Response) => {
     const userId = req.user?.id;
-
+    const userEmail = req.user?.email;
     const result =
       await bookingService.createBooking(
         userId as string,
+        userEmail as string,
         req.body
       );
 

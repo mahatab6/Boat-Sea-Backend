@@ -6,6 +6,8 @@ import cookieParser from "cookie-parser";
 import { toNodeHandler } from "better-auth/node";
 import { auth } from "./app/lib/auth";
 import path from "node:path";
+import { PaymentController } from "./app/module/payment/payment.controller";
+
 
 const app: Application = express()
 
@@ -16,10 +18,13 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"],
 }))
 
-app.post("/webhook", express.raw({ type: "application/json" }), async (req:Request, res: Response) => {
-  console.log("webhook", req.body);
-  res.status(200).json({received: true})
-})
+
+
+app.post(
+    '/webhook',
+    express.raw({ type: 'application/json' }), 
+    PaymentController.handleStripeWebhookEvent
+);
 
 
 app.use('/api/auth', toNodeHandler(auth))

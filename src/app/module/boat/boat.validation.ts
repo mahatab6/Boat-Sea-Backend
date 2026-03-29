@@ -48,7 +48,6 @@ export const createScheduleSchema = z.object({
 
   arrivalTime: z.string(),
 
-  price: z.number().positive(),
 
   availableSeats: z.number().int().positive(),
 

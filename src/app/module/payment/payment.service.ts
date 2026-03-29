@@ -1,8 +1,9 @@
 import Stripe from "stripe";
 import { prisma } from "../../lib/prisma";
-import { BookingStatus, PaymentStatus } from "../../../generated/prisma/enums";
+import { BookingStatus, PaymentStatus, ScheduleStatus } from "../../../generated/prisma/enums";
 import { generateInvoicePdf } from "./payment.utils";
 import { sendEmail } from "../../utils/email";
+import { uploadFileToCloudinary } from "../../../config/cloudinary.config";
 
 const handlerStripeWebhookEvent = async (event: Stripe.Event) => {
   // 1. Idempotency Check
@@ -19,7 +20,9 @@ const handlerStripeWebhookEvent = async (event: Stripe.Event) => {
     case "checkout.session.completed": {
       const session = event.data.object as Stripe.Checkout.Session;
       const bookingId = session.metadata?.bookingId;
+      const scheduleId = session.metadata?.scheduleId;
       const paymentId = session.metadata?.paymentId;
+
 
       if (!bookingId || !paymentId) {
         console.error("Missing bookingId or paymentId in session metadata");
@@ -56,6 +59,16 @@ const handlerStripeWebhookEvent = async (event: Stripe.Event) => {
                 : BookingStatus.PENDING,
             },
           });
+
+          // Update schedul status
+          await tx.schedule.update({
+            where:{
+              id: scheduleId
+            },
+            data: {
+              status: ScheduleStatus.COMPLETED
+            }
+          })
 
           // Update Payment Record
           return await tx.payments.update({
@@ -135,7 +148,7 @@ const handlerStripeWebhookEvent = async (event: Stripe.Event) => {
         }
       } catch (error) {
         console.error("Transaction failed:", error);
-        throw error; // Webhook should retry if DB update fails
+        throw error; 
       }
       break;
     }
