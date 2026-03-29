@@ -23,4 +23,5 @@ model Schedule {
     updatedAt DateTime @updatedAt
 
     bookings Booking[]
+    seats    Seat[]
 }

@@ -11,13 +11,14 @@ model Booking {
     boatId String
     boat   Boat   @relation(fields: [boatId], references: [id])
 
-    seatNumbers String[]
+    totalGuests Int
     totalAmount Float
 
     bookingStatus BookingStatus @default(PENDING)
     paymentStatus PaymentStatus @default(PENDING)
 
     bookingDate      DateTime @default(now())
+    tripDate         DateTime
     passengerDetails Json
 
     specialRequests    String?
@@ -26,6 +27,9 @@ model Booking {
     emergencyContact   String?
     isInsured          Boolean   @default(false)
 
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+    payments  Payments[]
+    tickets   Ticket[]
+    seats     Seat[]
 }

@@ -48,6 +48,7 @@ enum PaymentStatus {
     PAID
     FAILED
     REFUNDED
+    UNPAID
 }
 
 enum ScheduleStatus {
@@ -67,4 +68,16 @@ enum RouteDifficulty {
     EASY
     MODERATE
     HARD
+}
+
+enum Gender {
+    MALE
+    FEMALE
+    CHILD
+}
+
+enum TicketStatus {
+    VALID
+    USED
+    CANCELLED
 }

@@ -16,6 +16,12 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"],
 }))
 
+app.post("/webhook", express.raw({ type: "application/json" }), async (req:Request, res: Response) => {
+  console.log("webhook", req.body);
+  res.status(200).json({received: true})
+})
+
+
 app.use('/api/auth', toNodeHandler(auth))
 
 

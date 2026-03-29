@@ -22,6 +22,8 @@ interface EnvConfig {
   SMTP_FROM: string;
   Client_ID: string;
   Client_Secret: string;
+  STRIPE_SECRET_KEY: string;
+  STRIPE_WEB_HOOK: string;
 }
 
 const loadEnvVariables = (): EnvConfig => {
@@ -43,6 +45,8 @@ const loadEnvVariables = (): EnvConfig => {
     "SMTP_FROM",
     "Client_ID",
     "Client_Secret",
+    "STRIPE_SECRET_KEY",
+    "STRIPE_WEB_HOOK",
   ];
 
   requireEnvVariables.forEach((variable) => {
@@ -73,6 +77,8 @@ const loadEnvVariables = (): EnvConfig => {
     SMTP_FROM: process.env.SMTP_FROM as string,
     Client_ID: process.env.Client_ID as string,
     Client_Secret: process.env.Client_Secret as string,
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY as string,
+    STRIPE_WEB_HOOK: process.env.STRIPE_WEB_HOOK as string,
   };
 };
 

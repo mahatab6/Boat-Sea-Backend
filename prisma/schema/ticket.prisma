@@ -1,0 +1,15 @@
+model Ticket {
+    id        String  @id @default(uuid(7))
+    bookingId String
+    booking   Booking @relation(fields: [bookingId], references: [id])
+
+    seatId String @unique
+
+    ticketNumber String       @unique
+    qrCode       String?
+    issueDate    DateTime     @default(now())
+    status       TicketStatus @default(VALID)
+    isScanned    Boolean      @default(false)
+    scannedAt    DateTime?
+    scannedBy    String?
+}

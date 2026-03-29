@@ -46,8 +46,9 @@ const getSingleReview = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateReview = catchAsync(async (req: Request, res: Response) => {
-  
-  console.log(reviewId, data)
+  const reviewId = req.params.id;
+  const data = req.body;
+
   const result = await ReviewService.updateReview(reviewId as string, data);
 
   sendResponse(res, {
