@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .header {
+            background-color: #00509d; /* Deep Sea Blue */
+            color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+        .content {
+            padding: 30px;
+            line-height: 1.6;
+        }
+        .user-greeting {
+            font-size: 18px;
+            font-weight: bold;
+            color: #00509d;
+        }
+        .booking-box {
+            background-color: #f0f4f8;
+            border-left: 4px solid #00509d;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        .booking-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+        .value {
+            color: #000;
+        }
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .button {
+            background-color: #00a8cc;
+            color: white;
+            padding: 14px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            border-top: 1px solid #eeeeee;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⛵ Boat Sea</h1>
+            <p>Your Voyage is Confirmed!</p>
+        </div>
+
+        <div class="content">
+            <p class="user-greeting">Ahoy, <%= userName %>!</p>
+            <p>Thank you for choosing <strong>Boat Sea</strong>. Your payment was successful, and your booking is now officially confirmed. Get ready for an incredible experience on the water!</p>
+
+            <div class="booking-box">
+                <div class="booking-details">
+                    <span class="label">Booking Number:</span>
+                    <span class="value">#<%= bookingNumber %></span>
+                </div>
+                <div class="booking-details">
+                    <span class="label">Total Paid:</span>
+                    <span class="value"><%= amount %> BDT</span>
+                </div>
+                <div class="booking-details">
+                    <span class="label">Status:</span>
+                    <span class="value" style="color: #28a745; font-weight: bold;">Confirmed & Paid</span>
+                </div>
+            </div>
+
+            <p>We have attached your official invoice to this email for your records. You can also view it online using the link below:</p>
+
+            <div class="btn-container">
+                <a href="<%= invoiceUrl %>" class="button">View Online Invoice</a>
+            </div>
+
+            <p><strong>What's Next?</strong><br>
+            Please arrive at the dock at least 20 minutes before your scheduled departure. Don't forget to bring a valid ID and a copy of this confirmation (digital or printed).</p>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2026 Boat Sea Adventures. All rights reserved.</p>
+            <p>Dhaka, Bangladesh | Support: support@boatsea.com</p>
+            <p>If you didn't make this booking, please contact us immediately.</p>
+        </div>
+    </div>
+</body>
+</html>
