@@ -168,6 +168,15 @@ const forgotPassword = async (email: string) => {
   return { success: true };
 };
 
+const getMe = async (userId: string) => {
+  const result = await prisma.user.findUnique({
+    where:{
+      id: userId
+    }
+  })
+
+  return result
+}
 
 const goolgeLoginSuccess = async (session: Record<string, any>) => {
 
@@ -218,4 +227,5 @@ export const AuthService = {
     logout,
     forgotPassword,
     goolgeLoginSuccess,
+    getMe
 };

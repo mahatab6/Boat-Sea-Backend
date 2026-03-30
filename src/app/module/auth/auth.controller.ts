@@ -182,6 +182,20 @@ const handleAuthError = catchAsync(async (req: Request, res: Response) => {
     res.redirect(`${envVariables.FRONTEND_URL}/login?error=${error}`);
 });
 
+const getMe = catchAsync(async (req: Request, res: Response) => {
+
+    const userId = req.user?.id;
+
+    const result = await AuthService.getMe(userId as string)
+
+    sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "get your user Info",
+    data: result,
+  });
+})
+
 
 
 export const AuthController = {
@@ -193,6 +207,6 @@ export const AuthController = {
     forgotPassword,
     googleLogin,
     goolgeLoginSuccess,
-    handleAuthError
-
+    handleAuthError,
+    getMe
 }
