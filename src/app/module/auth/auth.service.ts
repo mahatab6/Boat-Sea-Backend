@@ -17,33 +17,21 @@ const register = async (payload: Iregister) => {
       name,
       email,
       password,
-      role
+      role,
     },
   });
 
   if (!data.user) {
     throw new AppErrors(
       status.INTERNAL_SERVER_ERROR,
-      "Faild to register Customar",
+      "Failed to register customer"
     );
   }
 
-  const user = data.user;
-
-  const jwtPayload = {
-    userId: user.id,
-    email: user.email,
-    role: user.role,
-  };
-
-  const accessToken = tokenUtils.getAccessToken(jwtPayload);
-  const refreshToken = tokenUtils.getRefreshToken(jwtPayload);
-
   return {
-    ...data,
-    token: data.token,
-    accessToken,
-    refreshToken,
+    success: true,
+    message: "Registration successful. Please verify your email.",
+    user: data.user,
   };
 };
 
@@ -91,19 +79,41 @@ const verifyEmail = async (email: string, otp: string) => {
     },
   });
 
-  if (result.status && !result.user.emailVerified) {
-    await prisma.user.update({
-      where: {
-        email: email,
-      },
+  if (!result.user) {
+    throw new AppErrors(
+      status.BAD_REQUEST,
+      "Invalid OTP or email"
+    );
+  }
+
+  let user = result.user;
+
+  if (!user.emailVerified) {
+    user = await prisma.user.update({
+      where: { email },
       data: {
         emailVerified: true,
-        status: UserStatus.ACTIVE
+        status: UserStatus.ACTIVE,
       },
     });
   }
 
-  return result;
+  const jwtPayload = {
+    userId: user.id,
+    email: user.email,
+    role: user.role,
+  };
+
+  const accessToken = tokenUtils.getAccessToken(jwtPayload);
+  const refreshToken = tokenUtils.getRefreshToken(jwtPayload);
+
+  return {
+    success: true,
+    message: "Email verified successfully",
+    user,
+    accessToken,
+    refreshToken,
+  };
 };
 
 const refreshToken = async (currentRefreshToken: string) => {

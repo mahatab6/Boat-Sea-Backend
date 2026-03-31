@@ -10,28 +10,19 @@ import { envVariables } from "../../../config/env";
 import { auth } from "../../lib/auth";
 
 
-const register = catchAsync( async (req: Request, res: Response) => {
-    const payload = req.body;
-    const result = await AuthService.register(payload);
+const register = catchAsync(async (req: Request, res: Response) => {
+  const payload = req.body;
 
-    const {accessToken, refreshToken, token, ...rest} = result;
+  const result = await AuthService.register(payload);
 
-    tokenUtils.setAccessTokenCookie(res, accessToken);
-    tokenUtils.setRefreshTokenCookie(res, refreshToken);
-    tokenUtils.setBetterAuthCookie(res, token as string);
+  sendResponse(res, {
+    httpStatusCode: 201,
+    success: true,
+    message: "Account created successfully. Please verify your email.",
+    data: result,
+  });
+});
 
-    sendResponse(res, {
-        httpStatusCode: 201,
-        success: true,
-        message: "Account created",
-        data: {
-            accessToken,
-            refreshToken,
-            token,
-            ...rest
-        }
-    })
-})
 
 const login = catchAsync( async (req: Request, res: Response) => {
     const payload = req.body;
@@ -57,16 +48,26 @@ const login = catchAsync( async (req: Request, res: Response) => {
 })
 
 const verifyEmail = catchAsync(async (req: Request, res: Response) => {
-    const { email, otp } = req.body;
-    const result = await AuthService.verifyEmail(email, otp);
-    sendResponse(res, {
-        httpStatusCode: status.OK,
-        success: true,
-        message: "Email verified successfully",
-        data: result
-    });
+  const { email, otp } = req.body;
 
-})
+  const result = await AuthService.verifyEmail(email, otp);
+
+  const { accessToken, refreshToken, ...rest } = result;
+
+  tokenUtils.setAccessTokenCookie(res, accessToken);
+  tokenUtils.setRefreshTokenCookie(res, refreshToken);
+
+  sendResponse(res, {
+    httpStatusCode: 200,
+    success: true,
+    message: "Email verified successfully",
+    data: {
+      accessToken,
+      refreshToken,
+      ...rest,
+    },
+  });
+});
 
 const refreshToken = catchAsync(async (req: Request, res: Response) => {
   const refreshToken = req.cookies.refreshToken;
