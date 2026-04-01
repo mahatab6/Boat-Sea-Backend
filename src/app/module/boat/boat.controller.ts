@@ -85,11 +85,9 @@ const deleteBoat = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getMyBoats = catchAsync(async (req: Request, res: Response) => {
-  console.log('hello')
   const ownerId = req.user?.id;
   const query = req.query;
 
-  console.log(ownerId)
   const result = await boatService.getMyBoats(
     ownerId as string,
     query as IQueryParams,

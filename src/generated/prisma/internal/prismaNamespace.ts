@@ -1634,6 +1634,7 @@ export const BoatScalarFieldEnum = {
   boatName: 'boatName',
   boatType: 'boatType',
   status: 'status',
+  primary_img: 'primary_img',
   capacity: 'capacity',
   ownerId: 'ownerId',
   boatCondition: 'boatCondition',

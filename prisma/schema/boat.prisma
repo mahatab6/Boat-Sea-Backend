@@ -3,6 +3,7 @@ model Boat {
     boatName           String     @db.VarChar(150)
     boatType           BoatType
     status             BoatStatus
+    primary_img        String?
     capacity           Int
     ownerId            String
     owner              User       @relation(fields: [ownerId], references: [id])

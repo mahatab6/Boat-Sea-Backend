@@ -5,6 +5,7 @@ export const createBoatSchema = z.object({
   boatType: z.enum(["SPEEDBOAT", "FERRY", "LAUNCH", "PRIVATE"]),
   status: z.enum(["AVAILABLE", "UNAVAILABLE", "MAINTENANCE", "SUSPENDED"]),
   capacity: z.number().int().positive(),
+  primary_img: z.string(),
   boatCondition: z.string(),
   location: z.string(),
   pricePerTrip: z.number().int(),

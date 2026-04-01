@@ -53,6 +53,7 @@ export type BoatMinAggregateOutputType = {
   boatName: string | null
   boatType: $Enums.BoatType | null
   status: $Enums.BoatStatus | null
+  primary_img: string | null
   capacity: number | null
   ownerId: string | null
   boatCondition: string | null
@@ -76,6 +77,7 @@ export type BoatMaxAggregateOutputType = {
   boatName: string | null
   boatType: $Enums.BoatType | null
   status: $Enums.BoatStatus | null
+  primary_img: string | null
   capacity: number | null
   ownerId: string | null
   boatCondition: string | null
@@ -99,6 +101,7 @@ export type BoatCountAggregateOutputType = {
   boatName: number
   boatType: number
   status: number
+  primary_img: number
   capacity: number
   ownerId: number
   boatCondition: number
@@ -147,6 +150,7 @@ export type BoatMinAggregateInputType = {
   boatName?: true
   boatType?: true
   status?: true
+  primary_img?: true
   capacity?: true
   ownerId?: true
   boatCondition?: true
@@ -170,6 +174,7 @@ export type BoatMaxAggregateInputType = {
   boatName?: true
   boatType?: true
   status?: true
+  primary_img?: true
   capacity?: true
   ownerId?: true
   boatCondition?: true
@@ -193,6 +198,7 @@ export type BoatCountAggregateInputType = {
   boatName?: true
   boatType?: true
   status?: true
+  primary_img?: true
   capacity?: true
   ownerId?: true
   boatCondition?: true
@@ -304,6 +310,7 @@ export type BoatGroupByOutputType = {
   boatName: string
   boatType: $Enums.BoatType
   status: $Enums.BoatStatus
+  primary_img: string | null
   capacity: number
   ownerId: string
   boatCondition: string
@@ -351,6 +358,7 @@ export type BoatWhereInput = {
   boatName?: Prisma.StringFilter<"Boat"> | string
   boatType?: Prisma.EnumBoatTypeFilter<"Boat"> | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFilter<"Boat"> | $Enums.BoatStatus
+  primary_img?: Prisma.StringNullableFilter<"Boat"> | string | null
   capacity?: Prisma.IntFilter<"Boat"> | number
   ownerId?: Prisma.StringFilter<"Boat"> | string
   boatCondition?: Prisma.StringFilter<"Boat"> | string
@@ -381,6 +389,7 @@ export type BoatOrderByWithRelationInput = {
   boatName?: Prisma.SortOrder
   boatType?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  primary_img?: Prisma.SortOrderInput | Prisma.SortOrder
   capacity?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   boatCondition?: Prisma.SortOrder
@@ -414,6 +423,7 @@ export type BoatWhereUniqueInput = Prisma.AtLeast<{
   boatName?: Prisma.StringFilter<"Boat"> | string
   boatType?: Prisma.EnumBoatTypeFilter<"Boat"> | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFilter<"Boat"> | $Enums.BoatStatus
+  primary_img?: Prisma.StringNullableFilter<"Boat"> | string | null
   capacity?: Prisma.IntFilter<"Boat"> | number
   ownerId?: Prisma.StringFilter<"Boat"> | string
   boatCondition?: Prisma.StringFilter<"Boat"> | string
@@ -444,6 +454,7 @@ export type BoatOrderByWithAggregationInput = {
   boatName?: Prisma.SortOrder
   boatType?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  primary_img?: Prisma.SortOrderInput | Prisma.SortOrder
   capacity?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   boatCondition?: Prisma.SortOrder
@@ -476,6 +487,7 @@ export type BoatScalarWhereWithAggregatesInput = {
   boatName?: Prisma.StringWithAggregatesFilter<"Boat"> | string
   boatType?: Prisma.EnumBoatTypeWithAggregatesFilter<"Boat"> | $Enums.BoatType
   status?: Prisma.EnumBoatStatusWithAggregatesFilter<"Boat"> | $Enums.BoatStatus
+  primary_img?: Prisma.StringNullableWithAggregatesFilter<"Boat"> | string | null
   capacity?: Prisma.IntWithAggregatesFilter<"Boat"> | number
   ownerId?: Prisma.StringWithAggregatesFilter<"Boat"> | string
   boatCondition?: Prisma.StringWithAggregatesFilter<"Boat"> | string
@@ -500,6 +512,7 @@ export type BoatCreateInput = {
   boatName: string
   boatType: $Enums.BoatType
   status: $Enums.BoatStatus
+  primary_img?: string | null
   capacity: number
   boatCondition: string
   location: string
@@ -529,6 +542,7 @@ export type BoatUncheckedCreateInput = {
   boatName: string
   boatType: $Enums.BoatType
   status: $Enums.BoatStatus
+  primary_img?: string | null
   capacity: number
   ownerId: string
   boatCondition: string
@@ -558,6 +572,7 @@ export type BoatUpdateInput = {
   boatName?: Prisma.StringFieldUpdateOperationsInput | string
   boatType?: Prisma.EnumBoatTypeFieldUpdateOperationsInput | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFieldUpdateOperationsInput | $Enums.BoatStatus
+  primary_img?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
@@ -587,6 +602,7 @@ export type BoatUncheckedUpdateInput = {
   boatName?: Prisma.StringFieldUpdateOperationsInput | string
   boatType?: Prisma.EnumBoatTypeFieldUpdateOperationsInput | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFieldUpdateOperationsInput | $Enums.BoatStatus
+  primary_img?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
@@ -616,6 +632,7 @@ export type BoatCreateManyInput = {
   boatName: string
   boatType: $Enums.BoatType
   status: $Enums.BoatStatus
+  primary_img?: string | null
   capacity: number
   ownerId: string
   boatCondition: string
@@ -640,6 +657,7 @@ export type BoatUpdateManyMutationInput = {
   boatName?: Prisma.StringFieldUpdateOperationsInput | string
   boatType?: Prisma.EnumBoatTypeFieldUpdateOperationsInput | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFieldUpdateOperationsInput | $Enums.BoatStatus
+  primary_img?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
@@ -663,6 +681,7 @@ export type BoatUncheckedUpdateManyInput = {
   boatName?: Prisma.StringFieldUpdateOperationsInput | string
   boatType?: Prisma.EnumBoatTypeFieldUpdateOperationsInput | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFieldUpdateOperationsInput | $Enums.BoatStatus
+  primary_img?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
@@ -705,6 +724,7 @@ export type BoatCountOrderByAggregateInput = {
   boatName?: Prisma.SortOrder
   boatType?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  primary_img?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   boatCondition?: Prisma.SortOrder
@@ -740,6 +760,7 @@ export type BoatMaxOrderByAggregateInput = {
   boatName?: Prisma.SortOrder
   boatType?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  primary_img?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   boatCondition?: Prisma.SortOrder
@@ -763,6 +784,7 @@ export type BoatMinOrderByAggregateInput = {
   boatName?: Prisma.SortOrder
   boatType?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  primary_img?: Prisma.SortOrder
   capacity?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
   boatCondition?: Prisma.SortOrder
@@ -947,6 +969,7 @@ export type BoatCreateWithoutOwnerInput = {
   boatName: string
   boatType: $Enums.BoatType
   status: $Enums.BoatStatus
+  primary_img?: string | null
   capacity: number
   boatCondition: string
   location: string
@@ -975,6 +998,7 @@ export type BoatUncheckedCreateWithoutOwnerInput = {
   boatName: string
   boatType: $Enums.BoatType
   status: $Enums.BoatStatus
+  primary_img?: string | null
   capacity: number
   boatCondition: string
   location: string
@@ -1032,6 +1056,7 @@ export type BoatScalarWhereInput = {
   boatName?: Prisma.StringFilter<"Boat"> | string
   boatType?: Prisma.EnumBoatTypeFilter<"Boat"> | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFilter<"Boat"> | $Enums.BoatStatus
+  primary_img?: Prisma.StringNullableFilter<"Boat"> | string | null
   capacity?: Prisma.IntFilter<"Boat"> | number
   ownerId?: Prisma.StringFilter<"Boat"> | string
   boatCondition?: Prisma.StringFilter<"Boat"> | string
@@ -1056,6 +1081,7 @@ export type BoatCreateWithoutBoat_imagesInput = {
   boatName: string
   boatType: $Enums.BoatType
   status: $Enums.BoatStatus
+  primary_img?: string | null
   capacity: number
   boatCondition: string
   location: string
@@ -1084,6 +1110,7 @@ export type BoatUncheckedCreateWithoutBoat_imagesInput = {
   boatName: string
   boatType: $Enums.BoatType
   status: $Enums.BoatStatus
+  primary_img?: string | null
   capacity: number
   ownerId: string
   boatCondition: string
@@ -1128,6 +1155,7 @@ export type BoatUpdateWithoutBoat_imagesInput = {
   boatName?: Prisma.StringFieldUpdateOperationsInput | string
   boatType?: Prisma.EnumBoatTypeFieldUpdateOperationsInput | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFieldUpdateOperationsInput | $Enums.BoatStatus
+  primary_img?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1156,6 +1184,7 @@ export type BoatUncheckedUpdateWithoutBoat_imagesInput = {
   boatName?: Prisma.StringFieldUpdateOperationsInput | string
   boatType?: Prisma.EnumBoatTypeFieldUpdateOperationsInput | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFieldUpdateOperationsInput | $Enums.BoatStatus
+  primary_img?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1184,6 +1213,7 @@ export type BoatCreateWithoutBookingsInput = {
   boatName: string
   boatType: $Enums.BoatType
   status: $Enums.BoatStatus
+  primary_img?: string | null
   capacity: number
   boatCondition: string
   location: string
@@ -1212,6 +1242,7 @@ export type BoatUncheckedCreateWithoutBookingsInput = {
   boatName: string
   boatType: $Enums.BoatType
   status: $Enums.BoatStatus
+  primary_img?: string | null
   capacity: number
   ownerId: string
   boatCondition: string
@@ -1256,6 +1287,7 @@ export type BoatUpdateWithoutBookingsInput = {
   boatName?: Prisma.StringFieldUpdateOperationsInput | string
   boatType?: Prisma.EnumBoatTypeFieldUpdateOperationsInput | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFieldUpdateOperationsInput | $Enums.BoatStatus
+  primary_img?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1284,6 +1316,7 @@ export type BoatUncheckedUpdateWithoutBookingsInput = {
   boatName?: Prisma.StringFieldUpdateOperationsInput | string
   boatType?: Prisma.EnumBoatTypeFieldUpdateOperationsInput | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFieldUpdateOperationsInput | $Enums.BoatStatus
+  primary_img?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1312,6 +1345,7 @@ export type BoatCreateWithoutLicenseInput = {
   boatName: string
   boatType: $Enums.BoatType
   status: $Enums.BoatStatus
+  primary_img?: string | null
   capacity: number
   boatCondition: string
   location: string
@@ -1340,6 +1374,7 @@ export type BoatUncheckedCreateWithoutLicenseInput = {
   boatName: string
   boatType: $Enums.BoatType
   status: $Enums.BoatStatus
+  primary_img?: string | null
   capacity: number
   ownerId: string
   boatCondition: string
@@ -1384,6 +1419,7 @@ export type BoatUpdateWithoutLicenseInput = {
   boatName?: Prisma.StringFieldUpdateOperationsInput | string
   boatType?: Prisma.EnumBoatTypeFieldUpdateOperationsInput | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFieldUpdateOperationsInput | $Enums.BoatStatus
+  primary_img?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1412,6 +1448,7 @@ export type BoatUncheckedUpdateWithoutLicenseInput = {
   boatName?: Prisma.StringFieldUpdateOperationsInput | string
   boatType?: Prisma.EnumBoatTypeFieldUpdateOperationsInput | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFieldUpdateOperationsInput | $Enums.BoatStatus
+  primary_img?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1440,6 +1477,7 @@ export type BoatCreateWithoutReviewsInput = {
   boatName: string
   boatType: $Enums.BoatType
   status: $Enums.BoatStatus
+  primary_img?: string | null
   capacity: number
   boatCondition: string
   location: string
@@ -1468,6 +1506,7 @@ export type BoatUncheckedCreateWithoutReviewsInput = {
   boatName: string
   boatType: $Enums.BoatType
   status: $Enums.BoatStatus
+  primary_img?: string | null
   capacity: number
   ownerId: string
   boatCondition: string
@@ -1512,6 +1551,7 @@ export type BoatUpdateWithoutReviewsInput = {
   boatName?: Prisma.StringFieldUpdateOperationsInput | string
   boatType?: Prisma.EnumBoatTypeFieldUpdateOperationsInput | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFieldUpdateOperationsInput | $Enums.BoatStatus
+  primary_img?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1540,6 +1580,7 @@ export type BoatUncheckedUpdateWithoutReviewsInput = {
   boatName?: Prisma.StringFieldUpdateOperationsInput | string
   boatType?: Prisma.EnumBoatTypeFieldUpdateOperationsInput | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFieldUpdateOperationsInput | $Enums.BoatStatus
+  primary_img?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1568,6 +1609,7 @@ export type BoatCreateWithoutSchedulesInput = {
   boatName: string
   boatType: $Enums.BoatType
   status: $Enums.BoatStatus
+  primary_img?: string | null
   capacity: number
   boatCondition: string
   location: string
@@ -1596,6 +1638,7 @@ export type BoatUncheckedCreateWithoutSchedulesInput = {
   boatName: string
   boatType: $Enums.BoatType
   status: $Enums.BoatStatus
+  primary_img?: string | null
   capacity: number
   ownerId: string
   boatCondition: string
@@ -1640,6 +1683,7 @@ export type BoatUpdateWithoutSchedulesInput = {
   boatName?: Prisma.StringFieldUpdateOperationsInput | string
   boatType?: Prisma.EnumBoatTypeFieldUpdateOperationsInput | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFieldUpdateOperationsInput | $Enums.BoatStatus
+  primary_img?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1668,6 +1712,7 @@ export type BoatUncheckedUpdateWithoutSchedulesInput = {
   boatName?: Prisma.StringFieldUpdateOperationsInput | string
   boatType?: Prisma.EnumBoatTypeFieldUpdateOperationsInput | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFieldUpdateOperationsInput | $Enums.BoatStatus
+  primary_img?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1696,6 +1741,7 @@ export type BoatCreateManyOwnerInput = {
   boatName: string
   boatType: $Enums.BoatType
   status: $Enums.BoatStatus
+  primary_img?: string | null
   capacity: number
   boatCondition: string
   location: string
@@ -1719,6 +1765,7 @@ export type BoatUpdateWithoutOwnerInput = {
   boatName?: Prisma.StringFieldUpdateOperationsInput | string
   boatType?: Prisma.EnumBoatTypeFieldUpdateOperationsInput | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFieldUpdateOperationsInput | $Enums.BoatStatus
+  primary_img?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1747,6 +1794,7 @@ export type BoatUncheckedUpdateWithoutOwnerInput = {
   boatName?: Prisma.StringFieldUpdateOperationsInput | string
   boatType?: Prisma.EnumBoatTypeFieldUpdateOperationsInput | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFieldUpdateOperationsInput | $Enums.BoatStatus
+  primary_img?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1775,6 +1823,7 @@ export type BoatUncheckedUpdateManyWithoutOwnerInput = {
   boatName?: Prisma.StringFieldUpdateOperationsInput | string
   boatType?: Prisma.EnumBoatTypeFieldUpdateOperationsInput | $Enums.BoatType
   status?: Prisma.EnumBoatStatusFieldUpdateOperationsInput | $Enums.BoatStatus
+  primary_img?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capacity?: Prisma.IntFieldUpdateOperationsInput | number
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1856,6 +1905,7 @@ export type BoatSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   boatName?: boolean
   boatType?: boolean
   status?: boolean
+  primary_img?: boolean
   capacity?: boolean
   ownerId?: boolean
   boatCondition?: boolean
@@ -1887,6 +1937,7 @@ export type BoatSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   boatName?: boolean
   boatType?: boolean
   status?: boolean
+  primary_img?: boolean
   capacity?: boolean
   ownerId?: boolean
   boatCondition?: boolean
@@ -1912,6 +1963,7 @@ export type BoatSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   boatName?: boolean
   boatType?: boolean
   status?: boolean
+  primary_img?: boolean
   capacity?: boolean
   ownerId?: boolean
   boatCondition?: boolean
@@ -1937,6 +1989,7 @@ export type BoatSelectScalar = {
   boatName?: boolean
   boatType?: boolean
   status?: boolean
+  primary_img?: boolean
   capacity?: boolean
   ownerId?: boolean
   boatCondition?: boolean
@@ -1956,7 +2009,7 @@ export type BoatSelectScalar = {
   updatedAt?: boolean
 }
 
-export type BoatOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "boatName" | "boatType" | "status" | "capacity" | "ownerId" | "boatCondition" | "location" | "pricePerTrip" | "length" | "width" | "engineCapacity" | "manufacturer" | "manufacturingYear" | "amenities" | "cancellationPolicy" | "rating" | "totalReviews" | "isApproved" | "createdAt" | "updatedAt", ExtArgs["result"]["boat"]>
+export type BoatOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "boatName" | "boatType" | "status" | "primary_img" | "capacity" | "ownerId" | "boatCondition" | "location" | "pricePerTrip" | "length" | "width" | "engineCapacity" | "manufacturer" | "manufacturingYear" | "amenities" | "cancellationPolicy" | "rating" | "totalReviews" | "isApproved" | "createdAt" | "updatedAt", ExtArgs["result"]["boat"]>
 export type BoatInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   schedules?: boolean | Prisma.Boat$schedulesArgs<ExtArgs>
@@ -1988,6 +2041,7 @@ export type $BoatPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     boatName: string
     boatType: $Enums.BoatType
     status: $Enums.BoatStatus
+    primary_img: string | null
     capacity: number
     ownerId: string
     boatCondition: string
@@ -2438,6 +2492,7 @@ export interface BoatFieldRefs {
   readonly boatName: Prisma.FieldRef<"Boat", 'String'>
   readonly boatType: Prisma.FieldRef<"Boat", 'BoatType'>
   readonly status: Prisma.FieldRef<"Boat", 'BoatStatus'>
+  readonly primary_img: Prisma.FieldRef<"Boat", 'String'>
   readonly capacity: Prisma.FieldRef<"Boat", 'Int'>
   readonly ownerId: Prisma.FieldRef<"Boat", 'String'>
   readonly boatCondition: Prisma.FieldRef<"Boat", 'String'>
