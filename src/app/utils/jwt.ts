@@ -27,7 +27,7 @@ const decodedToken = (token:string) => {
     return decoded
 }
 
-export const jewUtils = {
+export const jwtUtils = {
     createToken,
     verifyToken,
     decodedToken

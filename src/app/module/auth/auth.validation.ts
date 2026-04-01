@@ -15,6 +15,12 @@ export const registerZodSchema = z.object({
     role : z.string().optional()
 })
 
+export const resendVerificationEmailZodSchema = z.object({
+    email : z.string("Enter your email"),
+})
+
+
+
 
 export type IRegisterPayload = z.infer<typeof registerZodSchema>
 

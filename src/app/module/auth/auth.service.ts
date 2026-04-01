@@ -1,7 +1,7 @@
 import status from "http-status";
 import AppErrors from "../../errorHandler/AppErrors";
 import { auth } from "../../lib/auth";
-import { jewUtils } from "../../utils/jwt";
+import { jwtUtils } from "../../utils/jwt";
 
 import { Ilogin, Iregister } from "./auth.interface";
 import { tokenUtils } from "../../utils/token";
@@ -29,8 +29,6 @@ const register = async (payload: Iregister) => {
   }
 
   return {
-    success: true,
-    message: "Registration successful. Please verify your email.",
     user: data.user,
   };
 };
@@ -108,8 +106,6 @@ const verifyEmail = async (email: string, otp: string) => {
   const refreshToken = tokenUtils.getRefreshToken(jwtPayload);
 
   return {
-    success: true,
-    message: "Email verified successfully",
     user,
     accessToken,
     refreshToken,
@@ -121,7 +117,7 @@ const refreshToken = async (currentRefreshToken: string) => {
     throw new AppErrors(status.BAD_REQUEST, "Refresh token is required");
   }
 
-  const verifyResult = jewUtils.verifyToken(currentRefreshToken, envVariables.REFRESH_TOKEN_SECRET);
+  const verifyResult = jwtUtils.verifyToken(currentRefreshToken, envVariables.REFRESH_TOKEN_SECRET);
 
   if (!verifyResult.success) {
     throw new AppErrors(status.UNAUTHORIZED, "Invalid or expired refresh token");
@@ -226,7 +222,19 @@ const goolgeLoginSuccess = async (session: Record<string, any>) => {
   }
 }
 
+const resendVerificationEmail = async (email: string) => {
+  const result = await auth.api.sendVerificationEmail({
+    body: {
+      email,
+    },
+  });
 
+  return {
+    success: true,
+    message: "Verification code resent successfully",
+    data: result,
+  };
+};
 
 
 export const AuthService = {
@@ -237,5 +245,6 @@ export const AuthService = {
     logout,
     forgotPassword,
     goolgeLoginSuccess,
-    getMe
+    getMe,
+    resendVerificationEmail
 };

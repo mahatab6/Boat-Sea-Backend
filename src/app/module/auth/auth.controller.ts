@@ -186,7 +186,7 @@ const handleAuthError = catchAsync(async (req: Request, res: Response) => {
 const getMe = catchAsync(async (req: Request, res: Response) => {
 
     const userId = req.user?.id;
-
+   
     const result = await AuthService.getMe(userId as string)
 
     sendResponse(res, {
@@ -196,6 +196,22 @@ const getMe = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 })
+
+const resendVerificationEmail = catchAsync(
+  async (req: Request, res: Response) => {
+
+    const { email } = req.body;
+
+    const result = await AuthService.resendVerificationEmail(email);
+
+    sendResponse(res, {
+      httpStatusCode: status.OK,
+      success: true,
+      message: "Verification code resent successfully",
+      data: result,
+    });
+  }
+);
 
 
 
@@ -209,5 +225,6 @@ export const AuthController = {
     googleLogin,
     goolgeLoginSuccess,
     handleAuthError,
-    getMe
+    getMe,
+    resendVerificationEmail
 }

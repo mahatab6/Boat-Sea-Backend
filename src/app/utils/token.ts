@@ -1,5 +1,5 @@
 import { JwtPayload, SignOptions } from "jsonwebtoken"
-import { jewUtils } from "./jwt"
+import { jwtUtils } from "./jwt"
 import { cookieUtils } from "./cookie"
 import { Response } from "express"
 import { envVariables } from "../../config/env"
@@ -8,12 +8,12 @@ import ms from "ms"
 const parseMs = (value: string) => ms(value as import("ms").StringValue)
 
 const getAccessToken = (payload: JwtPayload) => {
-    const accessToken = jewUtils.createToken(payload, envVariables.ACCESS_TOKEN_SECRET, {expiresIn: envVariables.ACCESS_TOKEN_EXPIRES_IN} as SignOptions)
+    const accessToken = jwtUtils.createToken(payload, envVariables.ACCESS_TOKEN_SECRET, {expiresIn: envVariables.ACCESS_TOKEN_EXPIRES_IN} as SignOptions)
     return accessToken
 }
 
 const getRefreshToken = (payload: JwtPayload) => {
-    const refreshToken = jewUtils.createToken(payload, envVariables.REFRESH_TOKEN_SECRET, {expiresIn: envVariables.REFRESH_TOKEN_EXPIRES_IN} as SignOptions)
+    const refreshToken = jwtUtils.createToken(payload, envVariables.REFRESH_TOKEN_SECRET, {expiresIn: envVariables.REFRESH_TOKEN_EXPIRES_IN} as SignOptions)
     return refreshToken
 }
 

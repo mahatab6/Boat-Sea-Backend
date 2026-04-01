@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { AuthController } from "./auth.controller";
 import { validateRequest } from "../../middleware/validateRequest";
-import { loginZodSchema, registerZodSchema } from "./auth.validation";
+import { loginZodSchema, registerZodSchema, resendVerificationEmailZodSchema } from "./auth.validation";
 import { checkAuth } from "../../middleware/ckeckAuth";
 import { UserRole } from "../../../generated/prisma/enums";
 
@@ -12,6 +12,8 @@ const router = Router();
 router.post("/register",validateRequest(registerZodSchema), AuthController.register);
 
 router.post("/verify-email", AuthController.verifyEmail);
+
+router.post("/resend-verification-email",validateRequest(resendVerificationEmailZodSchema), AuthController.resendVerificationEmail);
 
 router.post("/login",validateRequest(loginZodSchema), AuthController.login);
 
