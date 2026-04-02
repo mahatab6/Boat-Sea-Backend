@@ -1,53 +1,32 @@
 import z from "zod";
 
+const BoatTypeEnum = z.enum(["SPEEDBOAT", "FERRY", "LAUNCH", "PRIVATE", "YACHT", "CATAMARAN"]);
+const BoatStatusEnum = z.enum(["AVAILABLE", "UNAVAILABLE", "MAINTENANCE", "SUSPENDED"]);
+
 export const createBoatSchema = z.object({
-  boatName: z.string().max(150),
-
-  boatType: z.enum(["SPEEDBOAT", "FERRY", "LAUNCH", "PRIVATE"]),
-
-  status: z.enum(["AVAILABLE", "UNAVAILABLE", "MAINTENANCE", "SUSPENDED"]),
-
+  boatName: z.string().min(1).max(150),
+  boatType: BoatTypeEnum,
+  status: BoatStatusEnum,
+  // Added optional primary image (usually a URL string from a file upload)
+  primary_img: z.string().url().optional().nullable(),
   capacity: z.coerce.number().int().positive(),
-
-  boatCondition: z.string(),
-
-  location: z.string(),
-
-  pricePerTrip: z.coerce.number().int(),
-
-  length: z.coerce.number(),
-
-  width: z.coerce.number(),
-
-  engineCapacity: z.coerce.number().int(),
-
-  manufacturer: z.string(),
-
-  manufacturingYear: z.coerce.number().int(),
-
-  amenities: z.array(z.string()),
-
-  cancellationPolicy: z.string(),
+  boatCondition: z.string().min(1),
+  location: z.string().min(1),
+  pricePerTrip: z.coerce.number().int().nonnegative(),
+  
+  description: z.string().min(10, "Description should be more detailed"),
+  length: z.coerce.number().positive(),
+  width: z.coerce.number().positive(),
+  engineCapacity: z.coerce.number().int().positive(),
+  manufacturer: z.string().min(1),
+  manufacturingYear: z.coerce.number().int().min(1900).max(new Date().getFullYear() + 1),
+  specifications: z.string().min(1),
+  amenities: z.array(z.string()).default([]),
+  cancellationPolicy: z.string().min(1),
 });
 
-export const updateBoatSchema = z
-  .object({
-    boatName: z.string().max(150),
-    boatType: z.enum(["SPEEDBOAT", "FERRY", "LAUNCH", "PRIVATE"]),
-    status: z.enum(["AVAILABLE", "UNAVAILABLE", "MAINTENANCE", "SUSPENDED"]),
-    capacity: z.number().int().positive(),
-    boatCondition: z.string(),
-    location: z.string(),
-    pricePerTrip: z.number().int(),
-    length: z.number(),
-    width: z.number(),
-    engineCapacity: z.number().int(),
-    manufacturer: z.string(),
-    manufacturingYear: z.number().int(),
-    amenities: z.array(z.string()),
-    cancellationPolicy: z.string(),
-  })
-  .partial();
+export const updateBoatSchema = createBoatSchema.partial();
+
 
 export const createScheduleSchema = z.object({
   routeId: z.string(),

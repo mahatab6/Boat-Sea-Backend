@@ -8,9 +8,9 @@ import {
   createScheduleSchema,
   updateBoatSchema,
 } from "./boat.validation";
-import multer from "multer";
+import { multerUpload } from "../../../config/multer.config";
 
-const upload = multer({ storage: multer.memoryStorage() });
+
 
 const router = Router();
 
@@ -20,10 +20,7 @@ router.get("/", boatController.getAllBoats);
 router.post(
   "/create-boat",
   checkAuth(UserRole.BOAT_OWNER),
-  upload.fields([
-    { name: "primary_img", maxCount: 1 },
-    { name: "boat_images", maxCount: 10 },
-  ]),
+  multerUpload.single("images"),
   validateRequest(createBoatSchema),
   boatController.createBoat
 );

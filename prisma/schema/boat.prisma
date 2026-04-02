@@ -1,5 +1,5 @@
 model Boat {
-    id                 String     @id @default(uuid()) // uuid standard consistent রাখলাম
+    id                 String     @id @default(uuid())
     boatName           String     @db.VarChar(150)
     boatType           BoatType
     status             BoatStatus
@@ -10,11 +10,13 @@ model Boat {
     boatCondition      String
     location           String
     pricePerTrip       Int
-    length             Float
+    description        String
     width              Float
+    length             Float
     engineCapacity     Int
     manufacturer       String
     manufacturingYear  Int
+    specifications     String
     amenities          String[]
     cancellationPolicy String
     rating             Float      @default(0)

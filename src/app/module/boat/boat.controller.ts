@@ -20,17 +20,14 @@ const getAllBoats = catchAsync(async (req: Request, res: Response) => {
 });
 
 const createBoat = catchAsync(async (req: Request, res: Response) => {
-  console.log(req.body)
+
   const owner = req.user as IRequestUser;
 
-  const boatData = req.body;
-
-  const files = req.files as {
-    primary_img?: Express.Multer.File[];
-    boat_images?: Express.Multer.File[];
-  };
-
-  const result = await boatService.createBoat(owner, boatData, files);
+  const boatData = {
+    ...req.body,
+    primary_img: req.file?.path
+  }
+  const result = await boatService.createBoat(owner, boatData,);
 
   sendResponse(res, {
     httpStatusCode: status.OK,

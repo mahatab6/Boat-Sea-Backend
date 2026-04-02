@@ -13,7 +13,10 @@ export const BoatType = {
   SPEEDBOAT: 'SPEEDBOAT',
   FERRY: 'FERRY',
   LAUNCH: 'LAUNCH',
-  PRIVATE: 'PRIVATE'
+  PRIVATE: 'PRIVATE',
+  YACHT: 'YACHT',
+  Speedboat: 'Speedboat',
+  CATAMARAN: 'CATAMARAN'
 } as const
 
 export type BoatType = (typeof BoatType)[keyof typeof BoatType]
@@ -23,7 +26,8 @@ export const BoatStatus = {
   AVAILABLE: 'AVAILABLE',
   UNAVAILABLE: 'UNAVAILABLE',
   MAINTENANCE: 'MAINTENANCE',
-  SUSPENDED: 'SUSPENDED'
+  SUSPENDED: 'SUSPENDED',
+  Booked: 'Booked'
 } as const
 
 export type BoatStatus = (typeof BoatStatus)[keyof typeof BoatStatus]

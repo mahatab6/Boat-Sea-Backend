@@ -29,8 +29,8 @@ export type AggregateBoat = {
 export type BoatAvgAggregateOutputType = {
   capacity: number | null
   pricePerTrip: number | null
-  length: number | null
   width: number | null
+  length: number | null
   engineCapacity: number | null
   manufacturingYear: number | null
   rating: number | null
@@ -40,8 +40,8 @@ export type BoatAvgAggregateOutputType = {
 export type BoatSumAggregateOutputType = {
   capacity: number | null
   pricePerTrip: number | null
-  length: number | null
   width: number | null
+  length: number | null
   engineCapacity: number | null
   manufacturingYear: number | null
   rating: number | null
@@ -59,11 +59,13 @@ export type BoatMinAggregateOutputType = {
   boatCondition: string | null
   location: string | null
   pricePerTrip: number | null
-  length: number | null
+  description: string | null
   width: number | null
+  length: number | null
   engineCapacity: number | null
   manufacturer: string | null
   manufacturingYear: number | null
+  specifications: string | null
   cancellationPolicy: string | null
   rating: number | null
   totalReviews: number | null
@@ -83,11 +85,13 @@ export type BoatMaxAggregateOutputType = {
   boatCondition: string | null
   location: string | null
   pricePerTrip: number | null
-  length: number | null
+  description: string | null
   width: number | null
+  length: number | null
   engineCapacity: number | null
   manufacturer: string | null
   manufacturingYear: number | null
+  specifications: string | null
   cancellationPolicy: string | null
   rating: number | null
   totalReviews: number | null
@@ -107,11 +111,13 @@ export type BoatCountAggregateOutputType = {
   boatCondition: number
   location: number
   pricePerTrip: number
-  length: number
+  description: number
   width: number
+  length: number
   engineCapacity: number
   manufacturer: number
   manufacturingYear: number
+  specifications: number
   amenities: number
   cancellationPolicy: number
   rating: number
@@ -126,8 +132,8 @@ export type BoatCountAggregateOutputType = {
 export type BoatAvgAggregateInputType = {
   capacity?: true
   pricePerTrip?: true
-  length?: true
   width?: true
+  length?: true
   engineCapacity?: true
   manufacturingYear?: true
   rating?: true
@@ -137,8 +143,8 @@ export type BoatAvgAggregateInputType = {
 export type BoatSumAggregateInputType = {
   capacity?: true
   pricePerTrip?: true
-  length?: true
   width?: true
+  length?: true
   engineCapacity?: true
   manufacturingYear?: true
   rating?: true
@@ -156,11 +162,13 @@ export type BoatMinAggregateInputType = {
   boatCondition?: true
   location?: true
   pricePerTrip?: true
-  length?: true
+  description?: true
   width?: true
+  length?: true
   engineCapacity?: true
   manufacturer?: true
   manufacturingYear?: true
+  specifications?: true
   cancellationPolicy?: true
   rating?: true
   totalReviews?: true
@@ -180,11 +188,13 @@ export type BoatMaxAggregateInputType = {
   boatCondition?: true
   location?: true
   pricePerTrip?: true
-  length?: true
+  description?: true
   width?: true
+  length?: true
   engineCapacity?: true
   manufacturer?: true
   manufacturingYear?: true
+  specifications?: true
   cancellationPolicy?: true
   rating?: true
   totalReviews?: true
@@ -204,11 +214,13 @@ export type BoatCountAggregateInputType = {
   boatCondition?: true
   location?: true
   pricePerTrip?: true
-  length?: true
+  description?: true
   width?: true
+  length?: true
   engineCapacity?: true
   manufacturer?: true
   manufacturingYear?: true
+  specifications?: true
   amenities?: true
   cancellationPolicy?: true
   rating?: true
@@ -316,11 +328,13 @@ export type BoatGroupByOutputType = {
   boatCondition: string
   location: string
   pricePerTrip: number
-  length: number
+  description: string
   width: number
+  length: number
   engineCapacity: number
   manufacturer: string
   manufacturingYear: number
+  specifications: string
   amenities: string[]
   cancellationPolicy: string
   rating: number
@@ -364,11 +378,13 @@ export type BoatWhereInput = {
   boatCondition?: Prisma.StringFilter<"Boat"> | string
   location?: Prisma.StringFilter<"Boat"> | string
   pricePerTrip?: Prisma.IntFilter<"Boat"> | number
-  length?: Prisma.FloatFilter<"Boat"> | number
+  description?: Prisma.StringFilter<"Boat"> | string
   width?: Prisma.FloatFilter<"Boat"> | number
+  length?: Prisma.FloatFilter<"Boat"> | number
   engineCapacity?: Prisma.IntFilter<"Boat"> | number
   manufacturer?: Prisma.StringFilter<"Boat"> | string
   manufacturingYear?: Prisma.IntFilter<"Boat"> | number
+  specifications?: Prisma.StringFilter<"Boat"> | string
   amenities?: Prisma.StringNullableListFilter<"Boat">
   cancellationPolicy?: Prisma.StringFilter<"Boat"> | string
   rating?: Prisma.FloatFilter<"Boat"> | number
@@ -395,11 +411,13 @@ export type BoatOrderByWithRelationInput = {
   boatCondition?: Prisma.SortOrder
   location?: Prisma.SortOrder
   pricePerTrip?: Prisma.SortOrder
-  length?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   width?: Prisma.SortOrder
+  length?: Prisma.SortOrder
   engineCapacity?: Prisma.SortOrder
   manufacturer?: Prisma.SortOrder
   manufacturingYear?: Prisma.SortOrder
+  specifications?: Prisma.SortOrder
   amenities?: Prisma.SortOrder
   cancellationPolicy?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -429,11 +447,13 @@ export type BoatWhereUniqueInput = Prisma.AtLeast<{
   boatCondition?: Prisma.StringFilter<"Boat"> | string
   location?: Prisma.StringFilter<"Boat"> | string
   pricePerTrip?: Prisma.IntFilter<"Boat"> | number
-  length?: Prisma.FloatFilter<"Boat"> | number
+  description?: Prisma.StringFilter<"Boat"> | string
   width?: Prisma.FloatFilter<"Boat"> | number
+  length?: Prisma.FloatFilter<"Boat"> | number
   engineCapacity?: Prisma.IntFilter<"Boat"> | number
   manufacturer?: Prisma.StringFilter<"Boat"> | string
   manufacturingYear?: Prisma.IntFilter<"Boat"> | number
+  specifications?: Prisma.StringFilter<"Boat"> | string
   amenities?: Prisma.StringNullableListFilter<"Boat">
   cancellationPolicy?: Prisma.StringFilter<"Boat"> | string
   rating?: Prisma.FloatFilter<"Boat"> | number
@@ -460,11 +480,13 @@ export type BoatOrderByWithAggregationInput = {
   boatCondition?: Prisma.SortOrder
   location?: Prisma.SortOrder
   pricePerTrip?: Prisma.SortOrder
-  length?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   width?: Prisma.SortOrder
+  length?: Prisma.SortOrder
   engineCapacity?: Prisma.SortOrder
   manufacturer?: Prisma.SortOrder
   manufacturingYear?: Prisma.SortOrder
+  specifications?: Prisma.SortOrder
   amenities?: Prisma.SortOrder
   cancellationPolicy?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -493,11 +515,13 @@ export type BoatScalarWhereWithAggregatesInput = {
   boatCondition?: Prisma.StringWithAggregatesFilter<"Boat"> | string
   location?: Prisma.StringWithAggregatesFilter<"Boat"> | string
   pricePerTrip?: Prisma.IntWithAggregatesFilter<"Boat"> | number
-  length?: Prisma.FloatWithAggregatesFilter<"Boat"> | number
+  description?: Prisma.StringWithAggregatesFilter<"Boat"> | string
   width?: Prisma.FloatWithAggregatesFilter<"Boat"> | number
+  length?: Prisma.FloatWithAggregatesFilter<"Boat"> | number
   engineCapacity?: Prisma.IntWithAggregatesFilter<"Boat"> | number
   manufacturer?: Prisma.StringWithAggregatesFilter<"Boat"> | string
   manufacturingYear?: Prisma.IntWithAggregatesFilter<"Boat"> | number
+  specifications?: Prisma.StringWithAggregatesFilter<"Boat"> | string
   amenities?: Prisma.StringNullableListFilter<"Boat">
   cancellationPolicy?: Prisma.StringWithAggregatesFilter<"Boat"> | string
   rating?: Prisma.FloatWithAggregatesFilter<"Boat"> | number
@@ -517,11 +541,13 @@ export type BoatCreateInput = {
   boatCondition: string
   location: string
   pricePerTrip: number
-  length: number
+  description: string
   width: number
+  length: number
   engineCapacity: number
   manufacturer: string
   manufacturingYear: number
+  specifications: string
   amenities?: Prisma.BoatCreateamenitiesInput | string[]
   cancellationPolicy: string
   rating?: number
@@ -548,11 +574,13 @@ export type BoatUncheckedCreateInput = {
   boatCondition: string
   location: string
   pricePerTrip: number
-  length: number
+  description: string
   width: number
+  length: number
   engineCapacity: number
   manufacturer: string
   manufacturingYear: number
+  specifications: string
   amenities?: Prisma.BoatCreateamenitiesInput | string[]
   cancellationPolicy: string
   rating?: number
@@ -577,11 +605,13 @@ export type BoatUpdateInput = {
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerTrip?: Prisma.IntFieldUpdateOperationsInput | number
-  length?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.FloatFieldUpdateOperationsInput | number
+  length?: Prisma.FloatFieldUpdateOperationsInput | number
   engineCapacity?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   manufacturingYear?: Prisma.IntFieldUpdateOperationsInput | number
+  specifications?: Prisma.StringFieldUpdateOperationsInput | string
   amenities?: Prisma.BoatUpdateamenitiesInput | string[]
   cancellationPolicy?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -608,11 +638,13 @@ export type BoatUncheckedUpdateInput = {
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerTrip?: Prisma.IntFieldUpdateOperationsInput | number
-  length?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.FloatFieldUpdateOperationsInput | number
+  length?: Prisma.FloatFieldUpdateOperationsInput | number
   engineCapacity?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   manufacturingYear?: Prisma.IntFieldUpdateOperationsInput | number
+  specifications?: Prisma.StringFieldUpdateOperationsInput | string
   amenities?: Prisma.BoatUpdateamenitiesInput | string[]
   cancellationPolicy?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -638,11 +670,13 @@ export type BoatCreateManyInput = {
   boatCondition: string
   location: string
   pricePerTrip: number
-  length: number
+  description: string
   width: number
+  length: number
   engineCapacity: number
   manufacturer: string
   manufacturingYear: number
+  specifications: string
   amenities?: Prisma.BoatCreateamenitiesInput | string[]
   cancellationPolicy: string
   rating?: number
@@ -662,11 +696,13 @@ export type BoatUpdateManyMutationInput = {
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerTrip?: Prisma.IntFieldUpdateOperationsInput | number
-  length?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.FloatFieldUpdateOperationsInput | number
+  length?: Prisma.FloatFieldUpdateOperationsInput | number
   engineCapacity?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   manufacturingYear?: Prisma.IntFieldUpdateOperationsInput | number
+  specifications?: Prisma.StringFieldUpdateOperationsInput | string
   amenities?: Prisma.BoatUpdateamenitiesInput | string[]
   cancellationPolicy?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -687,11 +723,13 @@ export type BoatUncheckedUpdateManyInput = {
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerTrip?: Prisma.IntFieldUpdateOperationsInput | number
-  length?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.FloatFieldUpdateOperationsInput | number
+  length?: Prisma.FloatFieldUpdateOperationsInput | number
   engineCapacity?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   manufacturingYear?: Prisma.IntFieldUpdateOperationsInput | number
+  specifications?: Prisma.StringFieldUpdateOperationsInput | string
   amenities?: Prisma.BoatUpdateamenitiesInput | string[]
   cancellationPolicy?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -730,11 +768,13 @@ export type BoatCountOrderByAggregateInput = {
   boatCondition?: Prisma.SortOrder
   location?: Prisma.SortOrder
   pricePerTrip?: Prisma.SortOrder
-  length?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   width?: Prisma.SortOrder
+  length?: Prisma.SortOrder
   engineCapacity?: Prisma.SortOrder
   manufacturer?: Prisma.SortOrder
   manufacturingYear?: Prisma.SortOrder
+  specifications?: Prisma.SortOrder
   amenities?: Prisma.SortOrder
   cancellationPolicy?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -747,8 +787,8 @@ export type BoatCountOrderByAggregateInput = {
 export type BoatAvgOrderByAggregateInput = {
   capacity?: Prisma.SortOrder
   pricePerTrip?: Prisma.SortOrder
-  length?: Prisma.SortOrder
   width?: Prisma.SortOrder
+  length?: Prisma.SortOrder
   engineCapacity?: Prisma.SortOrder
   manufacturingYear?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -766,11 +806,13 @@ export type BoatMaxOrderByAggregateInput = {
   boatCondition?: Prisma.SortOrder
   location?: Prisma.SortOrder
   pricePerTrip?: Prisma.SortOrder
-  length?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   width?: Prisma.SortOrder
+  length?: Prisma.SortOrder
   engineCapacity?: Prisma.SortOrder
   manufacturer?: Prisma.SortOrder
   manufacturingYear?: Prisma.SortOrder
+  specifications?: Prisma.SortOrder
   cancellationPolicy?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   totalReviews?: Prisma.SortOrder
@@ -790,11 +832,13 @@ export type BoatMinOrderByAggregateInput = {
   boatCondition?: Prisma.SortOrder
   location?: Prisma.SortOrder
   pricePerTrip?: Prisma.SortOrder
-  length?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   width?: Prisma.SortOrder
+  length?: Prisma.SortOrder
   engineCapacity?: Prisma.SortOrder
   manufacturer?: Prisma.SortOrder
   manufacturingYear?: Prisma.SortOrder
+  specifications?: Prisma.SortOrder
   cancellationPolicy?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   totalReviews?: Prisma.SortOrder
@@ -806,8 +850,8 @@ export type BoatMinOrderByAggregateInput = {
 export type BoatSumOrderByAggregateInput = {
   capacity?: Prisma.SortOrder
   pricePerTrip?: Prisma.SortOrder
-  length?: Prisma.SortOrder
   width?: Prisma.SortOrder
+  length?: Prisma.SortOrder
   engineCapacity?: Prisma.SortOrder
   manufacturingYear?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -974,11 +1018,13 @@ export type BoatCreateWithoutOwnerInput = {
   boatCondition: string
   location: string
   pricePerTrip: number
-  length: number
+  description: string
   width: number
+  length: number
   engineCapacity: number
   manufacturer: string
   manufacturingYear: number
+  specifications: string
   amenities?: Prisma.BoatCreateamenitiesInput | string[]
   cancellationPolicy: string
   rating?: number
@@ -1003,11 +1049,13 @@ export type BoatUncheckedCreateWithoutOwnerInput = {
   boatCondition: string
   location: string
   pricePerTrip: number
-  length: number
+  description: string
   width: number
+  length: number
   engineCapacity: number
   manufacturer: string
   manufacturingYear: number
+  specifications: string
   amenities?: Prisma.BoatCreateamenitiesInput | string[]
   cancellationPolicy: string
   rating?: number
@@ -1062,11 +1110,13 @@ export type BoatScalarWhereInput = {
   boatCondition?: Prisma.StringFilter<"Boat"> | string
   location?: Prisma.StringFilter<"Boat"> | string
   pricePerTrip?: Prisma.IntFilter<"Boat"> | number
-  length?: Prisma.FloatFilter<"Boat"> | number
+  description?: Prisma.StringFilter<"Boat"> | string
   width?: Prisma.FloatFilter<"Boat"> | number
+  length?: Prisma.FloatFilter<"Boat"> | number
   engineCapacity?: Prisma.IntFilter<"Boat"> | number
   manufacturer?: Prisma.StringFilter<"Boat"> | string
   manufacturingYear?: Prisma.IntFilter<"Boat"> | number
+  specifications?: Prisma.StringFilter<"Boat"> | string
   amenities?: Prisma.StringNullableListFilter<"Boat">
   cancellationPolicy?: Prisma.StringFilter<"Boat"> | string
   rating?: Prisma.FloatFilter<"Boat"> | number
@@ -1086,11 +1136,13 @@ export type BoatCreateWithoutBoat_imagesInput = {
   boatCondition: string
   location: string
   pricePerTrip: number
-  length: number
+  description: string
   width: number
+  length: number
   engineCapacity: number
   manufacturer: string
   manufacturingYear: number
+  specifications: string
   amenities?: Prisma.BoatCreateamenitiesInput | string[]
   cancellationPolicy: string
   rating?: number
@@ -1116,11 +1168,13 @@ export type BoatUncheckedCreateWithoutBoat_imagesInput = {
   boatCondition: string
   location: string
   pricePerTrip: number
-  length: number
+  description: string
   width: number
+  length: number
   engineCapacity: number
   manufacturer: string
   manufacturingYear: number
+  specifications: string
   amenities?: Prisma.BoatCreateamenitiesInput | string[]
   cancellationPolicy: string
   rating?: number
@@ -1160,11 +1214,13 @@ export type BoatUpdateWithoutBoat_imagesInput = {
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerTrip?: Prisma.IntFieldUpdateOperationsInput | number
-  length?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.FloatFieldUpdateOperationsInput | number
+  length?: Prisma.FloatFieldUpdateOperationsInput | number
   engineCapacity?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   manufacturingYear?: Prisma.IntFieldUpdateOperationsInput | number
+  specifications?: Prisma.StringFieldUpdateOperationsInput | string
   amenities?: Prisma.BoatUpdateamenitiesInput | string[]
   cancellationPolicy?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1190,11 +1246,13 @@ export type BoatUncheckedUpdateWithoutBoat_imagesInput = {
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerTrip?: Prisma.IntFieldUpdateOperationsInput | number
-  length?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.FloatFieldUpdateOperationsInput | number
+  length?: Prisma.FloatFieldUpdateOperationsInput | number
   engineCapacity?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   manufacturingYear?: Prisma.IntFieldUpdateOperationsInput | number
+  specifications?: Prisma.StringFieldUpdateOperationsInput | string
   amenities?: Prisma.BoatUpdateamenitiesInput | string[]
   cancellationPolicy?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1218,11 +1276,13 @@ export type BoatCreateWithoutBookingsInput = {
   boatCondition: string
   location: string
   pricePerTrip: number
-  length: number
+  description: string
   width: number
+  length: number
   engineCapacity: number
   manufacturer: string
   manufacturingYear: number
+  specifications: string
   amenities?: Prisma.BoatCreateamenitiesInput | string[]
   cancellationPolicy: string
   rating?: number
@@ -1248,11 +1308,13 @@ export type BoatUncheckedCreateWithoutBookingsInput = {
   boatCondition: string
   location: string
   pricePerTrip: number
-  length: number
+  description: string
   width: number
+  length: number
   engineCapacity: number
   manufacturer: string
   manufacturingYear: number
+  specifications: string
   amenities?: Prisma.BoatCreateamenitiesInput | string[]
   cancellationPolicy: string
   rating?: number
@@ -1292,11 +1354,13 @@ export type BoatUpdateWithoutBookingsInput = {
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerTrip?: Prisma.IntFieldUpdateOperationsInput | number
-  length?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.FloatFieldUpdateOperationsInput | number
+  length?: Prisma.FloatFieldUpdateOperationsInput | number
   engineCapacity?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   manufacturingYear?: Prisma.IntFieldUpdateOperationsInput | number
+  specifications?: Prisma.StringFieldUpdateOperationsInput | string
   amenities?: Prisma.BoatUpdateamenitiesInput | string[]
   cancellationPolicy?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1322,11 +1386,13 @@ export type BoatUncheckedUpdateWithoutBookingsInput = {
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerTrip?: Prisma.IntFieldUpdateOperationsInput | number
-  length?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.FloatFieldUpdateOperationsInput | number
+  length?: Prisma.FloatFieldUpdateOperationsInput | number
   engineCapacity?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   manufacturingYear?: Prisma.IntFieldUpdateOperationsInput | number
+  specifications?: Prisma.StringFieldUpdateOperationsInput | string
   amenities?: Prisma.BoatUpdateamenitiesInput | string[]
   cancellationPolicy?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1350,11 +1416,13 @@ export type BoatCreateWithoutLicenseInput = {
   boatCondition: string
   location: string
   pricePerTrip: number
-  length: number
+  description: string
   width: number
+  length: number
   engineCapacity: number
   manufacturer: string
   manufacturingYear: number
+  specifications: string
   amenities?: Prisma.BoatCreateamenitiesInput | string[]
   cancellationPolicy: string
   rating?: number
@@ -1380,11 +1448,13 @@ export type BoatUncheckedCreateWithoutLicenseInput = {
   boatCondition: string
   location: string
   pricePerTrip: number
-  length: number
+  description: string
   width: number
+  length: number
   engineCapacity: number
   manufacturer: string
   manufacturingYear: number
+  specifications: string
   amenities?: Prisma.BoatCreateamenitiesInput | string[]
   cancellationPolicy: string
   rating?: number
@@ -1424,11 +1494,13 @@ export type BoatUpdateWithoutLicenseInput = {
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerTrip?: Prisma.IntFieldUpdateOperationsInput | number
-  length?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.FloatFieldUpdateOperationsInput | number
+  length?: Prisma.FloatFieldUpdateOperationsInput | number
   engineCapacity?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   manufacturingYear?: Prisma.IntFieldUpdateOperationsInput | number
+  specifications?: Prisma.StringFieldUpdateOperationsInput | string
   amenities?: Prisma.BoatUpdateamenitiesInput | string[]
   cancellationPolicy?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1454,11 +1526,13 @@ export type BoatUncheckedUpdateWithoutLicenseInput = {
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerTrip?: Prisma.IntFieldUpdateOperationsInput | number
-  length?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.FloatFieldUpdateOperationsInput | number
+  length?: Prisma.FloatFieldUpdateOperationsInput | number
   engineCapacity?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   manufacturingYear?: Prisma.IntFieldUpdateOperationsInput | number
+  specifications?: Prisma.StringFieldUpdateOperationsInput | string
   amenities?: Prisma.BoatUpdateamenitiesInput | string[]
   cancellationPolicy?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1482,11 +1556,13 @@ export type BoatCreateWithoutReviewsInput = {
   boatCondition: string
   location: string
   pricePerTrip: number
-  length: number
+  description: string
   width: number
+  length: number
   engineCapacity: number
   manufacturer: string
   manufacturingYear: number
+  specifications: string
   amenities?: Prisma.BoatCreateamenitiesInput | string[]
   cancellationPolicy: string
   rating?: number
@@ -1512,11 +1588,13 @@ export type BoatUncheckedCreateWithoutReviewsInput = {
   boatCondition: string
   location: string
   pricePerTrip: number
-  length: number
+  description: string
   width: number
+  length: number
   engineCapacity: number
   manufacturer: string
   manufacturingYear: number
+  specifications: string
   amenities?: Prisma.BoatCreateamenitiesInput | string[]
   cancellationPolicy: string
   rating?: number
@@ -1556,11 +1634,13 @@ export type BoatUpdateWithoutReviewsInput = {
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerTrip?: Prisma.IntFieldUpdateOperationsInput | number
-  length?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.FloatFieldUpdateOperationsInput | number
+  length?: Prisma.FloatFieldUpdateOperationsInput | number
   engineCapacity?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   manufacturingYear?: Prisma.IntFieldUpdateOperationsInput | number
+  specifications?: Prisma.StringFieldUpdateOperationsInput | string
   amenities?: Prisma.BoatUpdateamenitiesInput | string[]
   cancellationPolicy?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1586,11 +1666,13 @@ export type BoatUncheckedUpdateWithoutReviewsInput = {
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerTrip?: Prisma.IntFieldUpdateOperationsInput | number
-  length?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.FloatFieldUpdateOperationsInput | number
+  length?: Prisma.FloatFieldUpdateOperationsInput | number
   engineCapacity?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   manufacturingYear?: Prisma.IntFieldUpdateOperationsInput | number
+  specifications?: Prisma.StringFieldUpdateOperationsInput | string
   amenities?: Prisma.BoatUpdateamenitiesInput | string[]
   cancellationPolicy?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1614,11 +1696,13 @@ export type BoatCreateWithoutSchedulesInput = {
   boatCondition: string
   location: string
   pricePerTrip: number
-  length: number
+  description: string
   width: number
+  length: number
   engineCapacity: number
   manufacturer: string
   manufacturingYear: number
+  specifications: string
   amenities?: Prisma.BoatCreateamenitiesInput | string[]
   cancellationPolicy: string
   rating?: number
@@ -1644,11 +1728,13 @@ export type BoatUncheckedCreateWithoutSchedulesInput = {
   boatCondition: string
   location: string
   pricePerTrip: number
-  length: number
+  description: string
   width: number
+  length: number
   engineCapacity: number
   manufacturer: string
   manufacturingYear: number
+  specifications: string
   amenities?: Prisma.BoatCreateamenitiesInput | string[]
   cancellationPolicy: string
   rating?: number
@@ -1688,11 +1774,13 @@ export type BoatUpdateWithoutSchedulesInput = {
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerTrip?: Prisma.IntFieldUpdateOperationsInput | number
-  length?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.FloatFieldUpdateOperationsInput | number
+  length?: Prisma.FloatFieldUpdateOperationsInput | number
   engineCapacity?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   manufacturingYear?: Prisma.IntFieldUpdateOperationsInput | number
+  specifications?: Prisma.StringFieldUpdateOperationsInput | string
   amenities?: Prisma.BoatUpdateamenitiesInput | string[]
   cancellationPolicy?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1718,11 +1806,13 @@ export type BoatUncheckedUpdateWithoutSchedulesInput = {
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerTrip?: Prisma.IntFieldUpdateOperationsInput | number
-  length?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.FloatFieldUpdateOperationsInput | number
+  length?: Prisma.FloatFieldUpdateOperationsInput | number
   engineCapacity?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   manufacturingYear?: Prisma.IntFieldUpdateOperationsInput | number
+  specifications?: Prisma.StringFieldUpdateOperationsInput | string
   amenities?: Prisma.BoatUpdateamenitiesInput | string[]
   cancellationPolicy?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1746,11 +1836,13 @@ export type BoatCreateManyOwnerInput = {
   boatCondition: string
   location: string
   pricePerTrip: number
-  length: number
+  description: string
   width: number
+  length: number
   engineCapacity: number
   manufacturer: string
   manufacturingYear: number
+  specifications: string
   amenities?: Prisma.BoatCreateamenitiesInput | string[]
   cancellationPolicy: string
   rating?: number
@@ -1770,11 +1862,13 @@ export type BoatUpdateWithoutOwnerInput = {
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerTrip?: Prisma.IntFieldUpdateOperationsInput | number
-  length?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.FloatFieldUpdateOperationsInput | number
+  length?: Prisma.FloatFieldUpdateOperationsInput | number
   engineCapacity?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   manufacturingYear?: Prisma.IntFieldUpdateOperationsInput | number
+  specifications?: Prisma.StringFieldUpdateOperationsInput | string
   amenities?: Prisma.BoatUpdateamenitiesInput | string[]
   cancellationPolicy?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1799,11 +1893,13 @@ export type BoatUncheckedUpdateWithoutOwnerInput = {
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerTrip?: Prisma.IntFieldUpdateOperationsInput | number
-  length?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.FloatFieldUpdateOperationsInput | number
+  length?: Prisma.FloatFieldUpdateOperationsInput | number
   engineCapacity?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   manufacturingYear?: Prisma.IntFieldUpdateOperationsInput | number
+  specifications?: Prisma.StringFieldUpdateOperationsInput | string
   amenities?: Prisma.BoatUpdateamenitiesInput | string[]
   cancellationPolicy?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1828,11 +1924,13 @@ export type BoatUncheckedUpdateManyWithoutOwnerInput = {
   boatCondition?: Prisma.StringFieldUpdateOperationsInput | string
   location?: Prisma.StringFieldUpdateOperationsInput | string
   pricePerTrip?: Prisma.IntFieldUpdateOperationsInput | number
-  length?: Prisma.FloatFieldUpdateOperationsInput | number
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   width?: Prisma.FloatFieldUpdateOperationsInput | number
+  length?: Prisma.FloatFieldUpdateOperationsInput | number
   engineCapacity?: Prisma.IntFieldUpdateOperationsInput | number
   manufacturer?: Prisma.StringFieldUpdateOperationsInput | string
   manufacturingYear?: Prisma.IntFieldUpdateOperationsInput | number
+  specifications?: Prisma.StringFieldUpdateOperationsInput | string
   amenities?: Prisma.BoatUpdateamenitiesInput | string[]
   cancellationPolicy?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -1911,11 +2009,13 @@ export type BoatSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   boatCondition?: boolean
   location?: boolean
   pricePerTrip?: boolean
-  length?: boolean
+  description?: boolean
   width?: boolean
+  length?: boolean
   engineCapacity?: boolean
   manufacturer?: boolean
   manufacturingYear?: boolean
+  specifications?: boolean
   amenities?: boolean
   cancellationPolicy?: boolean
   rating?: boolean
@@ -1943,11 +2043,13 @@ export type BoatSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   boatCondition?: boolean
   location?: boolean
   pricePerTrip?: boolean
-  length?: boolean
+  description?: boolean
   width?: boolean
+  length?: boolean
   engineCapacity?: boolean
   manufacturer?: boolean
   manufacturingYear?: boolean
+  specifications?: boolean
   amenities?: boolean
   cancellationPolicy?: boolean
   rating?: boolean
@@ -1969,11 +2071,13 @@ export type BoatSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   boatCondition?: boolean
   location?: boolean
   pricePerTrip?: boolean
-  length?: boolean
+  description?: boolean
   width?: boolean
+  length?: boolean
   engineCapacity?: boolean
   manufacturer?: boolean
   manufacturingYear?: boolean
+  specifications?: boolean
   amenities?: boolean
   cancellationPolicy?: boolean
   rating?: boolean
@@ -1995,11 +2099,13 @@ export type BoatSelectScalar = {
   boatCondition?: boolean
   location?: boolean
   pricePerTrip?: boolean
-  length?: boolean
+  description?: boolean
   width?: boolean
+  length?: boolean
   engineCapacity?: boolean
   manufacturer?: boolean
   manufacturingYear?: boolean
+  specifications?: boolean
   amenities?: boolean
   cancellationPolicy?: boolean
   rating?: boolean
@@ -2009,7 +2115,7 @@ export type BoatSelectScalar = {
   updatedAt?: boolean
 }
 
-export type BoatOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "boatName" | "boatType" | "status" | "primary_img" | "capacity" | "ownerId" | "boatCondition" | "location" | "pricePerTrip" | "length" | "width" | "engineCapacity" | "manufacturer" | "manufacturingYear" | "amenities" | "cancellationPolicy" | "rating" | "totalReviews" | "isApproved" | "createdAt" | "updatedAt", ExtArgs["result"]["boat"]>
+export type BoatOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "boatName" | "boatType" | "status" | "primary_img" | "capacity" | "ownerId" | "boatCondition" | "location" | "pricePerTrip" | "description" | "width" | "length" | "engineCapacity" | "manufacturer" | "manufacturingYear" | "specifications" | "amenities" | "cancellationPolicy" | "rating" | "totalReviews" | "isApproved" | "createdAt" | "updatedAt", ExtArgs["result"]["boat"]>
 export type BoatInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   schedules?: boolean | Prisma.Boat$schedulesArgs<ExtArgs>
@@ -2047,11 +2153,13 @@ export type $BoatPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     boatCondition: string
     location: string
     pricePerTrip: number
-    length: number
+    description: string
     width: number
+    length: number
     engineCapacity: number
     manufacturer: string
     manufacturingYear: number
+    specifications: string
     amenities: string[]
     cancellationPolicy: string
     rating: number
@@ -2498,11 +2606,13 @@ export interface BoatFieldRefs {
   readonly boatCondition: Prisma.FieldRef<"Boat", 'String'>
   readonly location: Prisma.FieldRef<"Boat", 'String'>
   readonly pricePerTrip: Prisma.FieldRef<"Boat", 'Int'>
-  readonly length: Prisma.FieldRef<"Boat", 'Float'>
+  readonly description: Prisma.FieldRef<"Boat", 'String'>
   readonly width: Prisma.FieldRef<"Boat", 'Float'>
+  readonly length: Prisma.FieldRef<"Boat", 'Float'>
   readonly engineCapacity: Prisma.FieldRef<"Boat", 'Int'>
   readonly manufacturer: Prisma.FieldRef<"Boat", 'String'>
   readonly manufacturingYear: Prisma.FieldRef<"Boat", 'Int'>
+  readonly specifications: Prisma.FieldRef<"Boat", 'String'>
   readonly amenities: Prisma.FieldRef<"Boat", 'String[]'>
   readonly cancellationPolicy: Prisma.FieldRef<"Boat", 'String'>
   readonly rating: Prisma.FieldRef<"Boat", 'Float'>

@@ -3,6 +3,9 @@ enum BoatType {
     FERRY
     LAUNCH
     PRIVATE
+    YACHT
+    Speedboat
+    CATAMARAN
 }
 
 enum BoatStatus {
@@ -10,6 +13,7 @@ enum BoatStatus {
     UNAVAILABLE
     MAINTENANCE
     SUSPENDED
+    Booked
 }
 
 enum VerificationStatus {
