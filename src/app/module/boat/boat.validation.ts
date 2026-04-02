@@ -2,22 +2,33 @@ import z from "zod";
 
 export const createBoatSchema = z.object({
   boatName: z.string().max(150),
+
   boatType: z.enum(["SPEEDBOAT", "FERRY", "LAUNCH", "PRIVATE"]),
+
   status: z.enum(["AVAILABLE", "UNAVAILABLE", "MAINTENANCE", "SUSPENDED"]),
-  capacity: z.number().int().positive(),
-  primary_img: z.string(),
+
+  capacity: z.coerce.number().int().positive(),
+
   boatCondition: z.string(),
+
   location: z.string(),
-  pricePerTrip: z.number().int(),
-  length: z.number(),
-  width: z.number(),
-  engineCapacity: z.number().int(),
+
+  pricePerTrip: z.coerce.number().int(),
+
+  length: z.coerce.number(),
+
+  width: z.coerce.number(),
+
+  engineCapacity: z.coerce.number().int(),
+
   manufacturer: z.string(),
-  manufacturingYear: z.number().int(),
+
+  manufacturingYear: z.coerce.number().int(),
+
   amenities: z.array(z.string()),
+
   cancellationPolicy: z.string(),
 });
-
 
 export const updateBoatSchema = z
   .object({
@@ -38,8 +49,6 @@ export const updateBoatSchema = z
   })
   .partial();
 
-
-
 export const createScheduleSchema = z.object({
   routeId: z.string(),
 
@@ -49,12 +58,7 @@ export const createScheduleSchema = z.object({
 
   arrivalTime: z.string(),
 
-
   availableSeats: z.number().int().positive(),
 
-  recurringPattern: z
-    .enum(["DAILY", "WEEKLY", "MONTHLY"])
-    .optional(),
+  recurringPattern: z.enum(["DAILY", "WEEKLY", "MONTHLY"]).optional(),
 });
-
-

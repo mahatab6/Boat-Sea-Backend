@@ -8,6 +8,7 @@ import { prisma } from "../../lib/prisma";
 import { QueryBuilder } from "../../utils/QueryBuilder";
 import { boatFilterableFields, boatSearchableFields } from "./boat.constant";
 import { ICreateBoat, ICreateSchedule, IUpdateBoat } from "./boat.interface";
+import { uploadFileToCloudinary } from "../../../config/cloudinary.config";
 
 const getAllBoats = async (query: IQueryParams) => {
   const queryBuilder = new QueryBuilder<Boat>(prisma.boat, query, {
@@ -18,32 +19,73 @@ const getAllBoats = async (query: IQueryParams) => {
   const result = await queryBuilder
     .search()
     .filter()
-    .where({ isApproved: true, status: BoatStatus.AVAILABLE })
+    .where({status: BoatStatus.AVAILABLE })
     .paginate()
     .sort()
-    .dynamicInclude(
-      {
-        owner: true,
-        reviews: true,
-        schedules: true,
-        license: true,
-        boat_images: true,
-      },
-      ["owner"]
-    )
     .execute();
 
   return result;
 };
 
-const createBoat = async (owner: IRequestUser, boatData: ICreateBoat) => {
-  const id = owner?.id as string;
-  const result = await prisma.boat.create({
-    data: {
-      ownerId: id,
-      ...boatData,
-    },
+const createBoat = async (
+  owner: IRequestUser,
+  boatData: ICreateBoat,
+  files: {
+    primary_img?: Express.Multer.File[];
+    boat_images?: Express.Multer.File[];
+  }
+) => {
+  const ownerId = owner.id;
+
+  let primaryImageUrl = "" as string;
+
+ 
+  if (files?.primary_img?.length) {
+    const primaryUpload = await uploadFileToCloudinary(
+      files.primary_img[0].buffer,
+      files.primary_img[0].originalname
+    );
+
+    primaryImageUrl = primaryUpload.secure_url;
+  }
+
+  
+  let subImageUrls: string[] = [];
+
+  if (files?.boat_images?.length) {
+    const uploadPromises = files.boat_images.map((file) =>
+      uploadFileToCloudinary(file.buffer, file.originalname)
+    );
+
+    const uploadedImages = await Promise.all(uploadPromises);
+
+    subImageUrls = uploadedImages.map((img) => img.secure_url);
+  }
+
+  // create boat inside transaction
+  const result = await prisma.$transaction(async (tx) => {
+    const createdBoat = await tx.boat.create({
+      data: {
+        ownerId,
+        ...boatData,
+        ...(primaryImageUrl ? { primary_img: primaryImageUrl } : {}),
+      },
+    });
+
+    if (subImageUrls.length > 0) {
+      await tx.boat_Images.create({
+        data: {
+          boatId: createdBoat.id,
+          imageUrl: subImageUrls,
+          isPrimary: false,
+          uploadedAt: new Date(),
+        },
+      });
+    }
+
+    return createdBoat;
   });
+
   return result;
 };
 
