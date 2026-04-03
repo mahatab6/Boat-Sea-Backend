@@ -17,6 +17,7 @@ router.post(
 
 router.get("/", RouteController.getAllRoutes);
 
+
 router.get("/:id", RouteController.getSingleRoute);
 
 router.patch(

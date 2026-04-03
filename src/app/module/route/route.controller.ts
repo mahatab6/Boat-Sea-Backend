@@ -24,6 +24,7 @@ const getAllRoutes = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+
 const getSingleRoute = catchAsync(async (req: Request, res: Response) => {
   const result = await RouteService.getSingleRoute(req.params.id as string);
   sendResponse(res, {

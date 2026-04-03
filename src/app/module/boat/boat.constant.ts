@@ -7,5 +7,6 @@ export const boatFilterableFields = [
   'pricePerTrip', 
   'manufacturer', 
   'rating',       
-  'type'
+  'type',
+  'capacity'
 ];

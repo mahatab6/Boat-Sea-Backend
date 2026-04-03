@@ -31,6 +31,11 @@ router.get(
   boatController.getMyBoats,
 );
 
+router.get(
+  "/featuredBoats",
+  boatController.featuredBoats,
+);
+
 router.get("/:id", boatController.getBoatById);
 
 router.put(

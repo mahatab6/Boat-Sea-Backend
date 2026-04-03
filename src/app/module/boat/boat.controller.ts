@@ -37,6 +37,16 @@ const createBoat = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const featuredBoats = catchAsync(async (req: Request, res: Response) => {
+  const result = await boatService.featuredBoats();
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Routes fetched successfully",
+    data: result,
+  });
+});
+
 const getBoatById = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const result = await boatService.getBoatById(id as string);
@@ -136,4 +146,5 @@ export const boatController = {
   deleteBoat,
   getMyBoats,
   addSchedule,
+  featuredBoats
 };

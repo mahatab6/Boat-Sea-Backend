@@ -27,6 +27,20 @@ const getAllBoats = async (query: IQueryParams) => {
   return result;
 };
 
+const featuredBoats = async () => {
+  const result = await prisma.boat.findMany({
+    where: {
+      isApproved: true,
+      status: BoatStatus.AVAILABLE
+    },
+    orderBy: {
+      rating: 'desc'
+    },
+    take: 6
+  })
+  return result;
+};
+
 const createBoat = async (
   owner: IRequestUser,
   boatData: ICreateBoat,
@@ -51,13 +65,13 @@ const getBoatById = async (id: string) => {
       id,
       isApproved: true,
     },
-    include: {
-      owner: true,
-      reviews: true,
-      schedules: true,
-      license: true,
-      boat_images: true,
-    },
+    // include: {
+    //   owner: true,
+    //   reviews: true,
+    //   schedules: true,
+    //   license: true,
+    //   boat_images: true,
+    // },
   });
 
   if (!result) {
@@ -216,4 +230,5 @@ export const boatService = {
   deleteBoat,
   getMyBoats,
   addSchedule,
+  featuredBoats
 };
