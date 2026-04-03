@@ -4,13 +4,15 @@ import { checkAuth } from "../../middleware/ckeckAuth";
 import { UserRole } from "../../../generated/prisma/enums";
 import { validateRequest } from "../../middleware/validateRequest";
 import { createRouteZodSchema, updateRouteZodSchema } from "./route.validation";
+import { multerUpload } from "../../../config/multer.config";
 
 
 const router = express.Router();
 
 router.post(
   "/create-route",
-  checkAuth(UserRole.ADMIN),
+  // checkAuth(UserRole.ADMIN),
+  multerUpload.single("images"),
   validateRequest(createRouteZodSchema),
   RouteController.createRoute
 );

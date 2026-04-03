@@ -1763,20 +1763,13 @@ export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof 
 
 export const RouteScalarFieldEnum = {
   id: 'id',
-  routeName: 'routeName',
-  startLocation: 'startLocation',
-  endLocation: 'endLocation',
-  startLat: 'startLat',
-  startLng: 'startLng',
-  endLat: 'endLat',
-  endLng: 'endLng',
-  waypoints: 'waypoints',
-  distance: 'distance',
-  estimatedDuration: 'estimatedDuration',
+  name: 'name',
   difficulty: 'difficulty',
-  isActive: 'isActive',
+  duration: 'duration',
+  distance: 'distance',
+  scenicHighlights: 'scenicHighlights',
   description: 'description',
-  popularTimes: 'popularTimes',
+  image: 'image',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1843,14 +1836,6 @@ export const JsonNullValueInput = {
 } as const
 
 export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
-export const NullableJsonNullValueInput = {
-  DbNull: DbNull,
-  JsonNull: JsonNull
-} as const
-
-export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {

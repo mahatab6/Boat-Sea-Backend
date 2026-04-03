@@ -5,7 +5,12 @@ import { catchAsync } from "../../shared/catchAsync";
 import { sendResponse } from "../../shared/sendResponse";
 
 const createRoute = catchAsync(async (req: Request, res: Response) => {
-  const result = await RouteService.createRoute(req.body);
+   const routeData = {
+    ...req.body,
+    image: req.file?.path
+  }
+  console.log(routeData)
+  const result = await RouteService.createRoute(routeData);
   sendResponse(res, {
     httpStatusCode: status.CREATED,
     success: true,

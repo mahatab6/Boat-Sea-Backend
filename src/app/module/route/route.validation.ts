@@ -1,36 +1,39 @@
 import { z } from "zod";
 
+
+const BoatStatusEnum = z.enum(["EASY", "MODERATE", "HARD"]);
+
 export const createRouteZodSchema = z.object({
-  routeName: z.string("Route name is required"),
-  startLocation: z.string(),
-  endLocation: z.string(),
-  startLat: z.number(),
-  startLng: z.number(),
-  endLat: z.number(),
-  endLng: z.number(),
-  waypoints: z.any().optional(),
-  distance: z.number().positive(),
-  estimatedDuration: z.number().int().positive(),
-  difficulty: z.enum(["EASY", "MODERATE", "HARD"]).optional(),
-  isActive: z.boolean().optional(),
-  description: z.string().optional(),
-  popularTimes: z.array(z.string()).optional(),
+  name: z
+    .string()
+    .min(3, "Route name must be at least 3 characters")
+    .max(150),
+
+  difficulty: BoatStatusEnum,
+
+  duration: z
+    .string()
+    .min(3, "Duration required")
+    .max(50),
+
+  distance: z
+    .string()
+    .min(2, "Distance required")
+    .max(20),
+
+  scenicHighlights: z
+    .string()
+    .min(5, "Add scenic highlights"),
+
+  description: z
+    .string()
+    .optional(),
+
+  image: z
+    .string()
+    .url("Must be valid image URL")
+    .optional(),
 });
 
 
-export const updateRouteZodSchema = z.object({
-    routeName: z.string().optional(),
-    startLocation: z.string().optional(),
-    endLocation: z.string().optional(),
-    startLat: z.number().optional(),
-    startLng: z.number().optional(),
-    endLat: z.number().optional(),
-    endLng: z.number().optional(),
-    waypoints: z.any().optional(),
-    distance: z.number().positive().optional(),
-    estimatedDuration: z.number().int().positive().optional(),
-    difficulty: z.enum(['EASY','MODERATE','HARD']).optional(),
-    isActive: z.boolean().optional(),
-    description: z.string().optional(),
-    popularTimes: z.array(z.string()).optional(),
-});
+export const updateRouteZodSchema = createRouteZodSchema.partial();

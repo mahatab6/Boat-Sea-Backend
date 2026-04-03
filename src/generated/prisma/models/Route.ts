@@ -20,158 +20,86 @@ export type RouteModel = runtime.Types.Result.DefaultSelection<Prisma.$RoutePayl
 
 export type AggregateRoute = {
   _count: RouteCountAggregateOutputType | null
-  _avg: RouteAvgAggregateOutputType | null
-  _sum: RouteSumAggregateOutputType | null
   _min: RouteMinAggregateOutputType | null
   _max: RouteMaxAggregateOutputType | null
 }
 
-export type RouteAvgAggregateOutputType = {
-  startLat: number | null
-  startLng: number | null
-  endLat: number | null
-  endLng: number | null
-  distance: number | null
-  estimatedDuration: number | null
-}
-
-export type RouteSumAggregateOutputType = {
-  startLat: number | null
-  startLng: number | null
-  endLat: number | null
-  endLng: number | null
-  distance: number | null
-  estimatedDuration: number | null
-}
-
 export type RouteMinAggregateOutputType = {
   id: string | null
-  routeName: string | null
-  startLocation: string | null
-  endLocation: string | null
-  startLat: number | null
-  startLng: number | null
-  endLat: number | null
-  endLng: number | null
-  distance: number | null
-  estimatedDuration: number | null
+  name: string | null
   difficulty: $Enums.RouteDifficulty | null
-  isActive: boolean | null
+  duration: string | null
+  distance: string | null
+  scenicHighlights: string | null
   description: string | null
+  image: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type RouteMaxAggregateOutputType = {
   id: string | null
-  routeName: string | null
-  startLocation: string | null
-  endLocation: string | null
-  startLat: number | null
-  startLng: number | null
-  endLat: number | null
-  endLng: number | null
-  distance: number | null
-  estimatedDuration: number | null
+  name: string | null
   difficulty: $Enums.RouteDifficulty | null
-  isActive: boolean | null
+  duration: string | null
+  distance: string | null
+  scenicHighlights: string | null
   description: string | null
+  image: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type RouteCountAggregateOutputType = {
   id: number
-  routeName: number
-  startLocation: number
-  endLocation: number
-  startLat: number
-  startLng: number
-  endLat: number
-  endLng: number
-  waypoints: number
-  distance: number
-  estimatedDuration: number
+  name: number
   difficulty: number
-  isActive: number
+  duration: number
+  distance: number
+  scenicHighlights: number
   description: number
-  popularTimes: number
+  image: number
   createdAt: number
   updatedAt: number
   _all: number
 }
 
 
-export type RouteAvgAggregateInputType = {
-  startLat?: true
-  startLng?: true
-  endLat?: true
-  endLng?: true
-  distance?: true
-  estimatedDuration?: true
-}
-
-export type RouteSumAggregateInputType = {
-  startLat?: true
-  startLng?: true
-  endLat?: true
-  endLng?: true
-  distance?: true
-  estimatedDuration?: true
-}
-
 export type RouteMinAggregateInputType = {
   id?: true
-  routeName?: true
-  startLocation?: true
-  endLocation?: true
-  startLat?: true
-  startLng?: true
-  endLat?: true
-  endLng?: true
-  distance?: true
-  estimatedDuration?: true
+  name?: true
   difficulty?: true
-  isActive?: true
+  duration?: true
+  distance?: true
+  scenicHighlights?: true
   description?: true
+  image?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type RouteMaxAggregateInputType = {
   id?: true
-  routeName?: true
-  startLocation?: true
-  endLocation?: true
-  startLat?: true
-  startLng?: true
-  endLat?: true
-  endLng?: true
-  distance?: true
-  estimatedDuration?: true
+  name?: true
   difficulty?: true
-  isActive?: true
+  duration?: true
+  distance?: true
+  scenicHighlights?: true
   description?: true
+  image?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type RouteCountAggregateInputType = {
   id?: true
-  routeName?: true
-  startLocation?: true
-  endLocation?: true
-  startLat?: true
-  startLng?: true
-  endLat?: true
-  endLng?: true
-  waypoints?: true
-  distance?: true
-  estimatedDuration?: true
+  name?: true
   difficulty?: true
-  isActive?: true
+  duration?: true
+  distance?: true
+  scenicHighlights?: true
   description?: true
-  popularTimes?: true
+  image?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -215,18 +143,6 @@ export type RouteAggregateArgs<ExtArgs extends runtime.Types.Extensions.Internal
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: RouteAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: RouteSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: RouteMinAggregateInputType
@@ -257,33 +173,22 @@ export type RouteGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   _count?: RouteCountAggregateInputType | true
-  _avg?: RouteAvgAggregateInputType
-  _sum?: RouteSumAggregateInputType
   _min?: RouteMinAggregateInputType
   _max?: RouteMaxAggregateInputType
 }
 
 export type RouteGroupByOutputType = {
   id: string
-  routeName: string
-  startLocation: string
-  endLocation: string
-  startLat: number
-  startLng: number
-  endLat: number
-  endLng: number
-  waypoints: runtime.JsonValue | null
-  distance: number
-  estimatedDuration: number
+  name: string
   difficulty: $Enums.RouteDifficulty
-  isActive: boolean
+  duration: string
+  distance: string
+  scenicHighlights: string
   description: string | null
-  popularTimes: string[]
+  image: string | null
   createdAt: Date
   updatedAt: Date
   _count: RouteCountAggregateOutputType | null
-  _avg: RouteAvgAggregateOutputType | null
-  _sum: RouteSumAggregateOutputType | null
   _min: RouteMinAggregateOutputType | null
   _max: RouteMaxAggregateOutputType | null
 }
@@ -308,20 +213,13 @@ export type RouteWhereInput = {
   OR?: Prisma.RouteWhereInput[]
   NOT?: Prisma.RouteWhereInput | Prisma.RouteWhereInput[]
   id?: Prisma.StringFilter<"Route"> | string
-  routeName?: Prisma.StringFilter<"Route"> | string
-  startLocation?: Prisma.StringFilter<"Route"> | string
-  endLocation?: Prisma.StringFilter<"Route"> | string
-  startLat?: Prisma.FloatFilter<"Route"> | number
-  startLng?: Prisma.FloatFilter<"Route"> | number
-  endLat?: Prisma.FloatFilter<"Route"> | number
-  endLng?: Prisma.FloatFilter<"Route"> | number
-  waypoints?: Prisma.JsonNullableFilter<"Route">
-  distance?: Prisma.FloatFilter<"Route"> | number
-  estimatedDuration?: Prisma.IntFilter<"Route"> | number
+  name?: Prisma.StringFilter<"Route"> | string
   difficulty?: Prisma.EnumRouteDifficultyFilter<"Route"> | $Enums.RouteDifficulty
-  isActive?: Prisma.BoolFilter<"Route"> | boolean
+  duration?: Prisma.StringFilter<"Route"> | string
+  distance?: Prisma.StringFilter<"Route"> | string
+  scenicHighlights?: Prisma.StringFilter<"Route"> | string
   description?: Prisma.StringNullableFilter<"Route"> | string | null
-  popularTimes?: Prisma.StringNullableListFilter<"Route">
+  image?: Prisma.StringNullableFilter<"Route"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Route"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Route"> | Date | string
   schedules?: Prisma.ScheduleListRelationFilter
@@ -329,20 +227,13 @@ export type RouteWhereInput = {
 
 export type RouteOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  routeName?: Prisma.SortOrder
-  startLocation?: Prisma.SortOrder
-  endLocation?: Prisma.SortOrder
-  startLat?: Prisma.SortOrder
-  startLng?: Prisma.SortOrder
-  endLat?: Prisma.SortOrder
-  endLng?: Prisma.SortOrder
-  waypoints?: Prisma.SortOrderInput | Prisma.SortOrder
-  distance?: Prisma.SortOrder
-  estimatedDuration?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
+  distance?: Prisma.SortOrder
+  scenicHighlights?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  popularTimes?: Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   schedules?: Prisma.ScheduleOrderByRelationAggregateInput
@@ -353,20 +244,13 @@ export type RouteWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.RouteWhereInput | Prisma.RouteWhereInput[]
   OR?: Prisma.RouteWhereInput[]
   NOT?: Prisma.RouteWhereInput | Prisma.RouteWhereInput[]
-  routeName?: Prisma.StringFilter<"Route"> | string
-  startLocation?: Prisma.StringFilter<"Route"> | string
-  endLocation?: Prisma.StringFilter<"Route"> | string
-  startLat?: Prisma.FloatFilter<"Route"> | number
-  startLng?: Prisma.FloatFilter<"Route"> | number
-  endLat?: Prisma.FloatFilter<"Route"> | number
-  endLng?: Prisma.FloatFilter<"Route"> | number
-  waypoints?: Prisma.JsonNullableFilter<"Route">
-  distance?: Prisma.FloatFilter<"Route"> | number
-  estimatedDuration?: Prisma.IntFilter<"Route"> | number
+  name?: Prisma.StringFilter<"Route"> | string
   difficulty?: Prisma.EnumRouteDifficultyFilter<"Route"> | $Enums.RouteDifficulty
-  isActive?: Prisma.BoolFilter<"Route"> | boolean
+  duration?: Prisma.StringFilter<"Route"> | string
+  distance?: Prisma.StringFilter<"Route"> | string
+  scenicHighlights?: Prisma.StringFilter<"Route"> | string
   description?: Prisma.StringNullableFilter<"Route"> | string | null
-  popularTimes?: Prisma.StringNullableListFilter<"Route">
+  image?: Prisma.StringNullableFilter<"Route"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Route"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Route"> | Date | string
   schedules?: Prisma.ScheduleListRelationFilter
@@ -374,27 +258,18 @@ export type RouteWhereUniqueInput = Prisma.AtLeast<{
 
 export type RouteOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  routeName?: Prisma.SortOrder
-  startLocation?: Prisma.SortOrder
-  endLocation?: Prisma.SortOrder
-  startLat?: Prisma.SortOrder
-  startLng?: Prisma.SortOrder
-  endLat?: Prisma.SortOrder
-  endLng?: Prisma.SortOrder
-  waypoints?: Prisma.SortOrderInput | Prisma.SortOrder
-  distance?: Prisma.SortOrder
-  estimatedDuration?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
+  distance?: Prisma.SortOrder
+  scenicHighlights?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  popularTimes?: Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.RouteCountOrderByAggregateInput
-  _avg?: Prisma.RouteAvgOrderByAggregateInput
   _max?: Prisma.RouteMaxOrderByAggregateInput
   _min?: Prisma.RouteMinOrderByAggregateInput
-  _sum?: Prisma.RouteSumOrderByAggregateInput
 }
 
 export type RouteScalarWhereWithAggregatesInput = {
@@ -402,40 +277,26 @@ export type RouteScalarWhereWithAggregatesInput = {
   OR?: Prisma.RouteScalarWhereWithAggregatesInput[]
   NOT?: Prisma.RouteScalarWhereWithAggregatesInput | Prisma.RouteScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Route"> | string
-  routeName?: Prisma.StringWithAggregatesFilter<"Route"> | string
-  startLocation?: Prisma.StringWithAggregatesFilter<"Route"> | string
-  endLocation?: Prisma.StringWithAggregatesFilter<"Route"> | string
-  startLat?: Prisma.FloatWithAggregatesFilter<"Route"> | number
-  startLng?: Prisma.FloatWithAggregatesFilter<"Route"> | number
-  endLat?: Prisma.FloatWithAggregatesFilter<"Route"> | number
-  endLng?: Prisma.FloatWithAggregatesFilter<"Route"> | number
-  waypoints?: Prisma.JsonNullableWithAggregatesFilter<"Route">
-  distance?: Prisma.FloatWithAggregatesFilter<"Route"> | number
-  estimatedDuration?: Prisma.IntWithAggregatesFilter<"Route"> | number
+  name?: Prisma.StringWithAggregatesFilter<"Route"> | string
   difficulty?: Prisma.EnumRouteDifficultyWithAggregatesFilter<"Route"> | $Enums.RouteDifficulty
-  isActive?: Prisma.BoolWithAggregatesFilter<"Route"> | boolean
+  duration?: Prisma.StringWithAggregatesFilter<"Route"> | string
+  distance?: Prisma.StringWithAggregatesFilter<"Route"> | string
+  scenicHighlights?: Prisma.StringWithAggregatesFilter<"Route"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Route"> | string | null
-  popularTimes?: Prisma.StringNullableListFilter<"Route">
+  image?: Prisma.StringNullableWithAggregatesFilter<"Route"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Route"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Route"> | Date | string
 }
 
 export type RouteCreateInput = {
   id?: string
-  routeName: string
-  startLocation: string
-  endLocation: string
-  startLat: number
-  startLng: number
-  endLat: number
-  endLng: number
-  waypoints?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  distance: number
-  estimatedDuration: number
+  name: string
   difficulty?: $Enums.RouteDifficulty
-  isActive?: boolean
+  duration: string
+  distance: string
+  scenicHighlights: string
   description?: string | null
-  popularTimes?: Prisma.RouteCreatepopularTimesInput | string[]
+  image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   schedules?: Prisma.ScheduleCreateNestedManyWithoutRouteInput
@@ -443,20 +304,13 @@ export type RouteCreateInput = {
 
 export type RouteUncheckedCreateInput = {
   id?: string
-  routeName: string
-  startLocation: string
-  endLocation: string
-  startLat: number
-  startLng: number
-  endLat: number
-  endLng: number
-  waypoints?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  distance: number
-  estimatedDuration: number
+  name: string
   difficulty?: $Enums.RouteDifficulty
-  isActive?: boolean
+  duration: string
+  distance: string
+  scenicHighlights: string
   description?: string | null
-  popularTimes?: Prisma.RouteCreatepopularTimesInput | string[]
+  image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   schedules?: Prisma.ScheduleUncheckedCreateNestedManyWithoutRouteInput
@@ -464,20 +318,13 @@ export type RouteUncheckedCreateInput = {
 
 export type RouteUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  routeName?: Prisma.StringFieldUpdateOperationsInput | string
-  startLocation?: Prisma.StringFieldUpdateOperationsInput | string
-  endLocation?: Prisma.StringFieldUpdateOperationsInput | string
-  startLat?: Prisma.FloatFieldUpdateOperationsInput | number
-  startLng?: Prisma.FloatFieldUpdateOperationsInput | number
-  endLat?: Prisma.FloatFieldUpdateOperationsInput | number
-  endLng?: Prisma.FloatFieldUpdateOperationsInput | number
-  waypoints?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  distance?: Prisma.FloatFieldUpdateOperationsInput | number
-  estimatedDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumRouteDifficultyFieldUpdateOperationsInput | $Enums.RouteDifficulty
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  duration?: Prisma.StringFieldUpdateOperationsInput | string
+  distance?: Prisma.StringFieldUpdateOperationsInput | string
+  scenicHighlights?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  popularTimes?: Prisma.RouteUpdatepopularTimesInput | string[]
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   schedules?: Prisma.ScheduleUpdateManyWithoutRouteNestedInput
@@ -485,20 +332,13 @@ export type RouteUpdateInput = {
 
 export type RouteUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  routeName?: Prisma.StringFieldUpdateOperationsInput | string
-  startLocation?: Prisma.StringFieldUpdateOperationsInput | string
-  endLocation?: Prisma.StringFieldUpdateOperationsInput | string
-  startLat?: Prisma.FloatFieldUpdateOperationsInput | number
-  startLng?: Prisma.FloatFieldUpdateOperationsInput | number
-  endLat?: Prisma.FloatFieldUpdateOperationsInput | number
-  endLng?: Prisma.FloatFieldUpdateOperationsInput | number
-  waypoints?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  distance?: Prisma.FloatFieldUpdateOperationsInput | number
-  estimatedDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumRouteDifficultyFieldUpdateOperationsInput | $Enums.RouteDifficulty
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  duration?: Prisma.StringFieldUpdateOperationsInput | string
+  distance?: Prisma.StringFieldUpdateOperationsInput | string
+  scenicHighlights?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  popularTimes?: Prisma.RouteUpdatepopularTimesInput | string[]
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   schedules?: Prisma.ScheduleUncheckedUpdateManyWithoutRouteNestedInput
@@ -506,136 +346,80 @@ export type RouteUncheckedUpdateInput = {
 
 export type RouteCreateManyInput = {
   id?: string
-  routeName: string
-  startLocation: string
-  endLocation: string
-  startLat: number
-  startLng: number
-  endLat: number
-  endLng: number
-  waypoints?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  distance: number
-  estimatedDuration: number
+  name: string
   difficulty?: $Enums.RouteDifficulty
-  isActive?: boolean
+  duration: string
+  distance: string
+  scenicHighlights: string
   description?: string | null
-  popularTimes?: Prisma.RouteCreatepopularTimesInput | string[]
+  image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type RouteUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  routeName?: Prisma.StringFieldUpdateOperationsInput | string
-  startLocation?: Prisma.StringFieldUpdateOperationsInput | string
-  endLocation?: Prisma.StringFieldUpdateOperationsInput | string
-  startLat?: Prisma.FloatFieldUpdateOperationsInput | number
-  startLng?: Prisma.FloatFieldUpdateOperationsInput | number
-  endLat?: Prisma.FloatFieldUpdateOperationsInput | number
-  endLng?: Prisma.FloatFieldUpdateOperationsInput | number
-  waypoints?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  distance?: Prisma.FloatFieldUpdateOperationsInput | number
-  estimatedDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumRouteDifficultyFieldUpdateOperationsInput | $Enums.RouteDifficulty
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  duration?: Prisma.StringFieldUpdateOperationsInput | string
+  distance?: Prisma.StringFieldUpdateOperationsInput | string
+  scenicHighlights?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  popularTimes?: Prisma.RouteUpdatepopularTimesInput | string[]
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RouteUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  routeName?: Prisma.StringFieldUpdateOperationsInput | string
-  startLocation?: Prisma.StringFieldUpdateOperationsInput | string
-  endLocation?: Prisma.StringFieldUpdateOperationsInput | string
-  startLat?: Prisma.FloatFieldUpdateOperationsInput | number
-  startLng?: Prisma.FloatFieldUpdateOperationsInput | number
-  endLat?: Prisma.FloatFieldUpdateOperationsInput | number
-  endLng?: Prisma.FloatFieldUpdateOperationsInput | number
-  waypoints?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  distance?: Prisma.FloatFieldUpdateOperationsInput | number
-  estimatedDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumRouteDifficultyFieldUpdateOperationsInput | $Enums.RouteDifficulty
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  duration?: Prisma.StringFieldUpdateOperationsInput | string
+  distance?: Prisma.StringFieldUpdateOperationsInput | string
+  scenicHighlights?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  popularTimes?: Prisma.RouteUpdatepopularTimesInput | string[]
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RouteCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  routeName?: Prisma.SortOrder
-  startLocation?: Prisma.SortOrder
-  endLocation?: Prisma.SortOrder
-  startLat?: Prisma.SortOrder
-  startLng?: Prisma.SortOrder
-  endLat?: Prisma.SortOrder
-  endLng?: Prisma.SortOrder
-  waypoints?: Prisma.SortOrder
-  distance?: Prisma.SortOrder
-  estimatedDuration?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
+  distance?: Prisma.SortOrder
+  scenicHighlights?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  popularTimes?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
-export type RouteAvgOrderByAggregateInput = {
-  startLat?: Prisma.SortOrder
-  startLng?: Prisma.SortOrder
-  endLat?: Prisma.SortOrder
-  endLng?: Prisma.SortOrder
-  distance?: Prisma.SortOrder
-  estimatedDuration?: Prisma.SortOrder
-}
-
 export type RouteMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  routeName?: Prisma.SortOrder
-  startLocation?: Prisma.SortOrder
-  endLocation?: Prisma.SortOrder
-  startLat?: Prisma.SortOrder
-  startLng?: Prisma.SortOrder
-  endLat?: Prisma.SortOrder
-  endLng?: Prisma.SortOrder
-  distance?: Prisma.SortOrder
-  estimatedDuration?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
+  distance?: Prisma.SortOrder
+  scenicHighlights?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type RouteMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  routeName?: Prisma.SortOrder
-  startLocation?: Prisma.SortOrder
-  endLocation?: Prisma.SortOrder
-  startLat?: Prisma.SortOrder
-  startLng?: Prisma.SortOrder
-  endLat?: Prisma.SortOrder
-  endLng?: Prisma.SortOrder
-  distance?: Prisma.SortOrder
-  estimatedDuration?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   difficulty?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
+  distance?: Prisma.SortOrder
+  scenicHighlights?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type RouteSumOrderByAggregateInput = {
-  startLat?: Prisma.SortOrder
-  startLng?: Prisma.SortOrder
-  endLat?: Prisma.SortOrder
-  endLng?: Prisma.SortOrder
-  distance?: Prisma.SortOrder
-  estimatedDuration?: Prisma.SortOrder
 }
 
 export type RouteScalarRelationFilter = {
@@ -643,17 +427,8 @@ export type RouteScalarRelationFilter = {
   isNot?: Prisma.RouteWhereInput
 }
 
-export type RouteCreatepopularTimesInput = {
-  set: string[]
-}
-
 export type EnumRouteDifficultyFieldUpdateOperationsInput = {
   set?: $Enums.RouteDifficulty
-}
-
-export type RouteUpdatepopularTimesInput = {
-  set?: string[]
-  push?: string | string[]
 }
 
 export type RouteCreateNestedOneWithoutSchedulesInput = {
@@ -672,40 +447,26 @@ export type RouteUpdateOneRequiredWithoutSchedulesNestedInput = {
 
 export type RouteCreateWithoutSchedulesInput = {
   id?: string
-  routeName: string
-  startLocation: string
-  endLocation: string
-  startLat: number
-  startLng: number
-  endLat: number
-  endLng: number
-  waypoints?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  distance: number
-  estimatedDuration: number
+  name: string
   difficulty?: $Enums.RouteDifficulty
-  isActive?: boolean
+  duration: string
+  distance: string
+  scenicHighlights: string
   description?: string | null
-  popularTimes?: Prisma.RouteCreatepopularTimesInput | string[]
+  image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type RouteUncheckedCreateWithoutSchedulesInput = {
   id?: string
-  routeName: string
-  startLocation: string
-  endLocation: string
-  startLat: number
-  startLng: number
-  endLat: number
-  endLng: number
-  waypoints?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  distance: number
-  estimatedDuration: number
+  name: string
   difficulty?: $Enums.RouteDifficulty
-  isActive?: boolean
+  duration: string
+  distance: string
+  scenicHighlights: string
   description?: string | null
-  popularTimes?: Prisma.RouteCreatepopularTimesInput | string[]
+  image?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -728,40 +489,26 @@ export type RouteUpdateToOneWithWhereWithoutSchedulesInput = {
 
 export type RouteUpdateWithoutSchedulesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  routeName?: Prisma.StringFieldUpdateOperationsInput | string
-  startLocation?: Prisma.StringFieldUpdateOperationsInput | string
-  endLocation?: Prisma.StringFieldUpdateOperationsInput | string
-  startLat?: Prisma.FloatFieldUpdateOperationsInput | number
-  startLng?: Prisma.FloatFieldUpdateOperationsInput | number
-  endLat?: Prisma.FloatFieldUpdateOperationsInput | number
-  endLng?: Prisma.FloatFieldUpdateOperationsInput | number
-  waypoints?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  distance?: Prisma.FloatFieldUpdateOperationsInput | number
-  estimatedDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumRouteDifficultyFieldUpdateOperationsInput | $Enums.RouteDifficulty
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  duration?: Prisma.StringFieldUpdateOperationsInput | string
+  distance?: Prisma.StringFieldUpdateOperationsInput | string
+  scenicHighlights?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  popularTimes?: Prisma.RouteUpdatepopularTimesInput | string[]
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type RouteUncheckedUpdateWithoutSchedulesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  routeName?: Prisma.StringFieldUpdateOperationsInput | string
-  startLocation?: Prisma.StringFieldUpdateOperationsInput | string
-  endLocation?: Prisma.StringFieldUpdateOperationsInput | string
-  startLat?: Prisma.FloatFieldUpdateOperationsInput | number
-  startLng?: Prisma.FloatFieldUpdateOperationsInput | number
-  endLat?: Prisma.FloatFieldUpdateOperationsInput | number
-  endLng?: Prisma.FloatFieldUpdateOperationsInput | number
-  waypoints?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
-  distance?: Prisma.FloatFieldUpdateOperationsInput | number
-  estimatedDuration?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.EnumRouteDifficultyFieldUpdateOperationsInput | $Enums.RouteDifficulty
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  duration?: Prisma.StringFieldUpdateOperationsInput | string
+  distance?: Prisma.StringFieldUpdateOperationsInput | string
+  scenicHighlights?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  popularTimes?: Prisma.RouteUpdatepopularTimesInput | string[]
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -799,20 +546,13 @@ export type RouteCountOutputTypeCountSchedulesArgs<ExtArgs extends runtime.Types
 
 export type RouteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  routeName?: boolean
-  startLocation?: boolean
-  endLocation?: boolean
-  startLat?: boolean
-  startLng?: boolean
-  endLat?: boolean
-  endLng?: boolean
-  waypoints?: boolean
-  distance?: boolean
-  estimatedDuration?: boolean
+  name?: boolean
   difficulty?: boolean
-  isActive?: boolean
+  duration?: boolean
+  distance?: boolean
+  scenicHighlights?: boolean
   description?: boolean
-  popularTimes?: boolean
+  image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   schedules?: boolean | Prisma.Route$schedulesArgs<ExtArgs>
@@ -821,65 +561,44 @@ export type RouteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 
 export type RouteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  routeName?: boolean
-  startLocation?: boolean
-  endLocation?: boolean
-  startLat?: boolean
-  startLng?: boolean
-  endLat?: boolean
-  endLng?: boolean
-  waypoints?: boolean
-  distance?: boolean
-  estimatedDuration?: boolean
+  name?: boolean
   difficulty?: boolean
-  isActive?: boolean
+  duration?: boolean
+  distance?: boolean
+  scenicHighlights?: boolean
   description?: boolean
-  popularTimes?: boolean
+  image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["route"]>
 
 export type RouteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  routeName?: boolean
-  startLocation?: boolean
-  endLocation?: boolean
-  startLat?: boolean
-  startLng?: boolean
-  endLat?: boolean
-  endLng?: boolean
-  waypoints?: boolean
-  distance?: boolean
-  estimatedDuration?: boolean
+  name?: boolean
   difficulty?: boolean
-  isActive?: boolean
+  duration?: boolean
+  distance?: boolean
+  scenicHighlights?: boolean
   description?: boolean
-  popularTimes?: boolean
+  image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["route"]>
 
 export type RouteSelectScalar = {
   id?: boolean
-  routeName?: boolean
-  startLocation?: boolean
-  endLocation?: boolean
-  startLat?: boolean
-  startLng?: boolean
-  endLat?: boolean
-  endLng?: boolean
-  waypoints?: boolean
-  distance?: boolean
-  estimatedDuration?: boolean
+  name?: boolean
   difficulty?: boolean
-  isActive?: boolean
+  duration?: boolean
+  distance?: boolean
+  scenicHighlights?: boolean
   description?: boolean
-  popularTimes?: boolean
+  image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type RouteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "routeName" | "startLocation" | "endLocation" | "startLat" | "startLng" | "endLat" | "endLng" | "waypoints" | "distance" | "estimatedDuration" | "difficulty" | "isActive" | "description" | "popularTimes" | "createdAt" | "updatedAt", ExtArgs["result"]["route"]>
+export type RouteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "difficulty" | "duration" | "distance" | "scenicHighlights" | "description" | "image" | "createdAt" | "updatedAt", ExtArgs["result"]["route"]>
 export type RouteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   schedules?: boolean | Prisma.Route$schedulesArgs<ExtArgs>
   _count?: boolean | Prisma.RouteCountOutputTypeDefaultArgs<ExtArgs>
@@ -894,20 +613,13 @@ export type $RoutePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    routeName: string
-    startLocation: string
-    endLocation: string
-    startLat: number
-    startLng: number
-    endLat: number
-    endLng: number
-    waypoints: runtime.JsonValue | null
-    distance: number
-    estimatedDuration: number
+    name: string
     difficulty: $Enums.RouteDifficulty
-    isActive: boolean
+    duration: string
+    distance: string
+    scenicHighlights: string
     description: string | null
-    popularTimes: string[]
+    image: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["route"]>
@@ -1335,20 +1047,13 @@ export interface Prisma__RouteClient<T, Null = never, ExtArgs extends runtime.Ty
  */
 export interface RouteFieldRefs {
   readonly id: Prisma.FieldRef<"Route", 'String'>
-  readonly routeName: Prisma.FieldRef<"Route", 'String'>
-  readonly startLocation: Prisma.FieldRef<"Route", 'String'>
-  readonly endLocation: Prisma.FieldRef<"Route", 'String'>
-  readonly startLat: Prisma.FieldRef<"Route", 'Float'>
-  readonly startLng: Prisma.FieldRef<"Route", 'Float'>
-  readonly endLat: Prisma.FieldRef<"Route", 'Float'>
-  readonly endLng: Prisma.FieldRef<"Route", 'Float'>
-  readonly waypoints: Prisma.FieldRef<"Route", 'Json'>
-  readonly distance: Prisma.FieldRef<"Route", 'Float'>
-  readonly estimatedDuration: Prisma.FieldRef<"Route", 'Int'>
+  readonly name: Prisma.FieldRef<"Route", 'String'>
   readonly difficulty: Prisma.FieldRef<"Route", 'RouteDifficulty'>
-  readonly isActive: Prisma.FieldRef<"Route", 'Boolean'>
+  readonly duration: Prisma.FieldRef<"Route", 'String'>
+  readonly distance: Prisma.FieldRef<"Route", 'String'>
+  readonly scenicHighlights: Prisma.FieldRef<"Route", 'String'>
   readonly description: Prisma.FieldRef<"Route", 'String'>
-  readonly popularTimes: Prisma.FieldRef<"Route", 'String[]'>
+  readonly image: Prisma.FieldRef<"Route", 'String'>
   readonly createdAt: Prisma.FieldRef<"Route", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Route", 'DateTime'>
 }
