@@ -15,7 +15,7 @@ router.use("/auth", AuthRoutes)
 
 router.use("/boats", BoatRoutes)
 
-router.use("/user", UserRoutes)
+router.use("/users", UserRoutes)
 
 router.use("/route", RouteRoutes)
 

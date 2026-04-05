@@ -12,7 +12,6 @@ const createRoute = async (payload: IRoute) => {
 
 const getAllRoutes = async () => {
   return await prisma.route.findMany({
-    include: { schedules: true } 
   });
 };
 

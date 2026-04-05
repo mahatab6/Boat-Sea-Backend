@@ -1,3 +1,4 @@
+import { UserRole } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 
 const getProfile = async (userId: string) => {
@@ -10,13 +11,43 @@ const getProfile = async (userId: string) => {
   });
 };
 
-const updateProfile = async (
-  userId: string,
-  payload: any
-) => {
+const getAllUser = async () => {
+  return await prisma.user.findMany({
+    where: {
+      role: UserRole.CUSTOMER,
+    },
+  });
+};
+
+const getAllBoatOwner = async () => {
+  return await prisma.user.findMany({
+    where: {
+      role: UserRole.BOAT_OWNER,
+    },
+  });
+};
+
+const getAllAdmin = async () => {
+  return await prisma.user.findMany({
+    where: {
+      OR: [{ role: UserRole.ADMIN }, { role: UserRole.SUPER_ADMIN }],
+    },
+  });
+};
+
+const updateProfile = async (userId: string, payload: any) => {
   return await prisma.user.update({
     where: { id: userId },
     data: payload,
+  });
+};
+
+const updateRole = async (userId: string, role: string) => {
+  return await prisma.user.update({
+    where: { id: userId },
+    data: {
+      role,
+    },
   });
 };
 
@@ -49,10 +80,7 @@ const getNotifications = async (userId: string) => {
   });
 };
 
-const markNotificationRead = async (
-  id: string,
-  userId: string
-) => {
+const markNotificationRead = async (id: string, userId: string) => {
   return await prisma.notification.updateMany({
     where: {
       id,
@@ -78,7 +106,11 @@ const deleteAccount = async (userId: string) => {
 
 export const userService = {
   getProfile,
+  getAllUser,
+  getAllAdmin,
   updateProfile,
+  updateRole,
+  getAllBoatOwner,
   getMyBookings,
   getMyReviews,
   getNotifications,

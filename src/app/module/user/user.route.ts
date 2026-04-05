@@ -4,7 +4,7 @@ import { userController } from "./user.controller";
 import { checkAuth } from "../../middleware/ckeckAuth";
 import { validateRequest } from "../../middleware/validateRequest";
 
-import { updateProfileZodSchema } from "./user.validation";
+import { updateProfileZodSchema, updateRoleValidationSchema } from "./user.validation";
 import { UserRole } from "../../../generated/prisma/enums";
 
 const router = Router();
@@ -14,6 +14,28 @@ router.get(
   checkAuth(UserRole.CUSTOMER, UserRole.BOAT_OWNER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
   userController.getProfile
 );
+
+router.get(
+  "/getalluser",
+  // checkAuth( UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  userController.getAllUser
+);
+
+router.get(
+  "/getallboatowner",
+  // checkAuth( UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  userController.getAllBoatOwner
+);
+
+router.get(
+  "/getalladmin",
+  // checkAuth( UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  userController.getAllAdmin
+);
+
+router.put("/updaterole",  validateRequest(updateRoleValidationSchema), userController.updateRole)
+
+
 
 router.put(
   "/profile",

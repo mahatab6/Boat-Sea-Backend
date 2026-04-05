@@ -20,6 +20,45 @@ const getProfile = catchAsync(
   }
 );
 
+const getAllUser = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await userService.getAllUser();
+
+    sendResponse(res, {
+      httpStatusCode: status.OK,
+      success: true,
+      message: "Profile fetched successfully",
+      data: result,
+    });
+  }
+);
+
+const getAllBoatOwner = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await userService.getAllBoatOwner();
+
+    sendResponse(res, {
+      httpStatusCode: status.OK,
+      success: true,
+      message: "Profile fetched successfully",
+      data: result,
+    });
+  }
+);
+
+const getAllAdmin = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await userService.getAllAdmin();
+
+    sendResponse(res, {
+      httpStatusCode: status.OK,
+      success: true,
+      message: "Profile fetched successfully",
+      data: result,
+    });
+  }
+);
+
 const updateProfile = catchAsync(
   async (req: Request, res: Response) => {
     const result = await userService.updateProfile(
@@ -36,6 +75,20 @@ const updateProfile = catchAsync(
   }
 );
 
+const updateRole = catchAsync(
+  async (req: Request, res: Response) => {
+    const { id, role } = req.body;
+
+    const result = await userService.updateRole(id, role);
+
+    sendResponse(res, {
+      httpStatusCode: status.OK,
+      success: true,
+      message: "Role updated successfully",
+      data: result,
+    });
+  }
+);
 const getMyBookings = catchAsync(
   async (req: Request, res: Response) => {
     const result = await userService.getMyBookings(
@@ -114,7 +167,11 @@ const deleteAccount = catchAsync(
 
 export const userController = {
   getProfile,
+  getAllUser,
+  getAllBoatOwner,
   updateProfile,
+  getAllAdmin,
+  updateRole,
   getMyBookings,
   getMyReviews,
   getNotifications,
