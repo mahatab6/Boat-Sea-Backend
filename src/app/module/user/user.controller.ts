@@ -4,173 +4,144 @@ import status from "http-status";
 import { catchAsync } from "../../shared/catchAsync";
 import { sendResponse } from "../../shared/sendResponse";
 import { userService } from "./user.service";
+import { IQueryParams } from "../../interface/query.interface";
 
-const getProfile = catchAsync(
-  async (req: Request, res: Response) => {
-    const result = await userService.getProfile(
-      req.user?.id as string
-    );
+const getProfile = catchAsync(async (req: Request, res: Response) => {
+  const result = await userService.getProfile(req.user?.id as string);
 
-    sendResponse(res, {
-      httpStatusCode: status.OK,
-      success: true,
-      message: "Profile fetched successfully",
-      data: result,
-    });
-  }
-);
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Profile fetched successfully",
+    data: result,
+  });
+});
 
-const getAllUser = catchAsync(
-  async (req: Request, res: Response) => {
-    const result = await userService.getAllUser();
+// const getAllUser = catchAsync(async (req: Request, res: Response) => {
+//   const result = await userService.getAllUser();
 
-    sendResponse(res, {
-      httpStatusCode: status.OK,
-      success: true,
-      message: "Profile fetched successfully",
-      data: result,
-    });
-  }
-);
+//   sendResponse(res, {
+//     httpStatusCode: status.OK,
+//     success: true,
+//     message: "Profile fetched successfully",
+//     data: result,
+//   });
+// });
 
-const getAllBoatOwner = catchAsync(
-  async (req: Request, res: Response) => {
-    const result = await userService.getAllBoatOwner();
+// const getAllBoatOwner = catchAsync(async (req: Request, res: Response) => {
+//   const result = await userService.getAllBoatOwner();
 
-    sendResponse(res, {
-      httpStatusCode: status.OK,
-      success: true,
-      message: "Profile fetched successfully",
-      data: result,
-    });
-  }
-);
+//   sendResponse(res, {
+//     httpStatusCode: status.OK,
+//     success: true,
+//     message: "Profile fetched successfully",
+//     data: result,
+//   });
+// });
 
-const getAllAdmin = catchAsync(
-  async (req: Request, res: Response) => {
-    const result = await userService.getAllAdmin();
+const getAlluser = catchAsync(async (req: Request, res: Response) => {
+  const query = req.query;
+  const result = await userService.getAlluser(query as IQueryParams);
 
-    sendResponse(res, {
-      httpStatusCode: status.OK,
-      success: true,
-      message: "Profile fetched successfully",
-      data: result,
-    });
-  }
-);
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Profile fetched successfully",
+    data: result.data,
+    meta: result.meta,
+  });
+});
 
-const updateProfile = catchAsync(
-  async (req: Request, res: Response) => {
-    const result = await userService.updateProfile(
-      req.user?.id as string,
-      req.body
-    );
+const updateProfile = catchAsync(async (req: Request, res: Response) => {
+  const result = await userService.updateProfile(
+    req.user?.id as string,
+    req.body,
+  );
 
-    sendResponse(res, {
-      httpStatusCode: status.OK,
-      success: true,
-      message: "Profile updated successfully",
-      data: result,
-    });
-  }
-);
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Profile updated successfully",
+    data: result,
+  });
+});
 
-const updateRole = catchAsync(
-  async (req: Request, res: Response) => {
-    const { id, role } = req.body;
+const updateRole = catchAsync(async (req: Request, res: Response) => {
+  const { id, role } = req.body;
 
-    const result = await userService.updateRole(id, role);
+  const result = await userService.updateRole(id, role);
 
-    sendResponse(res, {
-      httpStatusCode: status.OK,
-      success: true,
-      message: "Role updated successfully",
-      data: result,
-    });
-  }
-);
-const getMyBookings = catchAsync(
-  async (req: Request, res: Response) => {
-    const result = await userService.getMyBookings(
-      req.user?.id as string
-    );
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Role updated successfully",
+    data: result,
+  });
+});
+const getMyBookings = catchAsync(async (req: Request, res: Response) => {
+  const result = await userService.getMyBookings(req.user?.id as string);
 
-    sendResponse(res, {
-      httpStatusCode: status.OK,
-      success: true,
-      message: "Bookings fetched successfully",
-      data: result,
-    });
-  }
-);
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Bookings fetched successfully",
+    data: result,
+  });
+});
 
-const getMyReviews = catchAsync(
-  async (req: Request, res: Response) => {
-    const result = await userService.getMyReviews(
-      req.user?.id as string
-    );
+const getMyReviews = catchAsync(async (req: Request, res: Response) => {
+  const result = await userService.getMyReviews(req.user?.id as string);
 
-    sendResponse(res, {
-      httpStatusCode: status.OK,
-      success: true,
-      message: "Reviews fetched successfully",
-      data: result,
-    });
-  }
-);
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Reviews fetched successfully",
+    data: result,
+  });
+});
 
-const getNotifications = catchAsync(
-  async (req: Request, res: Response) => {
-    const result =
-      await userService.getNotifications(req.user?.id as string);
+const getNotifications = catchAsync(async (req: Request, res: Response) => {
+  const result = await userService.getNotifications(req.user?.id as string);
 
-    sendResponse(res, {
-      httpStatusCode: status.OK,
-      success: true,
-      message: "Notifications fetched successfully",
-      data: result,
-    });
-  }
-);
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Notifications fetched successfully",
+    data: result,
+  });
+});
 
-const markNotificationRead = catchAsync(
-  async (req: Request, res: Response) => {
-    const result =
-      await userService.markNotificationRead(
-        req.params.id as string,
-        req.user?.id as string
-      );
+const markNotificationRead = catchAsync(async (req: Request, res: Response) => {
+  const result = await userService.markNotificationRead(
+    req.params.id as string,
+    req.user?.id as string,
+  );
 
-    sendResponse(res, {
-      httpStatusCode: status.OK,
-      success: true,
-      message: "Notification marked as read",
-      data: result,
-    });
-  }
-);
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Notification marked as read",
+    data: result,
+  });
+});
 
-const deleteAccount = catchAsync(
-  async (req: Request, res: Response) => {
-    const result = await userService.deleteAccount(
-      req.user?.id as string
-    );
+const deleteAccount = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.params.id;
 
-    sendResponse(res, {
-      httpStatusCode: status.OK,
-      success: true,
-      message: "Account deleted successfully",
-      data: result,
-    });
-  }
-);
+  const result = await userService.deleteAccount(userId as string);
+
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Account deleted successfully",
+    data: result,
+  });
+});
 
 export const userController = {
   getProfile,
-  getAllUser,
-  getAllBoatOwner,
   updateProfile,
-  getAllAdmin,
+  getAlluser,
   updateRole,
   getMyBookings,
   getMyReviews,

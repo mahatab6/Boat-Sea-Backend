@@ -24,7 +24,7 @@ const register = async (payload: Iregister) => {
   if (!data.user) {
     throw new AppErrors(
       status.INTERNAL_SERVER_ERROR,
-      "Failed to register customer"
+      "Failed to register customer",
     );
   }
 
@@ -52,6 +52,16 @@ const login = async (payload: Ilogin) => {
 
   const user = data.user;
 
+  const isDeleted = await prisma.user.findUnique({
+    where: {
+      id: user.id,
+    },
+  });
+
+  if (isDeleted?.isDeleted) {
+    throw new AppErrors(status.FORBIDDEN, "Your account is deleted");
+  }
+
   const jwtPayload = {
     userId: user.id,
     email: user.email,
@@ -78,10 +88,7 @@ const verifyEmail = async (email: string, otp: string) => {
   });
 
   if (!result.user) {
-    throw new AppErrors(
-      status.BAD_REQUEST,
-      "Invalid OTP or email"
-    );
+    throw new AppErrors(status.BAD_REQUEST, "Invalid OTP or email");
   }
 
   let user = result.user;
@@ -117,13 +124,23 @@ const refreshToken = async (currentRefreshToken: string) => {
     throw new AppErrors(status.BAD_REQUEST, "Refresh token is required");
   }
 
-  const verifyResult = jwtUtils.verifyToken(currentRefreshToken, envVariables.REFRESH_TOKEN_SECRET);
+  const verifyResult = jwtUtils.verifyToken(
+    currentRefreshToken,
+    envVariables.REFRESH_TOKEN_SECRET,
+  );
 
   if (!verifyResult.success) {
-    throw new AppErrors(status.UNAUTHORIZED, "Invalid or expired refresh token");
+    throw new AppErrors(
+      status.UNAUTHORIZED,
+      "Invalid or expired refresh token",
+    );
   }
 
-  const payload = verifyResult.data as { userId?: string; email?: string; role?: string };
+  const payload = verifyResult.data as {
+    userId?: string;
+    email?: string;
+    role?: string;
+  };
 
   if (!payload?.userId || !payload?.email || !payload?.role) {
     throw new AppErrors(status.UNAUTHORIZED, "Invalid token payload");
@@ -149,7 +166,10 @@ const refreshToken = async (currentRefreshToken: string) => {
 
 const logout = async (sessionToken?: string) => {
   if (!sessionToken) {
-    throw new AppErrors(status.BAD_REQUEST, "Session token is required for logout");
+    throw new AppErrors(
+      status.BAD_REQUEST,
+      "Session token is required for logout",
+    );
   }
 
   await prisma.session.deleteMany({
@@ -176,28 +196,27 @@ const forgotPassword = async (email: string) => {
 
 const getMe = async (userId: string) => {
   const result = await prisma.user.findUnique({
-    where:{
-      id: userId
-    }
-  })
+    where: {
+      id: userId,
+    },
+  });
 
-  return result
-}
+  return result;
+};
 
 const goolgeLoginSuccess = async (session: Record<string, any>) => {
-
   const isCustomerExists = await prisma.user.findUnique({
     where: {
       id: session.user.id,
     },
   });
 
-  if(!isCustomerExists) {
+  if (!isCustomerExists) {
     await prisma.user.create({
       data: {
         id: session.user.id,
         name: session.user.name,
-        email: session.user.email
+        email: session.user.email,
       },
     });
   }
@@ -218,9 +237,9 @@ const goolgeLoginSuccess = async (session: Record<string, any>) => {
 
   return {
     accessToken,
-    refreshToken
-  }
-}
+    refreshToken,
+  };
+};
 
 const resendVerificationEmail = async (email: string) => {
   const result = await auth.api.sendVerificationEmail({
@@ -236,15 +255,14 @@ const resendVerificationEmail = async (email: string) => {
   };
 };
 
-
 export const AuthService = {
   register,
-    login,
-    verifyEmail,
-    refreshToken,
-    logout,
-    forgotPassword,
-    goolgeLoginSuccess,
-    getMe,
-    resendVerificationEmail
+  login,
+  verifyEmail,
+  refreshToken,
+  logout,
+  forgotPassword,
+  goolgeLoginSuccess,
+  getMe,
+  resendVerificationEmail,
 };

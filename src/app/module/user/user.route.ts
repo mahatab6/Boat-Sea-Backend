@@ -15,22 +15,22 @@ router.get(
   userController.getProfile
 );
 
+// router.get(
+//   "/getalluser",
+//   // checkAuth( UserRole.ADMIN, UserRole.SUPER_ADMIN),
+//   userController.getAllUser
+// );
+
+// router.get(
+//   "/getallboatowner",
+//   // checkAuth( UserRole.ADMIN, UserRole.SUPER_ADMIN),
+//   userController.getAllBoatOwner
+// );
+
 router.get(
   "/getalluser",
   // checkAuth( UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  userController.getAllUser
-);
-
-router.get(
-  "/getallboatowner",
-  // checkAuth( UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  userController.getAllBoatOwner
-);
-
-router.get(
-  "/getalladmin",
-  // checkAuth( UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  userController.getAllAdmin
+  userController.getAlluser
 );
 
 router.put("/updaterole",  validateRequest(updateRoleValidationSchema), userController.updateRole)
@@ -69,8 +69,8 @@ router.put(
 );
 
 router.delete(
-  "/account",
-  checkAuth(UserRole.CUSTOMER, UserRole.BOAT_OWNER),
+  "/account-delete/:id",
+  // checkAuth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
   userController.deleteAccount
 );
 

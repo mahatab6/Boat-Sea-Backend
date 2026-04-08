@@ -1,5 +1,9 @@
-import { UserRole } from "../../../generated/prisma/enums";
+import { User } from "../../../generated/prisma/client";
+import { UserRole, UserStatus } from "../../../generated/prisma/enums";
+import { IQueryParams } from "../../interface/query.interface";
 import { prisma } from "../../lib/prisma";
+import { QueryBuilder } from "../../utils/QueryBuilder";
+import { userFilterableFields, userSearchableFields } from "./user.constant";
 
 const getProfile = async (userId: string) => {
   return await prisma.user.findUniqueOrThrow({
@@ -11,28 +15,36 @@ const getProfile = async (userId: string) => {
   });
 };
 
-const getAllUser = async () => {
-  return await prisma.user.findMany({
-    where: {
-      role: UserRole.CUSTOMER,
-    },
-  });
-};
+// const getAllUser = async () => {
+//   return await prisma.user.findMany({
+//     where: {
+//       role: UserRole.CUSTOMER,
+//     },
+//   });
+// };
 
-const getAllBoatOwner = async () => {
-  return await prisma.user.findMany({
-    where: {
-      role: UserRole.BOAT_OWNER,
-    },
-  });
-};
+// const getAllBoatOwner = async () => {
+//   return await prisma.user.findMany({
+//     where: {
+//       role: UserRole.BOAT_OWNER,
+//     },
+//   });
+// };
 
-const getAllAdmin = async () => {
-  return await prisma.user.findMany({
-    where: {
-      OR: [{ role: UserRole.ADMIN }, { role: UserRole.SUPER_ADMIN }],
-    },
+const getAlluser = async (query: IQueryParams) => {
+  const queryBuilder = new QueryBuilder<User>(prisma.user, query, {
+    searchableFields: userSearchableFields,
+    filterableFields: userFilterableFields,
   });
+
+  const result = await queryBuilder
+    .search()
+    .filter()
+    .paginate()
+    .sort()
+    .execute();
+
+  return result;
 };
 
 const updateProfile = async (userId: string, payload: any) => {
@@ -99,18 +111,16 @@ const deleteAccount = async (userId: string) => {
     data: {
       isDeleted: true,
       deletedAt: new Date(),
-      status: "DELETED",
+      status: UserStatus.SUSPENDED,
     },
   });
 };
 
 export const userService = {
   getProfile,
-  getAllUser,
-  getAllAdmin,
+  getAlluser,
   updateProfile,
   updateRole,
-  getAllBoatOwner,
   getMyBookings,
   getMyReviews,
   getNotifications,
