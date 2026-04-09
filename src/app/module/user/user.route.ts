@@ -15,21 +15,10 @@ router.get(
   userController.getProfile
 );
 
-// router.get(
-//   "/getalluser",
-//   // checkAuth( UserRole.ADMIN, UserRole.SUPER_ADMIN),
-//   userController.getAllUser
-// );
-
-// router.get(
-//   "/getallboatowner",
-//   // checkAuth( UserRole.ADMIN, UserRole.SUPER_ADMIN),
-//   userController.getAllBoatOwner
-// );
 
 router.get(
   "/getalluser",
-  // checkAuth( UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  checkAuth( UserRole.ADMIN, UserRole.SUPER_ADMIN),
   userController.getAlluser
 );
 

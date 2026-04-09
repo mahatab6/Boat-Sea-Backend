@@ -71,9 +71,14 @@ const updateBoat = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const ownerId = req.user?.id;
 
+   const boatData = {
+    ...req.body,
+    primary_img: req.file?.path
+  }
+  
   const result = await boatService.updateBoat(
     id as string,
-    req.body,
+    boatData,
     ownerId as string,
   );
 

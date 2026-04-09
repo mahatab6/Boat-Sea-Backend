@@ -19,8 +19,12 @@ export const resendVerificationEmailZodSchema = z.object({
     email : z.string("Enter your email"),
 })
 
+export const changepasswordZodSchema = z.object({
+    newPassword : z.string("Enter your New Password"),
+    currentPassword: z.string("Enter Old Password")
+})
 
-
+export type IchangepasswordPayload = z.infer<typeof changepasswordZodSchema>
 
 export type IRegisterPayload = z.infer<typeof registerZodSchema>
 

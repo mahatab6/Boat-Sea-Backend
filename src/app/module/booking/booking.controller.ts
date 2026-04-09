@@ -3,6 +3,7 @@ import { catchAsync } from "../../shared/catchAsync";
 import { sendResponse } from "../../shared/sendResponse";
 import status from "http-status";
 import { bookingService } from "./booking.service";
+import { IQueryParams } from "../../interface/query.interface";
 
 const createBooking = catchAsync(
   async (req: Request, res: Response) => {
@@ -42,6 +43,19 @@ const getMyBookings = catchAsync(
   }
 );
 
+const getAllBookings = catchAsync(async (req: Request, res: Response) => {
+  const query = req.query;
+  const result = await bookingService.getAllBookings(query as IQueryParams);
+
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "get all booking fetched successfully",
+    data: result.data,
+    meta: result.meta,
+  });
+});
+
 const cancelBooking = catchAsync(
   async (req: Request, res: Response) => {
     const userId = req.user?.id;
@@ -65,5 +79,6 @@ const cancelBooking = catchAsync(
 export const bookingController = {
     createBooking,
     getMyBookings,
-    cancelBooking
+    cancelBooking,
+    getAllBookings
 }

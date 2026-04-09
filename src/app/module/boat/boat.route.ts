@@ -41,6 +41,7 @@ router.get("/:id", boatController.getBoatById);
 router.put(
   "/:id",
   checkAuth(UserRole.BOAT_OWNER),
+  multerUpload.single("images"),
   validateRequest(updateBoatSchema),
   boatController.updateBoat,
 );

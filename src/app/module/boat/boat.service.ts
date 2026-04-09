@@ -8,7 +8,7 @@ import { prisma } from "../../lib/prisma";
 import { QueryBuilder } from "../../utils/QueryBuilder";
 import { boatFilterableFields, boatSearchableFields } from "./boat.constant";
 import { ICreateBoat, ICreateSchedule, IUpdateBoat } from "./boat.interface";
-import { uploadFileToCloudinary } from "../../../config/cloudinary.config";
+import { deleteFileFromCloudinary } from "../../../config/cloudinary.config";
 
 const getAllBoats = async (query: IQueryParams) => {
   const queryBuilder = new QueryBuilder<Boat>(prisma.boat, query, {
@@ -63,7 +63,6 @@ const getBoatById = async (id: string) => {
   const result = await prisma.boat.findFirst({
     where: {
       id,
-      isApproved: true,
     },
     // include: {
     //   owner: true,
@@ -141,13 +140,16 @@ const deleteBoat = async (id: string, ownerId: string) => {
     );
   }
 
-  return prisma.boat.update({
-    where: { id },
-    data: {
-      status: "SUSPENDED",
-      isApproved: false,
-    },
-  });
+  if(boat.primary_img){
+    await deleteFileFromCloudinary(boat.primary_img)
+  }
+
+  const result = await prisma.boat.delete({
+    where: {
+      id: id
+    }
+  })
+  return result;
 };
 
 const getMyBoats = async (

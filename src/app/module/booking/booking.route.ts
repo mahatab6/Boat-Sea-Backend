@@ -17,10 +17,17 @@ router.post(
 );
 
 router.get(
+  "/",
+  checkAuth(UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  bookingController.getAllBookings
+);
+
+router.get(
   "/my-bookings",
   checkAuth(UserRole.CUSTOMER),
   bookingController.getMyBookings
 );
+
 
 router.patch(
   "/cancel/:id",

@@ -15,22 +15,6 @@ const getProfile = async (userId: string) => {
   });
 };
 
-// const getAllUser = async () => {
-//   return await prisma.user.findMany({
-//     where: {
-//       role: UserRole.CUSTOMER,
-//     },
-//   });
-// };
-
-// const getAllBoatOwner = async () => {
-//   return await prisma.user.findMany({
-//     where: {
-//       role: UserRole.BOAT_OWNER,
-//     },
-//   });
-// };
-
 const getAlluser = async (query: IQueryParams) => {
   const queryBuilder = new QueryBuilder<User>(prisma.user, query, {
     searchableFields: userSearchableFields,

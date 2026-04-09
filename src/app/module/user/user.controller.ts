@@ -17,27 +17,6 @@ const getProfile = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-// const getAllUser = catchAsync(async (req: Request, res: Response) => {
-//   const result = await userService.getAllUser();
-
-//   sendResponse(res, {
-//     httpStatusCode: status.OK,
-//     success: true,
-//     message: "Profile fetched successfully",
-//     data: result,
-//   });
-// });
-
-// const getAllBoatOwner = catchAsync(async (req: Request, res: Response) => {
-//   const result = await userService.getAllBoatOwner();
-
-//   sendResponse(res, {
-//     httpStatusCode: status.OK,
-//     success: true,
-//     message: "Profile fetched successfully",
-//     data: result,
-//   });
-// });
 
 const getAlluser = catchAsync(async (req: Request, res: Response) => {
   const query = req.query;

@@ -2,12 +2,16 @@ import status from "http-status";
 import AppErrors from "../../errorHandler/AppErrors";
 import { auth } from "../../lib/auth";
 import { jwtUtils } from "../../utils/jwt";
+import { Request } from "express";
 
 import { Ilogin, Iregister } from "./auth.interface";
 import { tokenUtils } from "../../utils/token";
 import { prisma } from "../../lib/prisma";
 import { envVariables } from "../../../config/env";
 import { UserStatus } from "../../../generated/prisma/enums";
+import { IchangepasswordPayload } from "./auth.validation";
+import { hashPassword } from "better-auth/crypto";
+import { verifyPassword } from "../../shared/password";
 
 const register = async (payload: Iregister) => {
   const { name, email, password, role } = payload;
@@ -118,6 +122,7 @@ const verifyEmail = async (email: string, otp: string) => {
     refreshToken,
   };
 };
+
 
 const refreshToken = async (currentRefreshToken: string) => {
   if (!currentRefreshToken) {

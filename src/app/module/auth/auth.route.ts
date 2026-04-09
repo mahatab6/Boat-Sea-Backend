@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { AuthController } from "./auth.controller";
 import { validateRequest } from "../../middleware/validateRequest";
-import { loginZodSchema, registerZodSchema, resendVerificationEmailZodSchema } from "./auth.validation";
+import { changepasswordZodSchema, loginZodSchema, registerZodSchema, resendVerificationEmailZodSchema } from "./auth.validation";
 import { checkAuth } from "../../middleware/ckeckAuth";
 import { UserRole } from "../../../generated/prisma/enums";
 

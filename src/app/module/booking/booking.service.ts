@@ -7,6 +7,10 @@ import { nanoid } from "nanoid";
 import { stripe } from "../../../config/stripe.config";
 import { envVariables } from "../../../config/env";
 import { BoatStatus, BookingStatus, PaymentStatus, ScheduleStatus } from "../../../generated/prisma/enums";
+import { IQueryParams } from "../../interface/query.interface";
+import { Booking } from "../../../generated/prisma/client";
+import { QueryBuilder } from "../../utils/QueryBuilder";
+import { bookingFilterableFields, bookingSearchableFields } from "./bookin.constant";
 
 const createBooking = async (
   userId: string,
@@ -109,6 +113,22 @@ const createBooking = async (
   });
 };
 
+const getAllBookings = async (query: IQueryParams) => {
+  const queryBuilder = new QueryBuilder<Booking>(prisma.booking, query, {
+    searchableFields: bookingSearchableFields,
+    filterableFields: bookingFilterableFields,
+  });
+
+  const result = await queryBuilder
+    .search()
+    .filter()
+    .paginate()
+    .sort()
+    .execute();
+
+  return result;
+};
+
 const getMyBookings = async (userId: string) => {
   const result = await prisma.booking.findFirst({
     where: {
@@ -177,4 +197,5 @@ export const bookingService = {
   createBooking,
   getMyBookings,
   cancelBooking,
+  getAllBookings
 };
