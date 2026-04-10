@@ -4,6 +4,7 @@ import { IQueryParams } from "../../interface/query.interface";
 import { prisma } from "../../lib/prisma";
 import { QueryBuilder } from "../../utils/QueryBuilder";
 import { userFilterableFields, userSearchableFields } from "./user.constant";
+import { IUserUpdate } from "./user.interface";
 
 const getProfile = async (userId: string) => {
   return await prisma.user.findUniqueOrThrow({
@@ -31,7 +32,7 @@ const getAlluser = async (query: IQueryParams) => {
   return result;
 };
 
-const updateProfile = async (userId: string, payload: any) => {
+const updateProfile = async (userId: string, payload: IUserUpdate) => {
   return await prisma.user.update({
     where: { id: userId },
     data: payload,

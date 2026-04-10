@@ -32,9 +32,15 @@ const getAlluser = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateProfile = catchAsync(async (req: Request, res: Response) => {
+
+  const userData = {
+    ...req.body,
+    image: req.file?.path
+  }
+
   const result = await userService.updateProfile(
     req.user?.id as string,
-    req.body,
+    userData,
   );
 
   sendResponse(res, {

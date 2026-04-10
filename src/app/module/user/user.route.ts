@@ -6,6 +6,7 @@ import { validateRequest } from "../../middleware/validateRequest";
 
 import { updateProfileZodSchema, updateRoleValidationSchema } from "./user.validation";
 import { UserRole } from "../../../generated/prisma/enums";
+import { multerUpload } from "../../../config/multer.config";
 
 const router = Router();
 
@@ -29,6 +30,7 @@ router.put("/updaterole",  validateRequest(updateRoleValidationSchema), userCont
 router.put(
   "/profile",
   checkAuth(UserRole.CUSTOMER, UserRole.BOAT_OWNER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  multerUpload.single("images"),
   validateRequest(updateProfileZodSchema),
   userController.updateProfile
 );
