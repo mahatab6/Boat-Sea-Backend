@@ -3,13 +3,13 @@ import status from "http-status";
 import { RouteService } from "./route.service";
 import { catchAsync } from "../../shared/catchAsync";
 import { sendResponse } from "../../shared/sendResponse";
+import { IQueryParams } from "../../interface/query.interface";
 
 const createRoute = catchAsync(async (req: Request, res: Response) => {
    const routeData = {
     ...req.body,
     image: req.file?.path
   }
-  console.log(routeData)
   const result = await RouteService.createRoute(routeData);
   sendResponse(res, {
     httpStatusCode: status.CREATED,
@@ -20,12 +20,14 @@ const createRoute = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllRoutes = catchAsync(async (req: Request, res: Response) => {
-  const result = await RouteService.getAllRoutes();
+  const query = req.query;
+  const result = await RouteService.getAllRoutes(query as IQueryParams);
   sendResponse(res, {
     httpStatusCode: status.OK,
     success: true,
     message: "Routes fetched successfully",
-    data: result,
+    data: result.data,
+    meta: result.meta
   });
 });
 
@@ -41,9 +43,15 @@ const getSingleRoute = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateRoute = catchAsync(async (req: Request, res: Response) => {
+
+   const routeData = {
+    ...req.body,
+    image: req.file?.path
+  }
+  
   const result = await RouteService.updateRoute(
     req.params.id as string,
-    req.body
+    routeData
   );
 
   sendResponse(res, {

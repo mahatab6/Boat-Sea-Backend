@@ -1,4 +1,8 @@
+import { Route } from "../../../generated/prisma/client";
+import { IQueryParams } from "../../interface/query.interface";
 import { prisma } from "../../lib/prisma";
+import { QueryBuilder } from "../../utils/QueryBuilder";
+import { routeFilterableFields, routeSearchableFields } from "./route.constant";
 import { IRoute } from "./route.interface";
 
 
@@ -10,9 +14,20 @@ const createRoute = async (payload: IRoute) => {
   return result;
 };
 
-const getAllRoutes = async () => {
-  return await prisma.route.findMany({
-  });
+const getAllRoutes = async (query: IQueryParams) => {
+   const queryBuilder = new QueryBuilder<Route>(prisma.route, query, {
+      searchableFields: routeSearchableFields,
+      filterableFields: routeFilterableFields,
+    });
+  
+    const result = await queryBuilder
+      .search()
+      .filter()
+      .paginate()
+      .sort()
+      .execute();
+  
+    return result;
 };
 
 const getSingleRoute = async (id: string) => {

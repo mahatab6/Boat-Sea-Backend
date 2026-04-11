@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post(
   "/create-route",
-  // checkAuth(UserRole.ADMIN),
+  checkAuth(UserRole.ADMIN),
   multerUpload.single("images"),
   validateRequest(createRouteZodSchema),
   RouteController.createRoute
@@ -25,6 +25,7 @@ router.get("/:id", RouteController.getSingleRoute);
 router.patch(
   "/:id",
   checkAuth(UserRole.ADMIN),
+  multerUpload.single("images"),
   validateRequest(updateRouteZodSchema),
   RouteController.updateRoute
 );
