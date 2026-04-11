@@ -186,41 +186,7 @@ const getMyBoats = async (
 };
 
 
-const addSchedule = async (
-  boatId: string,
-  ownerId: string,
-  payload: ICreateSchedule
-) => {
 
-  const boat = await prisma.boat.findUnique({ where: { id: boatId } });
-  if (!boat) throw new AppErrors(status.NOT_FOUND, "Boat not found");
-  if (boat.ownerId !== ownerId) throw new AppErrors(status.FORBIDDEN, "Unauthorized");
-
-
-  const route = await prisma.route.findUnique({
-    where: { id: payload.routeId },
-  });
-
-  if (!route) {
-    throw new AppErrors(status.NOT_FOUND, "The specified Route ID does not exist");
-  }
-
-
-  if (payload.availableSeats > boat.capacity) {
-    throw new AppErrors(status.BAD_REQUEST, "Seats exceed capacity");
-  }
-
-
-  const schedule = await prisma.schedule.create({
-    data: {
-      ...payload,
-      boatId, 
-      departureDate: new Date(payload.departureDate),
-    },
-  });
-
-  return schedule;
-};
 
 
 export const boatService = {
@@ -231,6 +197,5 @@ export const boatService = {
   updateBoat,
   deleteBoat,
   getMyBoats,
-  addSchedule,
   featuredBoats
 };

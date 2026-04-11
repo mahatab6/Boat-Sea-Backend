@@ -7,14 +7,17 @@ model Schedule {
     routeId String
     route   Route  @relation(fields: [routeId], references: [id])
 
-    departureDate DateTime
-    departureTime String // e.g. "08:30 AM"
-    arrivalTime   String // e.g. "12:00 PM"
+    userId String
+    user   User   @relation(fields: [userId], references: [id])
 
-    availableSeats Int
+    startDate DateTime
+    endDate   DateTime? //
 
-    status ScheduleStatus @default(UPCOMING)
+    departureTime String
+    arrivalTime   String
 
+    availableSeats   Int
+    status           ScheduleStatus    @default(UPCOMING)
     recurringPattern RecurringPattern?
 
     createdAt DateTime @default(now())

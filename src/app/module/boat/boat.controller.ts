@@ -122,23 +122,7 @@ const getMyBoats = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const addSchedule = catchAsync(async (req: Request, res: Response) => {
-  const boatId = req.params.boatId;
-  const ownerId = req.user?.id;
 
-  const result = await boatService.addSchedule(
-    boatId as string,
-    ownerId as string,
-    req.body
-  );
-
-  sendResponse(res, {
-    httpStatusCode: status.CREATED,
-    success: true,
-    message: "Schedule created successfully",
-    data: result,
-  });
-});
 
 
 
@@ -150,6 +134,5 @@ export const boatController = {
   updateBoat,
   deleteBoat,
   getMyBoats,
-  addSchedule,
   featuredBoats
 };

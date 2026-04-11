@@ -52,11 +52,5 @@ router.delete(
   boatController.deleteBoat,
 );
 
-router.post(
-  "/:boatId/schedules",
-  checkAuth(UserRole.BOAT_OWNER),
-  validateRequest(createScheduleSchema),
-  boatController.addSchedule,
-);
 
 export const BoatRoutes = router;

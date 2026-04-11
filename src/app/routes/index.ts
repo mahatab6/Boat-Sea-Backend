@@ -6,6 +6,7 @@ import { RouteRoutes } from "../module/route/route.routes";
 import { ReviewRoutes } from "../module/review/review.route";
 import { BookingRoutes } from "../module/booking/booking.route";
 import { statsRoutes } from "../module/stats/stats.routes";
+import { ScheduleRoutes } from "../module/schedule/schedule.route";
 
 
 
@@ -24,6 +25,8 @@ router.use("/reviews", ReviewRoutes)
 router.use("/booking", BookingRoutes)
 
 router.use("/stats", statsRoutes)
+
+router.use("/schedule", ScheduleRoutes)
 
 
 

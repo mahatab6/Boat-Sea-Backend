@@ -16,6 +16,7 @@ model User {
     boats         Boat[]
     reviews       Review[]
     notifications Notification[]
+    schedules     Schedule[]
 
     @@unique([email])
     @@map("user")

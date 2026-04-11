@@ -38,7 +38,9 @@ export type ScheduleMinAggregateOutputType = {
   id: string | null
   boatId: string | null
   routeId: string | null
-  departureDate: Date | null
+  userId: string | null
+  startDate: Date | null
+  endDate: Date | null
   departureTime: string | null
   arrivalTime: string | null
   availableSeats: number | null
@@ -52,7 +54,9 @@ export type ScheduleMaxAggregateOutputType = {
   id: string | null
   boatId: string | null
   routeId: string | null
-  departureDate: Date | null
+  userId: string | null
+  startDate: Date | null
+  endDate: Date | null
   departureTime: string | null
   arrivalTime: string | null
   availableSeats: number | null
@@ -66,7 +70,9 @@ export type ScheduleCountAggregateOutputType = {
   id: number
   boatId: number
   routeId: number
-  departureDate: number
+  userId: number
+  startDate: number
+  endDate: number
   departureTime: number
   arrivalTime: number
   availableSeats: number
@@ -90,7 +96,9 @@ export type ScheduleMinAggregateInputType = {
   id?: true
   boatId?: true
   routeId?: true
-  departureDate?: true
+  userId?: true
+  startDate?: true
+  endDate?: true
   departureTime?: true
   arrivalTime?: true
   availableSeats?: true
@@ -104,7 +112,9 @@ export type ScheduleMaxAggregateInputType = {
   id?: true
   boatId?: true
   routeId?: true
-  departureDate?: true
+  userId?: true
+  startDate?: true
+  endDate?: true
   departureTime?: true
   arrivalTime?: true
   availableSeats?: true
@@ -118,7 +128,9 @@ export type ScheduleCountAggregateInputType = {
   id?: true
   boatId?: true
   routeId?: true
-  departureDate?: true
+  userId?: true
+  startDate?: true
+  endDate?: true
   departureTime?: true
   arrivalTime?: true
   availableSeats?: true
@@ -219,7 +231,9 @@ export type ScheduleGroupByOutputType = {
   id: string
   boatId: string
   routeId: string
-  departureDate: Date
+  userId: string
+  startDate: Date
+  endDate: Date | null
   departureTime: string
   arrivalTime: string
   availableSeats: number
@@ -256,7 +270,9 @@ export type ScheduleWhereInput = {
   id?: Prisma.StringFilter<"Schedule"> | string
   boatId?: Prisma.StringFilter<"Schedule"> | string
   routeId?: Prisma.StringFilter<"Schedule"> | string
-  departureDate?: Prisma.DateTimeFilter<"Schedule"> | Date | string
+  userId?: Prisma.StringFilter<"Schedule"> | string
+  startDate?: Prisma.DateTimeFilter<"Schedule"> | Date | string
+  endDate?: Prisma.DateTimeNullableFilter<"Schedule"> | Date | string | null
   departureTime?: Prisma.StringFilter<"Schedule"> | string
   arrivalTime?: Prisma.StringFilter<"Schedule"> | string
   availableSeats?: Prisma.IntFilter<"Schedule"> | number
@@ -266,6 +282,7 @@ export type ScheduleWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Schedule"> | Date | string
   boat?: Prisma.XOR<Prisma.BoatScalarRelationFilter, Prisma.BoatWhereInput>
   route?: Prisma.XOR<Prisma.RouteScalarRelationFilter, Prisma.RouteWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   bookings?: Prisma.BookingListRelationFilter
   seats?: Prisma.SeatListRelationFilter
 }
@@ -274,7 +291,9 @@ export type ScheduleOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   boatId?: Prisma.SortOrder
   routeId?: Prisma.SortOrder
-  departureDate?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrderInput | Prisma.SortOrder
   departureTime?: Prisma.SortOrder
   arrivalTime?: Prisma.SortOrder
   availableSeats?: Prisma.SortOrder
@@ -284,6 +303,7 @@ export type ScheduleOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   boat?: Prisma.BoatOrderByWithRelationInput
   route?: Prisma.RouteOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
   bookings?: Prisma.BookingOrderByRelationAggregateInput
   seats?: Prisma.SeatOrderByRelationAggregateInput
 }
@@ -295,7 +315,9 @@ export type ScheduleWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ScheduleWhereInput | Prisma.ScheduleWhereInput[]
   boatId?: Prisma.StringFilter<"Schedule"> | string
   routeId?: Prisma.StringFilter<"Schedule"> | string
-  departureDate?: Prisma.DateTimeFilter<"Schedule"> | Date | string
+  userId?: Prisma.StringFilter<"Schedule"> | string
+  startDate?: Prisma.DateTimeFilter<"Schedule"> | Date | string
+  endDate?: Prisma.DateTimeNullableFilter<"Schedule"> | Date | string | null
   departureTime?: Prisma.StringFilter<"Schedule"> | string
   arrivalTime?: Prisma.StringFilter<"Schedule"> | string
   availableSeats?: Prisma.IntFilter<"Schedule"> | number
@@ -305,6 +327,7 @@ export type ScheduleWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Schedule"> | Date | string
   boat?: Prisma.XOR<Prisma.BoatScalarRelationFilter, Prisma.BoatWhereInput>
   route?: Prisma.XOR<Prisma.RouteScalarRelationFilter, Prisma.RouteWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   bookings?: Prisma.BookingListRelationFilter
   seats?: Prisma.SeatListRelationFilter
 }, "id">
@@ -313,7 +336,9 @@ export type ScheduleOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   boatId?: Prisma.SortOrder
   routeId?: Prisma.SortOrder
-  departureDate?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrderInput | Prisma.SortOrder
   departureTime?: Prisma.SortOrder
   arrivalTime?: Prisma.SortOrder
   availableSeats?: Prisma.SortOrder
@@ -335,7 +360,9 @@ export type ScheduleScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Schedule"> | string
   boatId?: Prisma.StringWithAggregatesFilter<"Schedule"> | string
   routeId?: Prisma.StringWithAggregatesFilter<"Schedule"> | string
-  departureDate?: Prisma.DateTimeWithAggregatesFilter<"Schedule"> | Date | string
+  userId?: Prisma.StringWithAggregatesFilter<"Schedule"> | string
+  startDate?: Prisma.DateTimeWithAggregatesFilter<"Schedule"> | Date | string
+  endDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Schedule"> | Date | string | null
   departureTime?: Prisma.StringWithAggregatesFilter<"Schedule"> | string
   arrivalTime?: Prisma.StringWithAggregatesFilter<"Schedule"> | string
   availableSeats?: Prisma.IntWithAggregatesFilter<"Schedule"> | number
@@ -347,7 +374,8 @@ export type ScheduleScalarWhereWithAggregatesInput = {
 
 export type ScheduleCreateInput = {
   id?: string
-  departureDate: Date | string
+  startDate: Date | string
+  endDate?: Date | string | null
   departureTime: string
   arrivalTime: string
   availableSeats: number
@@ -357,6 +385,7 @@ export type ScheduleCreateInput = {
   updatedAt?: Date | string
   boat: Prisma.BoatCreateNestedOneWithoutSchedulesInput
   route: Prisma.RouteCreateNestedOneWithoutSchedulesInput
+  user: Prisma.UserCreateNestedOneWithoutSchedulesInput
   bookings?: Prisma.BookingCreateNestedManyWithoutScheduleInput
   seats?: Prisma.SeatCreateNestedManyWithoutScheduleInput
 }
@@ -365,7 +394,9 @@ export type ScheduleUncheckedCreateInput = {
   id?: string
   boatId: string
   routeId: string
-  departureDate: Date | string
+  userId: string
+  startDate: Date | string
+  endDate?: Date | string | null
   departureTime: string
   arrivalTime: string
   availableSeats: number
@@ -379,7 +410,8 @@ export type ScheduleUncheckedCreateInput = {
 
 export type ScheduleUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  departureDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departureTime?: Prisma.StringFieldUpdateOperationsInput | string
   arrivalTime?: Prisma.StringFieldUpdateOperationsInput | string
   availableSeats?: Prisma.IntFieldUpdateOperationsInput | number
@@ -389,6 +421,7 @@ export type ScheduleUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   boat?: Prisma.BoatUpdateOneRequiredWithoutSchedulesNestedInput
   route?: Prisma.RouteUpdateOneRequiredWithoutSchedulesNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutSchedulesNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutScheduleNestedInput
   seats?: Prisma.SeatUpdateManyWithoutScheduleNestedInput
 }
@@ -397,7 +430,9 @@ export type ScheduleUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   boatId?: Prisma.StringFieldUpdateOperationsInput | string
   routeId?: Prisma.StringFieldUpdateOperationsInput | string
-  departureDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departureTime?: Prisma.StringFieldUpdateOperationsInput | string
   arrivalTime?: Prisma.StringFieldUpdateOperationsInput | string
   availableSeats?: Prisma.IntFieldUpdateOperationsInput | number
@@ -413,7 +448,9 @@ export type ScheduleCreateManyInput = {
   id?: string
   boatId: string
   routeId: string
-  departureDate: Date | string
+  userId: string
+  startDate: Date | string
+  endDate?: Date | string | null
   departureTime: string
   arrivalTime: string
   availableSeats: number
@@ -425,7 +462,8 @@ export type ScheduleCreateManyInput = {
 
 export type ScheduleUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  departureDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departureTime?: Prisma.StringFieldUpdateOperationsInput | string
   arrivalTime?: Prisma.StringFieldUpdateOperationsInput | string
   availableSeats?: Prisma.IntFieldUpdateOperationsInput | number
@@ -439,7 +477,9 @@ export type ScheduleUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   boatId?: Prisma.StringFieldUpdateOperationsInput | string
   routeId?: Prisma.StringFieldUpdateOperationsInput | string
-  departureDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departureTime?: Prisma.StringFieldUpdateOperationsInput | string
   arrivalTime?: Prisma.StringFieldUpdateOperationsInput | string
   availableSeats?: Prisma.IntFieldUpdateOperationsInput | number
@@ -468,7 +508,9 @@ export type ScheduleCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   boatId?: Prisma.SortOrder
   routeId?: Prisma.SortOrder
-  departureDate?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   departureTime?: Prisma.SortOrder
   arrivalTime?: Prisma.SortOrder
   availableSeats?: Prisma.SortOrder
@@ -486,7 +528,9 @@ export type ScheduleMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   boatId?: Prisma.SortOrder
   routeId?: Prisma.SortOrder
-  departureDate?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   departureTime?: Prisma.SortOrder
   arrivalTime?: Prisma.SortOrder
   availableSeats?: Prisma.SortOrder
@@ -500,7 +544,9 @@ export type ScheduleMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   boatId?: Prisma.SortOrder
   routeId?: Prisma.SortOrder
-  departureDate?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  endDate?: Prisma.SortOrder
   departureTime?: Prisma.SortOrder
   arrivalTime?: Prisma.SortOrder
   availableSeats?: Prisma.SortOrder
@@ -512,6 +558,48 @@ export type ScheduleMinOrderByAggregateInput = {
 
 export type ScheduleSumOrderByAggregateInput = {
   availableSeats?: Prisma.SortOrder
+}
+
+export type ScheduleCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.ScheduleCreateWithoutUserInput, Prisma.ScheduleUncheckedCreateWithoutUserInput> | Prisma.ScheduleCreateWithoutUserInput[] | Prisma.ScheduleUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ScheduleCreateOrConnectWithoutUserInput | Prisma.ScheduleCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.ScheduleCreateManyUserInputEnvelope
+  connect?: Prisma.ScheduleWhereUniqueInput | Prisma.ScheduleWhereUniqueInput[]
+}
+
+export type ScheduleUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.ScheduleCreateWithoutUserInput, Prisma.ScheduleUncheckedCreateWithoutUserInput> | Prisma.ScheduleCreateWithoutUserInput[] | Prisma.ScheduleUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ScheduleCreateOrConnectWithoutUserInput | Prisma.ScheduleCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.ScheduleCreateManyUserInputEnvelope
+  connect?: Prisma.ScheduleWhereUniqueInput | Prisma.ScheduleWhereUniqueInput[]
+}
+
+export type ScheduleUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ScheduleCreateWithoutUserInput, Prisma.ScheduleUncheckedCreateWithoutUserInput> | Prisma.ScheduleCreateWithoutUserInput[] | Prisma.ScheduleUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ScheduleCreateOrConnectWithoutUserInput | Prisma.ScheduleCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.ScheduleUpsertWithWhereUniqueWithoutUserInput | Prisma.ScheduleUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.ScheduleCreateManyUserInputEnvelope
+  set?: Prisma.ScheduleWhereUniqueInput | Prisma.ScheduleWhereUniqueInput[]
+  disconnect?: Prisma.ScheduleWhereUniqueInput | Prisma.ScheduleWhereUniqueInput[]
+  delete?: Prisma.ScheduleWhereUniqueInput | Prisma.ScheduleWhereUniqueInput[]
+  connect?: Prisma.ScheduleWhereUniqueInput | Prisma.ScheduleWhereUniqueInput[]
+  update?: Prisma.ScheduleUpdateWithWhereUniqueWithoutUserInput | Prisma.ScheduleUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.ScheduleUpdateManyWithWhereWithoutUserInput | Prisma.ScheduleUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.ScheduleScalarWhereInput | Prisma.ScheduleScalarWhereInput[]
+}
+
+export type ScheduleUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ScheduleCreateWithoutUserInput, Prisma.ScheduleUncheckedCreateWithoutUserInput> | Prisma.ScheduleCreateWithoutUserInput[] | Prisma.ScheduleUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ScheduleCreateOrConnectWithoutUserInput | Prisma.ScheduleCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.ScheduleUpsertWithWhereUniqueWithoutUserInput | Prisma.ScheduleUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.ScheduleCreateManyUserInputEnvelope
+  set?: Prisma.ScheduleWhereUniqueInput | Prisma.ScheduleWhereUniqueInput[]
+  disconnect?: Prisma.ScheduleWhereUniqueInput | Prisma.ScheduleWhereUniqueInput[]
+  delete?: Prisma.ScheduleWhereUniqueInput | Prisma.ScheduleWhereUniqueInput[]
+  connect?: Prisma.ScheduleWhereUniqueInput | Prisma.ScheduleWhereUniqueInput[]
+  update?: Prisma.ScheduleUpdateWithWhereUniqueWithoutUserInput | Prisma.ScheduleUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.ScheduleUpdateManyWithWhereWithoutUserInput | Prisma.ScheduleUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.ScheduleScalarWhereInput | Prisma.ScheduleScalarWhereInput[]
 }
 
 export type ScheduleCreateNestedManyWithoutBoatInput = {
@@ -634,9 +722,89 @@ export type ScheduleUpdateOneRequiredWithoutSeatsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ScheduleUpdateToOneWithWhereWithoutSeatsInput, Prisma.ScheduleUpdateWithoutSeatsInput>, Prisma.ScheduleUncheckedUpdateWithoutSeatsInput>
 }
 
+export type ScheduleCreateWithoutUserInput = {
+  id?: string
+  startDate: Date | string
+  endDate?: Date | string | null
+  departureTime: string
+  arrivalTime: string
+  availableSeats: number
+  status?: $Enums.ScheduleStatus
+  recurringPattern?: $Enums.RecurringPattern | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  boat: Prisma.BoatCreateNestedOneWithoutSchedulesInput
+  route: Prisma.RouteCreateNestedOneWithoutSchedulesInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutScheduleInput
+  seats?: Prisma.SeatCreateNestedManyWithoutScheduleInput
+}
+
+export type ScheduleUncheckedCreateWithoutUserInput = {
+  id?: string
+  boatId: string
+  routeId: string
+  startDate: Date | string
+  endDate?: Date | string | null
+  departureTime: string
+  arrivalTime: string
+  availableSeats: number
+  status?: $Enums.ScheduleStatus
+  recurringPattern?: $Enums.RecurringPattern | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutScheduleInput
+  seats?: Prisma.SeatUncheckedCreateNestedManyWithoutScheduleInput
+}
+
+export type ScheduleCreateOrConnectWithoutUserInput = {
+  where: Prisma.ScheduleWhereUniqueInput
+  create: Prisma.XOR<Prisma.ScheduleCreateWithoutUserInput, Prisma.ScheduleUncheckedCreateWithoutUserInput>
+}
+
+export type ScheduleCreateManyUserInputEnvelope = {
+  data: Prisma.ScheduleCreateManyUserInput | Prisma.ScheduleCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type ScheduleUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.ScheduleWhereUniqueInput
+  update: Prisma.XOR<Prisma.ScheduleUpdateWithoutUserInput, Prisma.ScheduleUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.ScheduleCreateWithoutUserInput, Prisma.ScheduleUncheckedCreateWithoutUserInput>
+}
+
+export type ScheduleUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.ScheduleWhereUniqueInput
+  data: Prisma.XOR<Prisma.ScheduleUpdateWithoutUserInput, Prisma.ScheduleUncheckedUpdateWithoutUserInput>
+}
+
+export type ScheduleUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.ScheduleScalarWhereInput
+  data: Prisma.XOR<Prisma.ScheduleUpdateManyMutationInput, Prisma.ScheduleUncheckedUpdateManyWithoutUserInput>
+}
+
+export type ScheduleScalarWhereInput = {
+  AND?: Prisma.ScheduleScalarWhereInput | Prisma.ScheduleScalarWhereInput[]
+  OR?: Prisma.ScheduleScalarWhereInput[]
+  NOT?: Prisma.ScheduleScalarWhereInput | Prisma.ScheduleScalarWhereInput[]
+  id?: Prisma.StringFilter<"Schedule"> | string
+  boatId?: Prisma.StringFilter<"Schedule"> | string
+  routeId?: Prisma.StringFilter<"Schedule"> | string
+  userId?: Prisma.StringFilter<"Schedule"> | string
+  startDate?: Prisma.DateTimeFilter<"Schedule"> | Date | string
+  endDate?: Prisma.DateTimeNullableFilter<"Schedule"> | Date | string | null
+  departureTime?: Prisma.StringFilter<"Schedule"> | string
+  arrivalTime?: Prisma.StringFilter<"Schedule"> | string
+  availableSeats?: Prisma.IntFilter<"Schedule"> | number
+  status?: Prisma.EnumScheduleStatusFilter<"Schedule"> | $Enums.ScheduleStatus
+  recurringPattern?: Prisma.EnumRecurringPatternNullableFilter<"Schedule"> | $Enums.RecurringPattern | null
+  createdAt?: Prisma.DateTimeFilter<"Schedule"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Schedule"> | Date | string
+}
+
 export type ScheduleCreateWithoutBoatInput = {
   id?: string
-  departureDate: Date | string
+  startDate: Date | string
+  endDate?: Date | string | null
   departureTime: string
   arrivalTime: string
   availableSeats: number
@@ -645,6 +813,7 @@ export type ScheduleCreateWithoutBoatInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   route: Prisma.RouteCreateNestedOneWithoutSchedulesInput
+  user: Prisma.UserCreateNestedOneWithoutSchedulesInput
   bookings?: Prisma.BookingCreateNestedManyWithoutScheduleInput
   seats?: Prisma.SeatCreateNestedManyWithoutScheduleInput
 }
@@ -652,7 +821,9 @@ export type ScheduleCreateWithoutBoatInput = {
 export type ScheduleUncheckedCreateWithoutBoatInput = {
   id?: string
   routeId: string
-  departureDate: Date | string
+  userId: string
+  startDate: Date | string
+  endDate?: Date | string | null
   departureTime: string
   arrivalTime: string
   availableSeats: number
@@ -690,26 +861,10 @@ export type ScheduleUpdateManyWithWhereWithoutBoatInput = {
   data: Prisma.XOR<Prisma.ScheduleUpdateManyMutationInput, Prisma.ScheduleUncheckedUpdateManyWithoutBoatInput>
 }
 
-export type ScheduleScalarWhereInput = {
-  AND?: Prisma.ScheduleScalarWhereInput | Prisma.ScheduleScalarWhereInput[]
-  OR?: Prisma.ScheduleScalarWhereInput[]
-  NOT?: Prisma.ScheduleScalarWhereInput | Prisma.ScheduleScalarWhereInput[]
-  id?: Prisma.StringFilter<"Schedule"> | string
-  boatId?: Prisma.StringFilter<"Schedule"> | string
-  routeId?: Prisma.StringFilter<"Schedule"> | string
-  departureDate?: Prisma.DateTimeFilter<"Schedule"> | Date | string
-  departureTime?: Prisma.StringFilter<"Schedule"> | string
-  arrivalTime?: Prisma.StringFilter<"Schedule"> | string
-  availableSeats?: Prisma.IntFilter<"Schedule"> | number
-  status?: Prisma.EnumScheduleStatusFilter<"Schedule"> | $Enums.ScheduleStatus
-  recurringPattern?: Prisma.EnumRecurringPatternNullableFilter<"Schedule"> | $Enums.RecurringPattern | null
-  createdAt?: Prisma.DateTimeFilter<"Schedule"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Schedule"> | Date | string
-}
-
 export type ScheduleCreateWithoutBookingsInput = {
   id?: string
-  departureDate: Date | string
+  startDate: Date | string
+  endDate?: Date | string | null
   departureTime: string
   arrivalTime: string
   availableSeats: number
@@ -719,6 +874,7 @@ export type ScheduleCreateWithoutBookingsInput = {
   updatedAt?: Date | string
   boat: Prisma.BoatCreateNestedOneWithoutSchedulesInput
   route: Prisma.RouteCreateNestedOneWithoutSchedulesInput
+  user: Prisma.UserCreateNestedOneWithoutSchedulesInput
   seats?: Prisma.SeatCreateNestedManyWithoutScheduleInput
 }
 
@@ -726,7 +882,9 @@ export type ScheduleUncheckedCreateWithoutBookingsInput = {
   id?: string
   boatId: string
   routeId: string
-  departureDate: Date | string
+  userId: string
+  startDate: Date | string
+  endDate?: Date | string | null
   departureTime: string
   arrivalTime: string
   availableSeats: number
@@ -755,7 +913,8 @@ export type ScheduleUpdateToOneWithWhereWithoutBookingsInput = {
 
 export type ScheduleUpdateWithoutBookingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  departureDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departureTime?: Prisma.StringFieldUpdateOperationsInput | string
   arrivalTime?: Prisma.StringFieldUpdateOperationsInput | string
   availableSeats?: Prisma.IntFieldUpdateOperationsInput | number
@@ -765,6 +924,7 @@ export type ScheduleUpdateWithoutBookingsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   boat?: Prisma.BoatUpdateOneRequiredWithoutSchedulesNestedInput
   route?: Prisma.RouteUpdateOneRequiredWithoutSchedulesNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutSchedulesNestedInput
   seats?: Prisma.SeatUpdateManyWithoutScheduleNestedInput
 }
 
@@ -772,7 +932,9 @@ export type ScheduleUncheckedUpdateWithoutBookingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   boatId?: Prisma.StringFieldUpdateOperationsInput | string
   routeId?: Prisma.StringFieldUpdateOperationsInput | string
-  departureDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departureTime?: Prisma.StringFieldUpdateOperationsInput | string
   arrivalTime?: Prisma.StringFieldUpdateOperationsInput | string
   availableSeats?: Prisma.IntFieldUpdateOperationsInput | number
@@ -785,7 +947,8 @@ export type ScheduleUncheckedUpdateWithoutBookingsInput = {
 
 export type ScheduleCreateWithoutRouteInput = {
   id?: string
-  departureDate: Date | string
+  startDate: Date | string
+  endDate?: Date | string | null
   departureTime: string
   arrivalTime: string
   availableSeats: number
@@ -794,6 +957,7 @@ export type ScheduleCreateWithoutRouteInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   boat: Prisma.BoatCreateNestedOneWithoutSchedulesInput
+  user: Prisma.UserCreateNestedOneWithoutSchedulesInput
   bookings?: Prisma.BookingCreateNestedManyWithoutScheduleInput
   seats?: Prisma.SeatCreateNestedManyWithoutScheduleInput
 }
@@ -801,7 +965,9 @@ export type ScheduleCreateWithoutRouteInput = {
 export type ScheduleUncheckedCreateWithoutRouteInput = {
   id?: string
   boatId: string
-  departureDate: Date | string
+  userId: string
+  startDate: Date | string
+  endDate?: Date | string | null
   departureTime: string
   arrivalTime: string
   availableSeats: number
@@ -841,7 +1007,8 @@ export type ScheduleUpdateManyWithWhereWithoutRouteInput = {
 
 export type ScheduleCreateWithoutSeatsInput = {
   id?: string
-  departureDate: Date | string
+  startDate: Date | string
+  endDate?: Date | string | null
   departureTime: string
   arrivalTime: string
   availableSeats: number
@@ -851,6 +1018,7 @@ export type ScheduleCreateWithoutSeatsInput = {
   updatedAt?: Date | string
   boat: Prisma.BoatCreateNestedOneWithoutSchedulesInput
   route: Prisma.RouteCreateNestedOneWithoutSchedulesInput
+  user: Prisma.UserCreateNestedOneWithoutSchedulesInput
   bookings?: Prisma.BookingCreateNestedManyWithoutScheduleInput
 }
 
@@ -858,7 +1026,9 @@ export type ScheduleUncheckedCreateWithoutSeatsInput = {
   id?: string
   boatId: string
   routeId: string
-  departureDate: Date | string
+  userId: string
+  startDate: Date | string
+  endDate?: Date | string | null
   departureTime: string
   arrivalTime: string
   availableSeats: number
@@ -887,7 +1057,8 @@ export type ScheduleUpdateToOneWithWhereWithoutSeatsInput = {
 
 export type ScheduleUpdateWithoutSeatsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  departureDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departureTime?: Prisma.StringFieldUpdateOperationsInput | string
   arrivalTime?: Prisma.StringFieldUpdateOperationsInput | string
   availableSeats?: Prisma.IntFieldUpdateOperationsInput | number
@@ -897,6 +1068,7 @@ export type ScheduleUpdateWithoutSeatsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   boat?: Prisma.BoatUpdateOneRequiredWithoutSchedulesNestedInput
   route?: Prisma.RouteUpdateOneRequiredWithoutSchedulesNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutSchedulesNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutScheduleNestedInput
 }
 
@@ -904,7 +1076,9 @@ export type ScheduleUncheckedUpdateWithoutSeatsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   boatId?: Prisma.StringFieldUpdateOperationsInput | string
   routeId?: Prisma.StringFieldUpdateOperationsInput | string
-  departureDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departureTime?: Prisma.StringFieldUpdateOperationsInput | string
   arrivalTime?: Prisma.StringFieldUpdateOperationsInput | string
   availableSeats?: Prisma.IntFieldUpdateOperationsInput | number
@@ -915,10 +1089,76 @@ export type ScheduleUncheckedUpdateWithoutSeatsInput = {
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutScheduleNestedInput
 }
 
+export type ScheduleCreateManyUserInput = {
+  id?: string
+  boatId: string
+  routeId: string
+  startDate: Date | string
+  endDate?: Date | string | null
+  departureTime: string
+  arrivalTime: string
+  availableSeats: number
+  status?: $Enums.ScheduleStatus
+  recurringPattern?: $Enums.RecurringPattern | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ScheduleUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  departureTime?: Prisma.StringFieldUpdateOperationsInput | string
+  arrivalTime?: Prisma.StringFieldUpdateOperationsInput | string
+  availableSeats?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumScheduleStatusFieldUpdateOperationsInput | $Enums.ScheduleStatus
+  recurringPattern?: Prisma.NullableEnumRecurringPatternFieldUpdateOperationsInput | $Enums.RecurringPattern | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  boat?: Prisma.BoatUpdateOneRequiredWithoutSchedulesNestedInput
+  route?: Prisma.RouteUpdateOneRequiredWithoutSchedulesNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutScheduleNestedInput
+  seats?: Prisma.SeatUpdateManyWithoutScheduleNestedInput
+}
+
+export type ScheduleUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  boatId?: Prisma.StringFieldUpdateOperationsInput | string
+  routeId?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  departureTime?: Prisma.StringFieldUpdateOperationsInput | string
+  arrivalTime?: Prisma.StringFieldUpdateOperationsInput | string
+  availableSeats?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumScheduleStatusFieldUpdateOperationsInput | $Enums.ScheduleStatus
+  recurringPattern?: Prisma.NullableEnumRecurringPatternFieldUpdateOperationsInput | $Enums.RecurringPattern | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutScheduleNestedInput
+  seats?: Prisma.SeatUncheckedUpdateManyWithoutScheduleNestedInput
+}
+
+export type ScheduleUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  boatId?: Prisma.StringFieldUpdateOperationsInput | string
+  routeId?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  departureTime?: Prisma.StringFieldUpdateOperationsInput | string
+  arrivalTime?: Prisma.StringFieldUpdateOperationsInput | string
+  availableSeats?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumScheduleStatusFieldUpdateOperationsInput | $Enums.ScheduleStatus
+  recurringPattern?: Prisma.NullableEnumRecurringPatternFieldUpdateOperationsInput | $Enums.RecurringPattern | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type ScheduleCreateManyBoatInput = {
   id?: string
   routeId: string
-  departureDate: Date | string
+  userId: string
+  startDate: Date | string
+  endDate?: Date | string | null
   departureTime: string
   arrivalTime: string
   availableSeats: number
@@ -930,7 +1170,8 @@ export type ScheduleCreateManyBoatInput = {
 
 export type ScheduleUpdateWithoutBoatInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  departureDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departureTime?: Prisma.StringFieldUpdateOperationsInput | string
   arrivalTime?: Prisma.StringFieldUpdateOperationsInput | string
   availableSeats?: Prisma.IntFieldUpdateOperationsInput | number
@@ -939,6 +1180,7 @@ export type ScheduleUpdateWithoutBoatInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   route?: Prisma.RouteUpdateOneRequiredWithoutSchedulesNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutSchedulesNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutScheduleNestedInput
   seats?: Prisma.SeatUpdateManyWithoutScheduleNestedInput
 }
@@ -946,7 +1188,9 @@ export type ScheduleUpdateWithoutBoatInput = {
 export type ScheduleUncheckedUpdateWithoutBoatInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   routeId?: Prisma.StringFieldUpdateOperationsInput | string
-  departureDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departureTime?: Prisma.StringFieldUpdateOperationsInput | string
   arrivalTime?: Prisma.StringFieldUpdateOperationsInput | string
   availableSeats?: Prisma.IntFieldUpdateOperationsInput | number
@@ -961,7 +1205,9 @@ export type ScheduleUncheckedUpdateWithoutBoatInput = {
 export type ScheduleUncheckedUpdateManyWithoutBoatInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   routeId?: Prisma.StringFieldUpdateOperationsInput | string
-  departureDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departureTime?: Prisma.StringFieldUpdateOperationsInput | string
   arrivalTime?: Prisma.StringFieldUpdateOperationsInput | string
   availableSeats?: Prisma.IntFieldUpdateOperationsInput | number
@@ -974,7 +1220,9 @@ export type ScheduleUncheckedUpdateManyWithoutBoatInput = {
 export type ScheduleCreateManyRouteInput = {
   id?: string
   boatId: string
-  departureDate: Date | string
+  userId: string
+  startDate: Date | string
+  endDate?: Date | string | null
   departureTime: string
   arrivalTime: string
   availableSeats: number
@@ -986,7 +1234,8 @@ export type ScheduleCreateManyRouteInput = {
 
 export type ScheduleUpdateWithoutRouteInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  departureDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departureTime?: Prisma.StringFieldUpdateOperationsInput | string
   arrivalTime?: Prisma.StringFieldUpdateOperationsInput | string
   availableSeats?: Prisma.IntFieldUpdateOperationsInput | number
@@ -995,6 +1244,7 @@ export type ScheduleUpdateWithoutRouteInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   boat?: Prisma.BoatUpdateOneRequiredWithoutSchedulesNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutSchedulesNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutScheduleNestedInput
   seats?: Prisma.SeatUpdateManyWithoutScheduleNestedInput
 }
@@ -1002,7 +1252,9 @@ export type ScheduleUpdateWithoutRouteInput = {
 export type ScheduleUncheckedUpdateWithoutRouteInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   boatId?: Prisma.StringFieldUpdateOperationsInput | string
-  departureDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departureTime?: Prisma.StringFieldUpdateOperationsInput | string
   arrivalTime?: Prisma.StringFieldUpdateOperationsInput | string
   availableSeats?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1017,7 +1269,9 @@ export type ScheduleUncheckedUpdateWithoutRouteInput = {
 export type ScheduleUncheckedUpdateManyWithoutRouteInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   boatId?: Prisma.StringFieldUpdateOperationsInput | string
-  departureDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  endDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   departureTime?: Prisma.StringFieldUpdateOperationsInput | string
   arrivalTime?: Prisma.StringFieldUpdateOperationsInput | string
   availableSeats?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1071,7 +1325,9 @@ export type ScheduleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   id?: boolean
   boatId?: boolean
   routeId?: boolean
-  departureDate?: boolean
+  userId?: boolean
+  startDate?: boolean
+  endDate?: boolean
   departureTime?: boolean
   arrivalTime?: boolean
   availableSeats?: boolean
@@ -1081,6 +1337,7 @@ export type ScheduleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   updatedAt?: boolean
   boat?: boolean | Prisma.BoatDefaultArgs<ExtArgs>
   route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   bookings?: boolean | Prisma.Schedule$bookingsArgs<ExtArgs>
   seats?: boolean | Prisma.Schedule$seatsArgs<ExtArgs>
   _count?: boolean | Prisma.ScheduleCountOutputTypeDefaultArgs<ExtArgs>
@@ -1090,7 +1347,9 @@ export type ScheduleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   boatId?: boolean
   routeId?: boolean
-  departureDate?: boolean
+  userId?: boolean
+  startDate?: boolean
+  endDate?: boolean
   departureTime?: boolean
   arrivalTime?: boolean
   availableSeats?: boolean
@@ -1100,13 +1359,16 @@ export type ScheduleSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   updatedAt?: boolean
   boat?: boolean | Prisma.BoatDefaultArgs<ExtArgs>
   route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["schedule"]>
 
 export type ScheduleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   boatId?: boolean
   routeId?: boolean
-  departureDate?: boolean
+  userId?: boolean
+  startDate?: boolean
+  endDate?: boolean
   departureTime?: boolean
   arrivalTime?: boolean
   availableSeats?: boolean
@@ -1116,13 +1378,16 @@ export type ScheduleSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   updatedAt?: boolean
   boat?: boolean | Prisma.BoatDefaultArgs<ExtArgs>
   route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["schedule"]>
 
 export type ScheduleSelectScalar = {
   id?: boolean
   boatId?: boolean
   routeId?: boolean
-  departureDate?: boolean
+  userId?: boolean
+  startDate?: boolean
+  endDate?: boolean
   departureTime?: boolean
   arrivalTime?: boolean
   availableSeats?: boolean
@@ -1132,10 +1397,11 @@ export type ScheduleSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ScheduleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "boatId" | "routeId" | "departureDate" | "departureTime" | "arrivalTime" | "availableSeats" | "status" | "recurringPattern" | "createdAt" | "updatedAt", ExtArgs["result"]["schedule"]>
+export type ScheduleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "boatId" | "routeId" | "userId" | "startDate" | "endDate" | "departureTime" | "arrivalTime" | "availableSeats" | "status" | "recurringPattern" | "createdAt" | "updatedAt", ExtArgs["result"]["schedule"]>
 export type ScheduleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   boat?: boolean | Prisma.BoatDefaultArgs<ExtArgs>
   route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   bookings?: boolean | Prisma.Schedule$bookingsArgs<ExtArgs>
   seats?: boolean | Prisma.Schedule$seatsArgs<ExtArgs>
   _count?: boolean | Prisma.ScheduleCountOutputTypeDefaultArgs<ExtArgs>
@@ -1143,10 +1409,12 @@ export type ScheduleInclude<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type ScheduleIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   boat?: boolean | Prisma.BoatDefaultArgs<ExtArgs>
   route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ScheduleIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   boat?: boolean | Prisma.BoatDefaultArgs<ExtArgs>
   route?: boolean | Prisma.RouteDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $SchedulePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1154,6 +1422,7 @@ export type $SchedulePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   objects: {
     boat: Prisma.$BoatPayload<ExtArgs>
     route: Prisma.$RoutePayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
     bookings: Prisma.$BookingPayload<ExtArgs>[]
     seats: Prisma.$SeatPayload<ExtArgs>[]
   }
@@ -1161,7 +1430,9 @@ export type $SchedulePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id: string
     boatId: string
     routeId: string
-    departureDate: Date
+    userId: string
+    startDate: Date
+    endDate: Date | null
     departureTime: string
     arrivalTime: string
     availableSeats: number
@@ -1565,6 +1836,7 @@ export interface Prisma__ScheduleClient<T, Null = never, ExtArgs extends runtime
   readonly [Symbol.toStringTag]: "PrismaPromise"
   boat<T extends Prisma.BoatDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BoatDefaultArgs<ExtArgs>>): Prisma.Prisma__BoatClient<runtime.Types.Result.GetResult<Prisma.$BoatPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   route<T extends Prisma.RouteDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RouteDefaultArgs<ExtArgs>>): Prisma.Prisma__RouteClient<runtime.Types.Result.GetResult<Prisma.$RoutePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   bookings<T extends Prisma.Schedule$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Schedule$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   seats<T extends Prisma.Schedule$seatsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Schedule$seatsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SeatPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1599,7 +1871,9 @@ export interface ScheduleFieldRefs {
   readonly id: Prisma.FieldRef<"Schedule", 'String'>
   readonly boatId: Prisma.FieldRef<"Schedule", 'String'>
   readonly routeId: Prisma.FieldRef<"Schedule", 'String'>
-  readonly departureDate: Prisma.FieldRef<"Schedule", 'DateTime'>
+  readonly userId: Prisma.FieldRef<"Schedule", 'String'>
+  readonly startDate: Prisma.FieldRef<"Schedule", 'DateTime'>
+  readonly endDate: Prisma.FieldRef<"Schedule", 'DateTime'>
   readonly departureTime: Prisma.FieldRef<"Schedule", 'String'>
   readonly arrivalTime: Prisma.FieldRef<"Schedule", 'String'>
   readonly availableSeats: Prisma.FieldRef<"Schedule", 'Int'>
