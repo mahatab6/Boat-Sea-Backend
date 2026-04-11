@@ -4,6 +4,7 @@ export const boatSearchableFields = ['boatName', 'location'];
 
 export const boatFilterableFields = [
   'status', 
+  'boatType',
   'pricePerTrip', 
   'manufacturer', 
   'rating',       

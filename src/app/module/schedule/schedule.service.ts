@@ -1,4 +1,4 @@
-import { Schedule } from "../../../generated/prisma/client";
+import { Schedule, ScheduleStatus } from "../../../generated/prisma/client";
 import { IQueryParams } from "../../interface/query.interface";
 import { prisma } from "../../lib/prisma";
 import { QueryBuilder } from "../../utils/QueryBuilder";
@@ -87,7 +87,7 @@ const getMySchedules = async (ownerId: string, query: IQueryParams) => {
 const updateSchedule = async (
   id: string,
   ownerId: string,
-  payload: IScheduleUpdate
+  payload: IScheduleUpdate,
 ) => {
   const existingSchedule = await prisma.schedule.findFirst({
     where: {
@@ -106,13 +106,46 @@ const updateSchedule = async (
   });
 };
 
+const availableRoute = async (id: string) => {
+  const today = new Date();
+
+  const startOfDay = new Date(today.setHours(0, 0, 0, 0));
+  const endOfDay = new Date(today.setHours(23, 59, 59, 999));
+
+  const result = await prisma.schedule.findMany({
+    where: {
+      boatId: id,
+      status: ScheduleStatus.UPCOMING,
+      startDate: {
+        gte: startOfDay,
+        lte: endOfDay,
+      },
+    },
+    include: {
+      route: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+
+  const formattedResult = result.map(({ route, ...rest }) => ({
+    ...rest,
+    routeName: route?.name,
+  }));
+
+  return formattedResult;
+};
+
 const deleteSchedule = async (id: string) => {
   return await prisma.schedule.delete({ where: { id } });
 };
 
 export const ScheduleService = {
   createScheduleIntoDB,
-  deleteSchedule,
   getMySchedules,
-  updateSchedule
+  updateSchedule,
+  availableRoute,
+  deleteSchedule,
 };

@@ -17,6 +17,11 @@ const createBooking = async (
   userEmail: string,
   payload: ICreateBooking,
 ) => {
+
+  if (!userId) {
+    throw new AppErrors(status.UNAUTHORIZED, "User ID is required to create a booking");
+  }
+
   // We wrap the DB logic and Stripe logic
   return await prisma.$transaction(async (tx) => {
     //  Check Boat Availability & Capacity

@@ -18,6 +18,8 @@ router.post(
 
 router.get('/my-boat-schedule',checkAuth(UserRole.BOAT_OWNER), ScheduleController.getMySchedules);
 
+router.get('/available-route/:id', ScheduleController.availableRoute)
+
 router.patch(
   "/:id",
   checkAuth(UserRole.BOAT_OWNER),
