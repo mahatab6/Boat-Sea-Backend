@@ -138,6 +138,35 @@ const availableRoute = async (id: string) => {
   return formattedResult;
 };
 
+const viewRoute = async (id: string) => {
+
+  const result = await prisma.schedule.findMany({
+    where: {
+      id: id,
+    },
+    include: {
+      route: {
+        select: {
+          name: true,
+          difficulty: true,
+          distance: true,
+          duration: true
+        },
+      },
+    },
+  });
+
+  const formattedResult = result.map(({ route, ...rest }) => ({
+    ...rest,
+    routeName: route?.name,
+    difficulty: route?.difficulty,
+    distance: route?.distance,
+    duration: route?.duration,
+  }));
+
+  return formattedResult;
+};
+
 const deleteSchedule = async (id: string) => {
   return await prisma.schedule.delete({ where: { id } });
 };
@@ -148,4 +177,5 @@ export const ScheduleService = {
   updateSchedule,
   availableRoute,
   deleteSchedule,
+  viewRoute
 };

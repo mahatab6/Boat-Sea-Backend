@@ -5,6 +5,19 @@ import { ReviewService } from "./review.service";
 import { catchAsync } from "../../shared/catchAsync";
 import { sendResponse } from "../../shared/sendResponse";
 
+const myReview = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user?.id ;
+
+  const result = await ReviewService.myReview(userId as string);
+
+  sendResponse(res, {
+    httpStatusCode: status.CREATED,
+    success: true,
+    message: "get my Review successfully",
+    data: result,
+  });
+});
+
 const createReview = catchAsync(async (req: Request, res: Response) => {
   const userId = req.user?.id ;
 
@@ -74,6 +87,7 @@ const deleteReview = catchAsync(async (req: Request, res: Response) => {
 
 export const ReviewController = {
   createReview,
+  myReview,
   getAllReviews,
   getSingleReview,
   updateReview,

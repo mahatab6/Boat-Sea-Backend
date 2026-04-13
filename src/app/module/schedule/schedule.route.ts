@@ -20,6 +20,8 @@ router.get('/my-boat-schedule',checkAuth(UserRole.BOAT_OWNER), ScheduleControlle
 
 router.get('/available-route/:id', ScheduleController.availableRoute)
 
+router.get('/view-route/:id', ScheduleController.viewRoute)
+
 router.patch(
   "/:id",
   checkAuth(UserRole.BOAT_OWNER),

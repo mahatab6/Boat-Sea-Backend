@@ -36,13 +36,24 @@ const getAdminStatsData = async () => {
   const piChartData = await getGlobalBookingStatus();
   const barChartData = await getGlobalMonthlyRevenue();
 
+  const lineChart = await prisma.payments.findMany({
+    where: {
+      paymentStatus: PaymentStatus.PAID
+    },
+    select:{
+      createdAt: true,
+      amount: true
+    }
+  })
+
   return {
     totalBookings,
     totalBoats,
     totalUsers,
     totalRevenue: revenueData._sum.totalAmount || 0,
     piChartData,
-    barChartData
+    barChartData,
+    lineChart
   };
 };
 
@@ -86,12 +97,33 @@ const getBoatOwnerStatsData = async (ownerId: string) => {
     ORDER BY month ASC;
   `;
 
+  const boats = await prisma.boat.findMany({
+    where: {
+      ownerId: ownerId
+    }
+  })
+
+  const boatIds = boats.map(boat => boat.id)
+
+  const areaChart = await prisma.booking.findMany({
+    where: {
+      boatId: { in: boatIds }
+    },
+    select: {
+    totalAmount: true,
+    createdAt: true
+  }
+  })
+
+  
+
   return {
     totalBookings,
     myBoatsCount,
     totalEarnings: revenueData._sum.totalAmount || 0,
     piChartData,
-    barChartData
+    barChartData,
+    areaChart
   };
 };
 

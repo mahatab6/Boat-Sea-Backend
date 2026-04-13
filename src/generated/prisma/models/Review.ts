@@ -39,7 +39,7 @@ export type ReviewMinAggregateOutputType = {
   userId: string | null
   boatId: string | null
   rating: number | null
-  commont: string | null
+  comment: string | null
   createdAt: Date | null
   updatedAt: Date | null
   isVerified: boolean | null
@@ -50,7 +50,7 @@ export type ReviewMaxAggregateOutputType = {
   userId: string | null
   boatId: string | null
   rating: number | null
-  commont: string | null
+  comment: string | null
   createdAt: Date | null
   updatedAt: Date | null
   isVerified: boolean | null
@@ -61,7 +61,7 @@ export type ReviewCountAggregateOutputType = {
   userId: number
   boatId: number
   rating: number
-  commont: number
+  comment: number
   images: number
   createdAt: number
   updatedAt: number
@@ -83,7 +83,7 @@ export type ReviewMinAggregateInputType = {
   userId?: true
   boatId?: true
   rating?: true
-  commont?: true
+  comment?: true
   createdAt?: true
   updatedAt?: true
   isVerified?: true
@@ -94,7 +94,7 @@ export type ReviewMaxAggregateInputType = {
   userId?: true
   boatId?: true
   rating?: true
-  commont?: true
+  comment?: true
   createdAt?: true
   updatedAt?: true
   isVerified?: true
@@ -105,7 +105,7 @@ export type ReviewCountAggregateInputType = {
   userId?: true
   boatId?: true
   rating?: true
-  commont?: true
+  comment?: true
   images?: true
   createdAt?: true
   updatedAt?: true
@@ -204,7 +204,7 @@ export type ReviewGroupByOutputType = {
   userId: string
   boatId: string
   rating: number
-  commont: string | null
+  comment: string | null
   images: string[]
   createdAt: Date
   updatedAt: Date
@@ -239,7 +239,7 @@ export type ReviewWhereInput = {
   userId?: Prisma.StringFilter<"Review"> | string
   boatId?: Prisma.StringFilter<"Review"> | string
   rating?: Prisma.FloatFilter<"Review"> | number
-  commont?: Prisma.StringNullableFilter<"Review"> | string | null
+  comment?: Prisma.StringNullableFilter<"Review"> | string | null
   images?: Prisma.StringNullableListFilter<"Review">
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
@@ -253,7 +253,7 @@ export type ReviewOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   boatId?: Prisma.SortOrder
   rating?: Prisma.SortOrder
-  commont?: Prisma.SortOrderInput | Prisma.SortOrder
+  comment?: Prisma.SortOrderInput | Prisma.SortOrder
   images?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -270,7 +270,7 @@ export type ReviewWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"Review"> | string
   boatId?: Prisma.StringFilter<"Review"> | string
   rating?: Prisma.FloatFilter<"Review"> | number
-  commont?: Prisma.StringNullableFilter<"Review"> | string | null
+  comment?: Prisma.StringNullableFilter<"Review"> | string | null
   images?: Prisma.StringNullableListFilter<"Review">
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
@@ -284,7 +284,7 @@ export type ReviewOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   boatId?: Prisma.SortOrder
   rating?: Prisma.SortOrder
-  commont?: Prisma.SortOrderInput | Prisma.SortOrder
+  comment?: Prisma.SortOrderInput | Prisma.SortOrder
   images?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -304,7 +304,7 @@ export type ReviewScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringWithAggregatesFilter<"Review"> | string
   boatId?: Prisma.StringWithAggregatesFilter<"Review"> | string
   rating?: Prisma.FloatWithAggregatesFilter<"Review"> | number
-  commont?: Prisma.StringNullableWithAggregatesFilter<"Review"> | string | null
+  comment?: Prisma.StringNullableWithAggregatesFilter<"Review"> | string | null
   images?: Prisma.StringNullableListFilter<"Review">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Review"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Review"> | Date | string
@@ -314,7 +314,7 @@ export type ReviewScalarWhereWithAggregatesInput = {
 export type ReviewCreateInput = {
   id?: string
   rating: number
-  commont?: string | null
+  comment?: string | null
   images?: Prisma.ReviewCreateimagesInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -328,7 +328,7 @@ export type ReviewUncheckedCreateInput = {
   userId: string
   boatId: string
   rating: number
-  commont?: string | null
+  comment?: string | null
   images?: Prisma.ReviewCreateimagesInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -338,7 +338,7 @@ export type ReviewUncheckedCreateInput = {
 export type ReviewUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  commont?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   images?: Prisma.ReviewUpdateimagesInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -352,7 +352,7 @@ export type ReviewUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   boatId?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  commont?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   images?: Prisma.ReviewUpdateimagesInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -364,7 +364,7 @@ export type ReviewCreateManyInput = {
   userId: string
   boatId: string
   rating: number
-  commont?: string | null
+  comment?: string | null
   images?: Prisma.ReviewCreateimagesInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -374,7 +374,7 @@ export type ReviewCreateManyInput = {
 export type ReviewUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  commont?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   images?: Prisma.ReviewUpdateimagesInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -386,7 +386,7 @@ export type ReviewUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   boatId?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  commont?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   images?: Prisma.ReviewUpdateimagesInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -408,7 +408,7 @@ export type ReviewCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   boatId?: Prisma.SortOrder
   rating?: Prisma.SortOrder
-  commont?: Prisma.SortOrder
+  comment?: Prisma.SortOrder
   images?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -424,7 +424,7 @@ export type ReviewMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   boatId?: Prisma.SortOrder
   rating?: Prisma.SortOrder
-  commont?: Prisma.SortOrder
+  comment?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
@@ -435,7 +435,7 @@ export type ReviewMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   boatId?: Prisma.SortOrder
   rating?: Prisma.SortOrder
-  commont?: Prisma.SortOrder
+  comment?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
@@ -545,7 +545,7 @@ export type NullableBoolFieldUpdateOperationsInput = {
 export type ReviewCreateWithoutUserInput = {
   id?: string
   rating: number
-  commont?: string | null
+  comment?: string | null
   images?: Prisma.ReviewCreateimagesInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -557,7 +557,7 @@ export type ReviewUncheckedCreateWithoutUserInput = {
   id?: string
   boatId: string
   rating: number
-  commont?: string | null
+  comment?: string | null
   images?: Prisma.ReviewCreateimagesInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -598,7 +598,7 @@ export type ReviewScalarWhereInput = {
   userId?: Prisma.StringFilter<"Review"> | string
   boatId?: Prisma.StringFilter<"Review"> | string
   rating?: Prisma.FloatFilter<"Review"> | number
-  commont?: Prisma.StringNullableFilter<"Review"> | string | null
+  comment?: Prisma.StringNullableFilter<"Review"> | string | null
   images?: Prisma.StringNullableListFilter<"Review">
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
@@ -608,7 +608,7 @@ export type ReviewScalarWhereInput = {
 export type ReviewCreateWithoutBoatInput = {
   id?: string
   rating: number
-  commont?: string | null
+  comment?: string | null
   images?: Prisma.ReviewCreateimagesInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -620,7 +620,7 @@ export type ReviewUncheckedCreateWithoutBoatInput = {
   id?: string
   userId: string
   rating: number
-  commont?: string | null
+  comment?: string | null
   images?: Prisma.ReviewCreateimagesInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -657,7 +657,7 @@ export type ReviewCreateManyUserInput = {
   id?: string
   boatId: string
   rating: number
-  commont?: string | null
+  comment?: string | null
   images?: Prisma.ReviewCreateimagesInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -667,7 +667,7 @@ export type ReviewCreateManyUserInput = {
 export type ReviewUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  commont?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   images?: Prisma.ReviewUpdateimagesInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -679,7 +679,7 @@ export type ReviewUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   boatId?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  commont?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   images?: Prisma.ReviewUpdateimagesInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -690,7 +690,7 @@ export type ReviewUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   boatId?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  commont?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   images?: Prisma.ReviewUpdateimagesInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -701,7 +701,7 @@ export type ReviewCreateManyBoatInput = {
   id?: string
   userId: string
   rating: number
-  commont?: string | null
+  comment?: string | null
   images?: Prisma.ReviewCreateimagesInput | string[]
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -711,7 +711,7 @@ export type ReviewCreateManyBoatInput = {
 export type ReviewUpdateWithoutBoatInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  commont?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   images?: Prisma.ReviewUpdateimagesInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -723,7 +723,7 @@ export type ReviewUncheckedUpdateWithoutBoatInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  commont?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   images?: Prisma.ReviewUpdateimagesInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -734,7 +734,7 @@ export type ReviewUncheckedUpdateManyWithoutBoatInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
-  commont?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   images?: Prisma.ReviewUpdateimagesInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -748,7 +748,7 @@ export type ReviewSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   userId?: boolean
   boatId?: boolean
   rating?: boolean
-  commont?: boolean
+  comment?: boolean
   images?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -762,7 +762,7 @@ export type ReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   userId?: boolean
   boatId?: boolean
   rating?: boolean
-  commont?: boolean
+  comment?: boolean
   images?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -776,7 +776,7 @@ export type ReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   userId?: boolean
   boatId?: boolean
   rating?: boolean
-  commont?: boolean
+  comment?: boolean
   images?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -790,14 +790,14 @@ export type ReviewSelectScalar = {
   userId?: boolean
   boatId?: boolean
   rating?: boolean
-  commont?: boolean
+  comment?: boolean
   images?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   isVerified?: boolean
 }
 
-export type ReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "boatId" | "rating" | "commont" | "images" | "createdAt" | "updatedAt" | "isVerified", ExtArgs["result"]["review"]>
+export type ReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "boatId" | "rating" | "comment" | "images" | "createdAt" | "updatedAt" | "isVerified", ExtArgs["result"]["review"]>
 export type ReviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   boat?: boolean | Prisma.BoatDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -822,7 +822,7 @@ export type $ReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     userId: string
     boatId: string
     rating: number
-    commont: string | null
+    comment: string | null
     images: string[]
     createdAt: Date
     updatedAt: Date
@@ -1256,7 +1256,7 @@ export interface ReviewFieldRefs {
   readonly userId: Prisma.FieldRef<"Review", 'String'>
   readonly boatId: Prisma.FieldRef<"Review", 'String'>
   readonly rating: Prisma.FieldRef<"Review", 'Float'>
-  readonly commont: Prisma.FieldRef<"Review", 'String'>
+  readonly comment: Prisma.FieldRef<"Review", 'String'>
   readonly images: Prisma.FieldRef<"Review", 'String[]'>
   readonly createdAt: Prisma.FieldRef<"Review", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Review", 'DateTime'>

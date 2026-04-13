@@ -134,20 +134,72 @@ const getAllBookings = async (query: IQueryParams) => {
   return result;
 };
 
-const getMyBookings = async (userId: string) => {
-  const result = await prisma.booking.findFirst({
+const getBookingRequest = async  (query: IQueryParams, ownerid: string) => {
+
+  const boats = await prisma.boat.findMany({
     where: {
-      userId: userId,
-    },
+      ownerId: ownerid
+    }
+  })
+
+  const boatIds = boats.map(boat => boat.id);
+
+  const queryBuilder = new QueryBuilder<Booking>(prisma.booking, query, {
+    searchableFields: bookingSearchableFields,
+    filterableFields: bookingFilterableFields,
+  });
+
+  const result = await queryBuilder
+    .where({
+      boatId: { in: boatIds }
+    })
+    .search()
+    .filter()
+    .paginate()
+    .sort()
+    .execute();
+  return result;
+};
+
+const getMyBookings = async (userId: string) => {
+  const bookings = await prisma.booking.findMany({
+    where: { userId },
     include: {
       schedule: true,
       payments: true,
       boat: true,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
-  return result;
+  return bookings.map((booking) => ({
+    id: booking.id,
+    bookingNumber: booking.bookingNumber,
+
+    boatName: booking.boat?.boatName,
+    boatId: booking.boatId,
+    tripDate: booking.tripDate,
+
+    departureTime: booking.schedule?.departureTime,
+
+    totalGuests: booking.totalGuests,
+
+    totalAmount: booking.totalAmount,
+
+    bookingStatus: booking.bookingStatus,
+
+    paymentStatus: booking.paymentStatus,
+
+    invoiceUrl:
+      booking.payments?.[0] && booking.payments[0].paymentDetails
+        ? JSON.parse(booking.payments[0].paymentDetails)?.invoiceUrl
+        : null,
+  }));
 };
+
+
 
 const cancelBooking = async (userId: string, bookingId: string) => {
   // 1. Verify the booking exists AND belongs to the requesting user
@@ -202,5 +254,6 @@ export const bookingService = {
   createBooking,
   getMyBookings,
   cancelBooking,
-  getAllBookings
+  getAllBookings,
+  getBookingRequest
 };

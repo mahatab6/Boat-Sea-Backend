@@ -28,6 +28,12 @@ router.get(
   bookingController.getMyBookings
 );
 
+router.get(
+  "/my-booking-requests",
+  checkAuth(UserRole.BOAT_OWNER),
+  bookingController.getBookingRequest
+);
+
 
 router.patch(
   "/cancel/:id",

@@ -20,6 +20,8 @@ router.post(
   ReviewController.createReview
 );
 
+router.get("/my-review", checkAuth(UserRole.CUSTOMER, UserRole.BOAT_OWNER), ReviewController.myReview)
+
 router.get("/", ReviewController.getAllReviews);
 
 router.get("/:id", ReviewController.getSingleReview);

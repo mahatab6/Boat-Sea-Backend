@@ -4,6 +4,7 @@ import { sendResponse } from "../../shared/sendResponse";
 import status from "http-status";
 import { bookingService } from "./booking.service";
 import { IQueryParams } from "../../interface/query.interface";
+import AppErrors from "../../errorHandler/AppErrors";
 
 const createBooking = catchAsync(
   async (req: Request, res: Response) => {
@@ -56,6 +57,25 @@ const getAllBookings = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+
+const getBookingRequest = catchAsync(async (req: Request, res: Response) => {
+  const ownerid = req.user?.id
+  const query = req.query;
+
+  if (!ownerid) {
+    throw new AppErrors(status.UNAUTHORIZED, "You are not authorized!");
+  }
+  const result = await bookingService.getBookingRequest(query as IQueryParams, ownerid );
+
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "get all booking request fetched successfully",
+    data: result.data,
+    meta: result.meta,
+  });
+});
+
 const cancelBooking = catchAsync(
   async (req: Request, res: Response) => {
     const userId = req.user?.id;
@@ -80,5 +100,6 @@ export const bookingController = {
     createBooking,
     getMyBookings,
     cancelBooking,
-    getAllBookings
+    getAllBookings,
+    getBookingRequest
 }

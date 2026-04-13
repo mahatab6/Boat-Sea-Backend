@@ -1,9 +1,18 @@
 import Stripe from "stripe";
 import { prisma } from "../../lib/prisma";
-import { BoatStatus, BookingStatus, PaymentStatus, ScheduleStatus } from "../../../generated/prisma/enums";
+import {
+  BoatStatus,
+  BookingStatus,
+  PaymentStatus,
+  ScheduleStatus,
+} from "../../../generated/prisma/enums";
 import { generateInvoicePdf } from "./payment.utils";
 import { sendEmail } from "../../utils/email";
 import { uploadFileToCloudinary } from "../../../config/cloudinary.config";
+import { IQueryParams } from "../../interface/query.interface";
+import { QueryBuilder } from "../../utils/QueryBuilder";
+import { Payments } from "../../../generated/prisma/client";
+import { paymentsFilterableFields, paymentsSearchableFields } from "./payment.constant";
 
 const handlerStripeWebhookEvent = async (event: Stripe.Event) => {
   // 1. Idempotency Check
@@ -23,7 +32,6 @@ const handlerStripeWebhookEvent = async (event: Stripe.Event) => {
       const scheduleId = session.metadata?.scheduleId;
       const boatId = session.metadata?.boatId;
       const paymentId = session.metadata?.paymentId;
-
 
       if (!bookingId || !paymentId) {
         console.error("Missing bookingId or paymentId in session metadata");
@@ -63,24 +71,24 @@ const handlerStripeWebhookEvent = async (event: Stripe.Event) => {
 
           // Update schedul status
           await tx.schedule.update({
-            where:{
-              id: scheduleId
+            where: {
+              id: scheduleId,
             },
             data: {
-              status: ScheduleStatus.COMPLETED
-            }
+              status: ScheduleStatus.COMPLETED,
+            },
           });
 
           // Update boat status
 
           await tx.boat.update({
             where: {
-              id: boatId
+              id: boatId,
             },
             data: {
-              status: BoatStatus.UNAVAILABLE
-            }
-          })
+              status: BoatStatus.UNAVAILABLE,
+            },
+          });
 
           // Update Payment Record
           return await tx.payments.update({
@@ -160,7 +168,7 @@ const handlerStripeWebhookEvent = async (event: Stripe.Event) => {
         }
       } catch (error) {
         console.error("Transaction failed:", error);
-        throw error; 
+        throw error;
       }
       break;
     }
@@ -185,6 +193,35 @@ const handlerStripeWebhookEvent = async (event: Stripe.Event) => {
   return { message: "Success" };
 };
 
+const getAllPayments = async (query: IQueryParams) => {
+ const queryBuilder = new QueryBuilder<Payments>(prisma.payments, query, {
+     searchableFields: paymentsSearchableFields,
+     filterableFields: paymentsFilterableFields,
+   });
+ 
+   const result = await queryBuilder
+     .search()
+     .filter()
+     .paginate()
+     .sort()
+     .execute();
+ 
+   return result;
+};
+
+const getPaymentByTransaction = async (transactionId: string) => {
+  return await prisma.payments.findUnique({
+      where: { transactionId },
+      include: { booking: true }
+    });
+  }
+
+
+
+  
+
 export const PaymentService = {
   handlerStripeWebhookEvent,
-};
+  getPaymentByTransaction,
+  getAllPayments,
+}

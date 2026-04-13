@@ -62,6 +62,18 @@ const availableRoute = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const viewRoute = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.id;
+
+  const result = await ScheduleService.viewRoute(id as string);
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "View Route find successfully",
+    data: result,
+  });
+});
+
 const deleteSchedule = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
 
@@ -80,4 +92,5 @@ export const ScheduleController = {
   deleteSchedule,
   updateSchedule,
   availableRoute,
+  viewRoute
 };
