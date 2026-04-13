@@ -1,5 +1,4 @@
 import express, { Application, Request, Response } from "express"
-import { IndexRoutes } from "./app/routes"
 import cors from "cors";
 import { envVariables } from "./config/env";
 import cookieParser from "cookie-parser";
@@ -7,6 +6,7 @@ import { toNodeHandler } from "better-auth/node";
 import { auth } from "./app/lib/auth";
 import path from "node:path";
 import { PaymentController } from "./app/module/payment/payment.controller";
+import { IndexRoutes } from "./app/routes/routes";
 
 
 const app: Application = express()
@@ -41,7 +41,7 @@ app.set('views', path.join(process.cwd(), 'src/app/templates'));
 app.use("/api/v1", IndexRoutes)
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World! Boat server is running')
+  res.send('Boat backend running ')
 })
 
 

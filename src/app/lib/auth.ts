@@ -66,7 +66,7 @@ export const auth = betterAuth({
     expiresIn: parseMs(envVariables.BETTER_AUTH_TOKEN_EXPIRES_IN) / 1000,
     updateAge: ms("1d") / 1000,
     cookieOptions: {
-      sameSite: "lax", 
+      sameSite: "none", 
     },
     cookieCache: {
       enabled: true,
