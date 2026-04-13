@@ -29,10 +29,9 @@ const getAllBoats = async (query: IQueryParams) => {
 
 const featuredBoats = async () => {
   const result = await prisma.boat.findMany({
-    where: {
-      isApproved: true,
-      status: BoatStatus.AVAILABLE
-    },
+    // where: {
+    //   isApproved: true,
+    // },
     orderBy: {
       rating: 'desc'
     },

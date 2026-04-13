@@ -133,6 +133,24 @@ const forgotPassword = catchAsync(async (req: Request, res: Response) => {
 });
 
 
+const resetPassword = catchAsync(async (req: Request, res: Response) => {
+  const { password, token } = req.body;
+
+  if (!password || !token) {
+    throw new AppErrors(status.BAD_REQUEST, "Password and token are required");
+  }
+
+  await AuthService.resetPassword(password, token);
+
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Password has been reset successfully",
+    data: null,
+  });
+});
+
+
 const googleLogin = catchAsync(async (req: Request, res: Response) => {
     const redirectPath = req.query.redirect || "/dashboard";
 
@@ -226,5 +244,6 @@ export const AuthController = {
     goolgeLoginSuccess,
     handleAuthError,
     getMe,
+    resetPassword,
     resendVerificationEmail
 }

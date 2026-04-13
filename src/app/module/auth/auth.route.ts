@@ -21,6 +21,8 @@ router.post('/refresh-token', AuthController.refreshToken);
 
 router.post('/logout', AuthController.logout);
 
+router.post('/reset-password', AuthController.resetPassword);
+
 router.post('/forgot-password', AuthController.forgotPassword);
 
 router.get('/me', checkAuth(UserRole.CUSTOMER, UserRole.BOAT_OWNER, UserRole.ADMIN, UserRole.SUPER_ADMIN), AuthController.getMe)

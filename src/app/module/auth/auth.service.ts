@@ -199,6 +199,22 @@ const forgotPassword = async (email: string) => {
   return { success: true };
 };
 
+
+export const resetPassword = async (password: string, token: string) => {
+  const result = await auth.api.resetPassword({
+    body: {
+      newPassword: password,
+      token: token,
+    },
+  });
+
+  if (!result) {
+    throw new AppErrors(status.BAD_REQUEST, "Invalid or expired reset token");
+  }
+
+  return { success: true };
+};
+
 const getMe = async (userId: string) => {
   const result = await prisma.user.findUnique({
     where: {
@@ -269,5 +285,6 @@ export const AuthService = {
   forgotPassword,
   goolgeLoginSuccess,
   getMe,
+  resetPassword,
   resendVerificationEmail,
 };
