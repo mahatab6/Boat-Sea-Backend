@@ -14,27 +14,98 @@ import { hashPassword } from "better-auth/crypto";
 import { verifyPassword } from "../../shared/password";
 
 const register = async (payload: Iregister) => {
-  const { name, email, password, role } = payload;
+  let { name, email, password, role } = payload;
+  
+  // Normalize email to lowercase to avoid case-sensitivity issues
+  email = email.toLowerCase().trim();
 
-  const data = await auth.api.signUpEmail({
-    body: {
-      name,
+  try {
+    const data = await auth.api.signUpEmail({
+      body: { name, email, password, role },
+    });
+
+    if (!data || !data.user) {
+      throw new AppErrors(status.INTERNAL_SERVER_ERROR, "Failed to register");
+    }
+
+    console.log("User created by better-auth:", {
+      id: data.user.id,
+      email: data.user.email,
+      emailVerified: data.user.emailVerified,
+      status: (data.user as any).status,
+    });
+
+    let updatedUser;
+    try {
+      updatedUser = await prisma.user.update({
+        where: { email },
+        data: {
+          emailVerified: true,
+          status: UserStatus.ACTIVE,
+        },
+      });
+      console.log("User updated successfully:", {
+        id: updatedUser.id,
+        email: updatedUser.email,
+        emailVerified: updatedUser.emailVerified,
+        status: updatedUser.status,
+      });
+    } catch (updateError: any) {
+      console.error("Error updating user status:", {
+        error: updateError.message,
+        code: updateError.code,
+        email,
+        meta: updateError.meta,
+      });
+      // Fallback: fetch the user from database
+      const dbUser = await prisma.user.findUnique({
+        where: { email },
+      });
+      
+      if (!dbUser) {
+        throw new AppErrors(
+          status.INTERNAL_SERVER_ERROR,
+          "Could not retrieve created user"
+        );
+      }
+      
+      updatedUser = dbUser;
+    }
+
+    const jwtPayload = {
+      userId: updatedUser.id,
+      email: updatedUser.email,
+      role: updatedUser.role,
+    };
+
+    const accessToken = tokenUtils.getAccessToken(jwtPayload);
+    const refreshToken = tokenUtils.getRefreshToken(jwtPayload);
+
+    if (!accessToken || !refreshToken) {
+      console.error("Token generation failed:", {
+        accessTokenExists: !!accessToken,
+        refreshTokenExists: !!refreshToken,
+        payload: jwtPayload,
+      });
+      throw new AppErrors(
+        status.INTERNAL_SERVER_ERROR,
+        "Failed to generate authentication tokens"
+      );
+    }
+
+    return {
+      user: updatedUser,
+      accessToken,
+      refreshToken,
+    };
+  } catch (error: any) {
+    console.error("Register service error:", {
+      error: error.message,
+      code: error.code,
       email,
-      password,
-      role,
-    },
-  });
-
-  if (!data.user) {
-    throw new AppErrors(
-      status.INTERNAL_SERVER_ERROR,
-      "Failed to register customer",
-    );
+    });
+    throw error;
   }
-
-  return {
-    user: data.user,
-  };
 };
 
 const login = async (payload: Ilogin) => {

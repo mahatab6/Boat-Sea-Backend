@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "module": "esnext",                                
+    "module": "esnext",         
+    "types": ["node"],                       
     "rootDir": "./src",
     "outDir": "./dist",  
     "strict": true,
@@ -11,6 +12,6 @@
     "forceConsistentCasingInFileNames": true,
     "ignoreDeprecations": "5.0"
   },
-"include": ["src", "api"],
+"include": ["src", "api", "types"],
 "exclude": ["node_modules", "dist"]
 }

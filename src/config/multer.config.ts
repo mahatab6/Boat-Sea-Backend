@@ -1,11 +1,13 @@
 
 import multer from "multer";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
 import { cloudinaryUpload } from "./cloudinary.config";
+import pkg from "multer-storage-cloudinary";
+
+const { CloudinaryStorage } = pkg;
 
 const storage = new CloudinaryStorage({
     cloudinary: cloudinaryUpload,
-    params: async (req, file) => {
+    params: async (req:any, file: any) => {
         const originalName = file.originalname;
         const extension = originalName.split(".").pop()?.toLocaleLowerCase();
 

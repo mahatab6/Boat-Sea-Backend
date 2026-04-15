@@ -9,17 +9,39 @@ import AppErrors from "../../errorHandler/AppErrors";
 import { envVariables } from "../../../config/env";
 import { auth } from "../../lib/auth";
 
-
 const register = catchAsync(async (req: Request, res: Response) => {
   const payload = req.body;
 
   const result = await AuthService.register(payload);
 
+  const { accessToken, refreshToken, user } = result;
+
+  // Verify tokens are generated before setting cookies
+  if (!accessToken || !refreshToken) {
+    console.error("Missing tokens in response", {
+      accessToken: !!accessToken,
+      refreshToken: !!refreshToken,
+      userId: user?.id,
+      email: user?.email,
+    });
+    throw new AppErrors(
+      status.INTERNAL_SERVER_ERROR,
+      "Failed to generate authentication tokens"
+    );
+  }
+
+  tokenUtils.setAccessTokenCookie(res, accessToken);
+  tokenUtils.setRefreshTokenCookie(res, refreshToken);
+
   sendResponse(res, {
     httpStatusCode: 201,
     success: true,
-    message: "Account created successfully. Please verify your email.",
-    data: result,
+    message: "Account created successfully",
+    data: {
+      accessToken, 
+      refreshToken,
+      user,
+    },
   });
 });
 

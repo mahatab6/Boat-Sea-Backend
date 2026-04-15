@@ -1,12 +1,12 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { prisma } from "./prisma";
+import { prisma } from "./prisma"; 
 import { envVariables } from "../../config/env";
 import { UserRole, UserStatus } from "../../generated/prisma/enums";
 import ms from "ms";
 import { emailOTP } from "better-auth/plugins";
 import { sendEmail } from "../utils/email";
-// If your Prisma file is located elsewhere, you can change the path
+import { waitUntil } from '@vercel/functions';
 
 const parseMs = (value: string) => ms(value as import("ms").StringValue);
 
@@ -14,7 +14,7 @@ export const auth = betterAuth({
   baseURL: envVariables.BETTER_AUTH_URL,
   secret: envVariables.BETTER_AUTH_SECRET,
   database: prismaAdapter(prisma, {
-    provider: "postgresql", // or "mysql", "postgresql", ...etc
+    provider: "postgresql",
   }),
 
   user: {
@@ -44,29 +44,36 @@ export const auth = betterAuth({
 
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: true,
-    async sendResetPassword({ user, url, token }) {
+    requireEmailVerification: false,
+    autoSignIn: true,
+
+
+    async sendResetPassword({ user, token }) {
       const resetLink = `${envVariables.FRONTEND_URL}/reset-password/${token}`;
-      await sendEmail({
-        to: user.email,
-        subject: "Reset Your Password",
-        templateName: "password-reset",
-        templateData: {
-          name: user.name,
-          otp: token,
-          resetLink,
-          url,
-        },
-      });
+
+      waitUntil(
+        sendEmail({
+          to: user.email,
+          subject: "Reset Your Password",
+          templateName: "password-reset",
+          templateData: {
+            name: user.name,
+            otp: token,
+            resetLink,
+          },
+        }).catch((err) => {
+          console.error("Background reset password email failed:", err);
+        })
+      );
     },
-    expiresIn: 5 * 30
+    expiresIn: 5 * 60, 
   },
 
   session: {
     expiresIn: parseMs(envVariables.BETTER_AUTH_TOKEN_EXPIRES_IN) / 1000,
     updateAge: ms("1d") / 1000,
     cookieOptions: {
-      sameSite: "none", 
+      sameSite: "none",
     },
     cookieCache: {
       enabled: true,
@@ -77,79 +84,61 @@ export const auth = betterAuth({
   plugins: [
     emailOTP({
       overrideDefaultEmailVerification: true,
+
       async sendVerificationOTP({ email, otp, type }) {
-        if (type === "email-verification") {
-          const user = await prisma.user.findUnique({
-            where: {
-              email: email,
-            },
-          });
+      
+        const user = await prisma.user.findUnique({
+          where: { email },
+        });
 
-          if (!user) {
-            console.error(
-              `User with email ${email} not found. Cannot send verification OTP.`,
-            );
-            return;
-          }
-
-          if (user && user.role === UserRole.SUPER_ADMIN) {
-            console.log(
-              `User with email ${email} is a super admin. Skipping sending verification OTP.`,
-            );
-            return;
-          }
-
-          if (user && !user.emailVerified) {
-            sendEmail({
-              to: email,
-              subject: "Verify Your Email",
-              templateName: "otp",
-              templateData: {
-                name: user.name,
-                otp: otp,
-              },
-            });
-          }
-        } else if (type === "forget-password") {
-          const user = await prisma.user.findUnique({
-            where: {
-              email: email,
-            },
-          });
-
-          if (user) {
-          sendEmail({
-            to: email,
-            subject: "Reset Your Password",
-            templateName: "otp",
-            templateData: {
-              name: user.name,
-              otp: otp,
-            },
-          });
+        if (!user) {
+          console.error(`User with email ${email} not found.`);
+          return;
         }
 
+      
+        if (user.role === UserRole.SUPER_ADMIN) return;
+
+        let subject = "Verify Your Email";
+        let templateName = "otp";
+        let templateData: Record<string, any> = {
+          name: user.name,
+          otp: otp,
         };
+
+      
+        if (type === "forget-password") {
+          subject = "Reset Your Password";
+       
+        }
+
+     
+        waitUntil(
+          sendEmail({
+            to: email,
+            subject: subject,
+            templateName: templateName,
+            templateData: templateData,
+          }).catch((err) => {
+            console.error(`Background ${type} email failed:`, err);
+          })
+        );
       },
-      expiresIn: 2 * 60, 
+      expiresIn: 5 * 60,
       otpLength: 6,
     }),
   ],
 
-   socialProviders: {
+  socialProviders: {
     google: {
       clientId: envVariables.Client_ID,
       clientSecret: envVariables.Client_Secret,
-
-      mapProfileToUser: () => {
-        return {
-          role: UserRole.CUSTOMER,
-          status: UserStatus.ACTIVE,
-          needPasswordChange: false,
-          isDeleted: false,
-          deletedAt: null,
-        };
-      },
+      mapProfileToUser: () => ({
+        role: UserRole.CUSTOMER,
+        status: UserStatus.ACTIVE,
+        isDeleted: false,
+        deletedAt: null,
+      }),
     },
   },
 });
