@@ -173,17 +173,19 @@ const resetPassword = catchAsync(async (req: Request, res: Response) => {
 });
 
 
-const googleLogin = catchAsync(async (req: Request, res: Response) => {
+const googleLogin = catchAsync ( async (req:Request, res: Response) => {
     const redirectPath = req.query.redirect || "/dashboard";
+    
 
     const encodedRedirectPath = encodeURIComponent(redirectPath as string);
 
     const callbackURL = `${envVariables.BETTER_AUTH_URL}/api/v1/auth/google/success?redirect=${encodedRedirectPath}`;
 
     res.render("googleRedirect", { callbackURL, betterAuthUrl: envVariables.BETTER_AUTH_URL });
-});
 
-const goolgeLoginSuccess = catchAsync(async (req: Request, res: Response) => {
+})
+
+const goolgeLoginSuccess = catchAsync ( async (req:Request, res: Response) => {
     const redirectPath = req.query.redirect as string || "/dashboard";
     
     const sessionToken = req.cookies["better-auth.session_token"];
@@ -216,12 +218,12 @@ const goolgeLoginSuccess = catchAsync(async (req: Request, res: Response) => {
     const isValidRedirect = redirectPath.startsWith("/") && !redirectPath.startsWith("//");
     const finalRedirect = isValidRedirect ? `${envVariables.FRONTEND_URL}${redirectPath}` : envVariables.FRONTEND_URL;
     res.redirect(finalRedirect);
-});
+})
 
-const handleAuthError = catchAsync(async (req: Request, res: Response) => {
+const handleAuthError = catchAsync ( async (req:Request, res: Response) => {
     const error = req.query.error as string || "oauth_failed";
     res.redirect(`${envVariables.FRONTEND_URL}/login?error=${error}`);
-});
+}) 
 
 const getMe = catchAsync(async (req: Request, res: Response) => {
 

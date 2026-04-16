@@ -103,8 +103,8 @@ import { fileURLToPath } from "url";
 import * as runtime from "@prisma/client/runtime/client";
 var config = {
   "previewFeatures": [],
-  "clientVersion": "7.5.0",
-  "engineVersion": "280c870be64f457428992c43c1f6d557fab6e29e",
+  "clientVersion": "7.7.0",
+  "engineVersion": "75cbdc1eb7150937890ad5465d861175c6624711",
   "activeProvider": "postgresql",
   "inlineSchema": 'model User {\n  id            String         @id\n  name          String\n  email         String\n  emailVerified Boolean        @default(false)\n  image         String?\n  createdAt     DateTime       @default(now())\n  updatedAt     DateTime       @updatedAt\n  role          String         @default("CUSTOMER")\n  status        String         @default("PENDING_VERIFICATION")\n  isDeleted     Boolean        @default(false)\n  deletedAt     DateTime?\n  sessions      Session[]\n  accounts      Account[]\n  bookings      Booking[]\n  boats         Boat[]\n  reviews       Review[]\n  notifications Notification[]\n  schedules     Schedule[]\n\n  @@unique([email])\n  @@map("user")\n}\n\nmodel Session {\n  id        String   @id\n  expiresAt DateTime\n  token     String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  ipAddress String?\n  userAgent String?\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([token])\n  @@index([userId])\n  @@map("session")\n}\n\nmodel Account {\n  id                    String    @id\n  accountId             String\n  providerId            String\n  userId                String\n  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n  accessToken           String?\n  refreshToken          String?\n  idToken               String?\n  accessTokenExpiresAt  DateTime?\n  refreshTokenExpiresAt DateTime?\n  scope                 String?\n  password              String?\n  createdAt             DateTime  @default(now())\n  updatedAt             DateTime  @updatedAt\n\n  @@index([userId])\n  @@map("account")\n}\n\nmodel Verification {\n  id         String   @id\n  identifier String\n  value      String\n  expiresAt  DateTime\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n\n  @@index([identifier])\n  @@map("verification")\n}\n\nmodel Boat {\n  id                 String     @id @default(uuid())\n  boatName           String     @db.VarChar(150)\n  boatType           BoatType\n  status             BoatStatus\n  primary_img        String?\n  capacity           Int\n  ownerId            String\n  owner              User       @relation(fields: [ownerId], references: [id])\n  boatCondition      String\n  location           String\n  pricePerTrip       Int\n  description        String\n  width              Float\n  length             Float\n  engineCapacity     Int\n  manufacturer       String\n  manufacturingYear  Int\n  specifications     String\n  amenities          String[]\n  cancellationPolicy String\n  rating             Float      @default(0)\n  totalReviews       Int        @default(0)\n  isApproved         Boolean    @default(false)\n  createdAt          DateTime   @default(now())\n  updatedAt          DateTime   @updatedAt\n\n  schedules   Schedule[]\n  bookings    Booking[]\n  reviews     Review[]\n  license     License?\n  boat_images Boat_Images[]\n}\n\nmodel Boat_Images {\n  id     String @id @default(uuid(7))\n  boatId String @unique\n\n  imageUrl   String[]\n  isPrimary  Boolean\n  caption    String?\n  uploadedAt DateTime\n  boat       Boat     @relation(fields: [boatId], references: [id])\n}\n\nmodel Booking {\n  id            String @id @default(uuid())\n  bookingNumber String @unique\n\n  userId String\n  user   User   @relation(fields: [userId], references: [id])\n\n  scheduleId String\n  schedule   Schedule @relation(fields: [scheduleId], references: [id])\n\n  boatId String\n  boat   Boat   @relation(fields: [boatId], references: [id])\n\n  totalGuests Int\n  totalAmount Float\n\n  bookingStatus BookingStatus @default(PENDING)\n  paymentStatus PaymentStatus @default(PENDING)\n\n  bookingDate      DateTime @default(now())\n  tripDate         DateTime\n  passengerDetails Json\n\n  specialRequests    String?\n  cancellationDate   DateTime?\n  cancellationReason String?\n  emergencyContact   String?\n  isInsured          Boolean   @default(false)\n\n  createdAt DateTime   @default(now())\n  updatedAt DateTime   @updatedAt\n  payments  Payments[]\n  tickets   Ticket[]\n  seats     Seat[]\n}\n\nenum BoatType {\n  SPEEDBOAT\n  FERRY\n  LAUNCH\n  PRIVATE\n  YACHT\n  Speedboat\n  CATAMARAN\n}\n\nenum BoatStatus {\n  AVAILABLE\n  UNAVAILABLE\n  MAINTENANCE\n  SUSPENDED\n  Booked\n}\n\nenum VerificationStatus {\n  PENDING\n  UNDER_REVIEW\n  APPROVED\n  REJECTED\n  EXPIRED\n  SUSPENDED\n}\n\nenum UserRole {\n  CUSTOMER\n  BOAT_OWNER\n  ADMIN\n  SUPER_ADMIN\n}\n\nenum UserStatus {\n  ACTIVE\n  INACTIVE\n  SUSPENDED\n  BANNED\n  PENDING_VERIFICATION\n}\n\nenum BookingStatus {\n  PENDING\n  CONFIRMED\n  CANCELLED\n  COMPLETED\n}\n\nenum PaymentStatus {\n  PENDING\n  PAID\n  FAILED\n  REFUNDED\n  UNPAID\n}\n\nenum ScheduleStatus {\n  UPCOMING\n  ONGOING\n  COMPLETED\n  CANCELLED\n}\n\nenum RecurringPattern {\n  DAILY\n  WEEKLY\n  MONTHLY\n}\n\nenum RouteDifficulty {\n  EASY\n  MODERATE\n  HARD\n}\n\nenum Gender {\n  MALE\n  FEMALE\n  CHILD\n}\n\nenum TicketStatus {\n  VALID\n  USED\n  CANCELLED\n}\n\nmodel License {\n  id     String @id @default(uuid(7))\n  userId String\n  boatId String @unique\n\n  licenseType        String\n  licenseNumber      String\n  registrationNumber String @unique\n\n  issueDate  DateTime\n  expiryDate DateTime\n\n  documentUrl        String[]\n  verificationStatus VerificationStatus\n  verifiedAt         DateTime\n  isVerified         Boolean\n\n  boat Boat @relation(fields: [boatId], references: [id])\n}\n\nmodel Notification {\n  id        String    @id @default(uuid(7))\n  userId    String\n  user      User      @relation(fields: [userId], references: [id])\n  title     String\n  message   String\n  isRead    Boolean   @default(false)\n  createdAt DateTime  @default(now())\n  readAt    DateTime?\n}\n\nmodel Payments {\n  id             String        @id @default(uuid(7))\n  bookingId      String\n  booking        Booking       @relation(fields: [bookingId], references: [id])\n  stripeEventId  String?       @unique\n  amount         Decimal\n  currency       String        @default("USD")\n  paymentMethod  String\n  transactionId  String        @unique\n  paymentStatus  PaymentStatus @default(PENDING)\n  paymentDate    DateTime?\n  paymentDetails String?       @db.Text\n  refundId       String?\n  refundDate     DateTime?\n  createdAt      DateTime      @default(now())\n}\n\nmodel Review {\n  id String @id @default(uuid(7))\n\n  userId String\n  boatId String\n\n  rating  Float\n  comment String?\n\n  images     String[]\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n  isVerified Boolean? @default(false)\n\n  boat Boat @relation(fields: [boatId], references: [id])\n  user User @relation(fields: [userId], references: [id])\n}\n\nmodel Route {\n  id String @id @default(uuid())\n\n  name String @db.VarChar(150)\n\n  difficulty RouteDifficulty @default(EASY)\n\n  duration String @db.VarChar(50)\n  distance String @db.VarChar(20)\n\n  scenicHighlights String @db.VarChar(255)\n\n  description String?\n\n  image String?\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  schedules Schedule[]\n}\n\nmodel Schedule {\n  id String @id @default(uuid(7))\n\n  boatId String\n  boat   Boat   @relation(fields: [boatId], references: [id])\n\n  routeId String\n  route   Route  @relation(fields: [routeId], references: [id])\n\n  userId String\n  user   User   @relation(fields: [userId], references: [id])\n\n  startDate DateTime\n  endDate   DateTime? //\n\n  departureTime String\n  arrivalTime   String\n\n  availableSeats   Int\n  status           ScheduleStatus    @default(UPCOMING)\n  recurringPattern RecurringPattern?\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  bookings Booking[]\n  seats    Seat[]\n}\n\n// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Get a free hosted Postgres database in seconds: `npx create-db`\n\ngenerator client {\n  provider = "prisma-client"\n  output   = "../../src/generated/prisma"\n}\n\ndatasource db {\n  provider = "postgresql"\n}\n\nmodel Seat {\n  id            String   @id @default(uuid(7))\n  scheduleId    String\n  schedule      Schedule @relation(fields: [scheduleId], references: [id])\n  totalGuests   Int\n  isAvailable   Boolean  @default(true)\n  passengerInfo Gender?\n  price         Decimal?\n\n  // Seat ti kon booking er under e ache\n  bookingId String?\n  booking   Booking? @relation(fields: [bookingId], references: [id])\n\n  @@unique([scheduleId, totalGuests]) // Ek schedule e seat double hobe na\n}\n\nmodel Ticket {\n  id        String  @id @default(uuid(7))\n  bookingId String\n  booking   Booking @relation(fields: [bookingId], references: [id])\n\n  seatId String @unique\n\n  ticketNumber String       @unique\n  qrCode       String?\n  issueDate    DateTime     @default(now())\n  status       TicketStatus @default(VALID)\n  isScanned    Boolean      @default(false)\n  scannedAt    DateTime?\n  scannedBy    String?\n}\n',
   "runtimeDataModel": {
@@ -207,13 +207,14 @@ var prisma = new PrismaClient({ adapter });
 
 // src/app/lib/auth.ts
 import ms from "ms";
-import { emailOTP } from "better-auth/plugins";
+import { emailOTP, oAuthProxy } from "better-auth/plugins";
 
 // src/app/utils/email.ts
 import nodemailer from "nodemailer";
 import path2 from "path";
 import status2 from "http-status";
 import ejs from "ejs";
+var isSecure = Number(envVariables.SMTP_PORT) === 465;
 var transporter = nodemailer.createTransport({
   host: envVariables.SMTP_HOST,
   port: Number(envVariables.SMTP_PORT || "465"),
@@ -221,11 +222,28 @@ var transporter = nodemailer.createTransport({
   auth: {
     user: envVariables.EMAIL_USER,
     pass: envVariables.EMAIL_PASS
-  }
+  },
+  tls: {
+    rejectUnauthorized: false
+  },
+  connectionTimeout: 15e3,
+  greetingTimeout: 15e3,
+  socketTimeout: 2e4,
+  debug: true,
+  logger: true
 });
-var sendEmail = async ({ to, subject, templateName, templateData, attachments }) => {
+var sendEmail = async ({
+  to,
+  subject,
+  templateName,
+  templateData,
+  attachments
+}) => {
   try {
-    const templatePath = path2.resolve(process.cwd(), `src/app/templates/${templateName}.ejs`);
+    const templatePath = path2.resolve(
+      process.cwd(),
+      `src/app/templates/${templateName}.ejs`
+    );
     const html = await ejs.renderFile(templatePath, templateData);
     const info = await transporter.sendMail({
       from: envVariables.SMTP_FROM,
@@ -240,19 +258,24 @@ var sendEmail = async ({ to, subject, templateName, templateData, attachments })
     });
     console.log("Email sent: ", info.messageId);
   } catch (error) {
+    console.error("=== EMAIL SEND FAILED ===");
+    console.error("Error Code:", error.code);
+    console.error("Command:", error.command);
+    console.error("Message:", error.message);
+    console.error("Full Error:", JSON.stringify(error, null, 2));
     console.error("Error sending email:", error);
     throw new AppErrors_default(status2.INSUFFICIENT_STORAGE, "Failed to send email");
   }
 };
 
 // src/app/lib/auth.ts
+import { waitUntil } from "@vercel/functions";
 var parseMs = (value) => ms(value);
 var auth = betterAuth({
   baseURL: envVariables.BETTER_AUTH_URL,
   secret: envVariables.BETTER_AUTH_SECRET,
   database: prismaAdapter(prisma, {
     provider: "postgresql"
-    // or "mysql", "postgresql", ...etc
   }),
   user: {
     additionalFields: {
@@ -280,22 +303,26 @@ var auth = betterAuth({
   },
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: true,
-    async sendResetPassword({ user, url, token }) {
+    requireEmailVerification: false,
+    autoSignIn: true,
+    async sendResetPassword({ user, token }) {
       const resetLink = `${envVariables.FRONTEND_URL}/reset-password/${token}`;
-      await sendEmail({
-        to: user.email,
-        subject: "Reset Your Password",
-        templateName: "password-reset",
-        templateData: {
-          name: user.name,
-          otp: token,
-          resetLink,
-          url
-        }
-      });
+      waitUntil(
+        sendEmail({
+          to: user.email,
+          subject: "Reset Your Password",
+          templateName: "password-reset",
+          templateData: {
+            name: user.name,
+            otp: token,
+            resetLink
+          }
+        }).catch((err) => {
+          console.error("Background reset password email failed:", err);
+        })
+      );
     },
-    expiresIn: 5 * 30
+    expiresIn: 5 * 60
   },
   session: {
     expiresIn: parseMs(envVariables.BETTER_AUTH_TOKEN_EXPIRES_IN) / 1e3,
@@ -308,76 +335,63 @@ var auth = betterAuth({
       maxAge: parseMs(envVariables.BETTER_AUTH_TOKEN_EXPIRES_IN) / 1e3
     }
   },
+  cookies: {
+    sessionToken: {
+      name: "better-auth.session_token",
+      options: {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
+      }
+    }
+  },
   plugins: [
     emailOTP({
       overrideDefaultEmailVerification: true,
       async sendVerificationOTP({ email, otp, type }) {
-        if (type === "email-verification") {
-          const user = await prisma.user.findUnique({
-            where: {
-              email
-            }
-          });
-          if (!user) {
-            console.error(
-              `User with email ${email} not found. Cannot send verification OTP.`
-            );
-            return;
-          }
-          if (user && user.role === UserRole.SUPER_ADMIN) {
-            console.log(
-              `User with email ${email} is a super admin. Skipping sending verification OTP.`
-            );
-            return;
-          }
-          if (user && !user.emailVerified) {
-            sendEmail({
-              to: email,
-              subject: "Verify Your Email",
-              templateName: "otp",
-              templateData: {
-                name: user.name,
-                otp
-              }
-            });
-          }
-        } else if (type === "forget-password") {
-          const user = await prisma.user.findUnique({
-            where: {
-              email
-            }
-          });
-          if (user) {
-            sendEmail({
-              to: email,
-              subject: "Reset Your Password",
-              templateName: "otp",
-              templateData: {
-                name: user.name,
-                otp
-              }
-            });
-          }
+        const user = await prisma.user.findUnique({
+          where: { email }
+        });
+        if (!user) {
+          console.error(`User with email ${email} not found.`);
+          return;
         }
-        ;
+        if (user.role === UserRole.SUPER_ADMIN) return;
+        let subject = "Verify Your Email";
+        let templateName = "otp";
+        let templateData = {
+          name: user.name,
+          otp
+        };
+        if (type === "forget-password") {
+          subject = "Reset Your Password";
+        }
+        waitUntil(
+          sendEmail({
+            to: email,
+            subject,
+            templateName,
+            templateData
+          }).catch((err) => {
+            console.error(`Background ${type} email failed:`, err);
+          })
+        );
       },
-      expiresIn: 2 * 60,
+      expiresIn: 5 * 60,
       otpLength: 6
-    })
+    }),
+    oAuthProxy()
   ],
   socialProviders: {
     google: {
       clientId: envVariables.Client_ID,
       clientSecret: envVariables.Client_Secret,
-      mapProfileToUser: () => {
-        return {
-          role: UserRole.CUSTOMER,
-          status: UserStatus.ACTIVE,
-          needPasswordChange: false,
-          isDeleted: false,
-          deletedAt: null
-        };
-      }
+      mapProfileToUser: () => ({
+        role: UserRole.CUSTOMER,
+        status: UserStatus.ACTIVE,
+        isDeleted: false,
+        deletedAt: null
+      })
     }
   }
 });
@@ -1473,7 +1487,8 @@ var createScheduleSchema = z.object({
 
 // src/config/multer.config.ts
 import multer from "multer";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
+import pkg from "multer-storage-cloudinary";
+var { CloudinaryStorage } = pkg;
 var storage = new CloudinaryStorage({
   cloudinary: cloudinaryUpload,
   params: async (req, file) => {
@@ -1579,24 +1594,85 @@ var tokenUtils = {
 
 // src/app/module/auth/auth.service.ts
 var register = async (payload) => {
-  const { name, email, password, role } = payload;
-  const data = await auth.api.signUpEmail({
-    body: {
-      name,
-      email,
-      password,
-      role
+  let { name, email, password, role } = payload;
+  email = email.toLowerCase().trim();
+  try {
+    const data = await auth.api.signUpEmail({
+      body: { name, email, password, role }
+    });
+    if (!data || !data.user) {
+      throw new AppErrors_default(status8.INTERNAL_SERVER_ERROR, "Failed to register");
     }
-  });
-  if (!data.user) {
-    throw new AppErrors_default(
-      status8.INTERNAL_SERVER_ERROR,
-      "Failed to register customer"
-    );
+    console.log("User created by better-auth:", {
+      id: data.user.id,
+      email: data.user.email,
+      emailVerified: data.user.emailVerified,
+      status: data.user.status
+    });
+    let updatedUser;
+    try {
+      updatedUser = await prisma.user.update({
+        where: { email },
+        data: {
+          emailVerified: true,
+          status: UserStatus.ACTIVE
+        }
+      });
+      console.log("User updated successfully:", {
+        id: updatedUser.id,
+        email: updatedUser.email,
+        emailVerified: updatedUser.emailVerified,
+        status: updatedUser.status
+      });
+    } catch (updateError) {
+      console.error("Error updating user status:", {
+        error: updateError.message,
+        code: updateError.code,
+        email,
+        meta: updateError.meta
+      });
+      const dbUser = await prisma.user.findUnique({
+        where: { email }
+      });
+      if (!dbUser) {
+        throw new AppErrors_default(
+          status8.INTERNAL_SERVER_ERROR,
+          "Could not retrieve created user"
+        );
+      }
+      updatedUser = dbUser;
+    }
+    const jwtPayload = {
+      userId: updatedUser.id,
+      email: updatedUser.email,
+      role: updatedUser.role
+    };
+    const accessToken = tokenUtils.getAccessToken(jwtPayload);
+    const refreshToken3 = tokenUtils.getRefreshToken(jwtPayload);
+    if (!accessToken || !refreshToken3) {
+      console.error("Token generation failed:", {
+        accessTokenExists: !!accessToken,
+        refreshTokenExists: !!refreshToken3,
+        payload: jwtPayload
+      });
+      throw new AppErrors_default(
+        status8.INTERNAL_SERVER_ERROR,
+        "Failed to generate authentication tokens"
+      );
+    }
+    return {
+      user: updatedUser,
+      accessToken,
+      refreshToken: refreshToken3
+    };
+  } catch (error) {
+    console.error("Register service error:", {
+      error: error.message,
+      code: error.code,
+      email
+    });
+    throw error;
   }
-  return {
-    user: data.user
-  };
 };
 var login = async (payload) => {
   const { email, password } = payload;
@@ -1808,11 +1884,30 @@ import status9 from "http-status";
 var register2 = catchAsync(async (req, res) => {
   const payload = req.body;
   const result = await AuthService.register(payload);
+  const { accessToken, refreshToken: refreshToken3, user } = result;
+  if (!accessToken || !refreshToken3) {
+    console.error("Missing tokens in response", {
+      accessToken: !!accessToken,
+      refreshToken: !!refreshToken3,
+      userId: user?.id,
+      email: user?.email
+    });
+    throw new AppErrors_default(
+      status9.INTERNAL_SERVER_ERROR,
+      "Failed to generate authentication tokens"
+    );
+  }
+  tokenUtils.setAccessTokenCookie(res, accessToken);
+  tokenUtils.setRefreshTokenCookie(res, refreshToken3);
   sendResponse(res, {
     httpStatusCode: 201,
     success: true,
-    message: "Account created successfully. Please verify your email.",
-    data: result
+    message: "Account created successfully",
+    data: {
+      accessToken,
+      refreshToken: refreshToken3,
+      user
+    }
   });
 });
 var login2 = catchAsync(async (req, res) => {
@@ -2020,9 +2115,6 @@ router2.post("/logout", AuthController.logout);
 router2.post("/reset-password", AuthController.resetPassword);
 router2.post("/forgot-password", AuthController.forgotPassword);
 router2.get("/me", checkAuth(UserRole.CUSTOMER, UserRole.BOAT_OWNER, UserRole.ADMIN, UserRole.SUPER_ADMIN), AuthController.getMe);
-router2.get("/login/google", AuthController.googleLogin);
-router2.get("/google/success", AuthController.goolgeLoginSuccess);
-router2.get("/oauth/error", AuthController.handleAuthError);
 var AuthRoutes = router2;
 
 // src/app/module/user/user.route.ts
@@ -3533,16 +3625,11 @@ app.set("view engine", "ejs");
 app.set("views", path3.join(process.cwd(), "src/app/templates"));
 app.use("/api/v1", IndexRoutes);
 app.get("/", (req, res) => {
-  res.send("Boat backend running \u{1F6A4}");
+  res.send("Boat backend running ");
 });
 var app_default = app;
 
 // src/index.ts
-if (process.env.NODE_ENV !== "production") {
-  app_default.listen(envVariables.PORT, () => {
-    console.log(`Server running on http://localhost:${envVariables.PORT}`);
-  });
-}
 var index_default = app_default;
 export {
   index_default as default

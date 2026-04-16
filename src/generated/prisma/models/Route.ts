@@ -193,7 +193,7 @@ export type RouteGroupByOutputType = {
   _max: RouteMaxAggregateOutputType | null
 }
 
-type GetRouteGroupByPayload<T extends RouteGroupByArgs> = Prisma.PrismaPromise<
+export type GetRouteGroupByPayload<T extends RouteGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<RouteGroupByOutputType, T['by']> &
       {

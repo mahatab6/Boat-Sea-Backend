@@ -161,7 +161,7 @@ export type Boat_ImagesGroupByOutputType = {
   _max: Boat_ImagesMaxAggregateOutputType | null
 }
 
-type GetBoat_ImagesGroupByPayload<T extends Boat_ImagesGroupByArgs> = Prisma.PrismaPromise<
+export type GetBoat_ImagesGroupByPayload<T extends Boat_ImagesGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<Boat_ImagesGroupByOutputType, T['by']> &
       {

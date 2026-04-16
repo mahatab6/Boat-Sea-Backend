@@ -349,7 +349,7 @@ export type BoatGroupByOutputType = {
   _max: BoatMaxAggregateOutputType | null
 }
 
-type GetBoatGroupByPayload<T extends BoatGroupByArgs> = Prisma.PrismaPromise<
+export type GetBoatGroupByPayload<T extends BoatGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<BoatGroupByOutputType, T['by']> &
       {

@@ -203,7 +203,7 @@ export type LicenseGroupByOutputType = {
   _max: LicenseMaxAggregateOutputType | null
 }
 
-type GetLicenseGroupByPayload<T extends LicenseGroupByArgs> = Prisma.PrismaPromise<
+export type GetLicenseGroupByPayload<T extends LicenseGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<LicenseGroupByOutputType, T['by']> &
       {

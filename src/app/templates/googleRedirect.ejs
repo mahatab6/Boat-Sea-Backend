@@ -8,7 +8,6 @@
 <body>
     <div>
         <p>Redirecting to Google login...</p>
-
     </div>
 </body>
 
@@ -21,17 +20,22 @@
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    credentials: 'include', // Include cookies for authentication
-                    body: JSON.stringify({ provider: 'google', callbackURL: '<%= callbackURL %>' }), // Specify the provider
+                    credentials: 'include',
+                    body: JSON.stringify({ 
+                        provider: 'google', 
+                        callbackURL: '<%= callbackURL %>' 
+                    }),
                 });
 
                 const data = await response.json();
                 if(data.url) {
-                    window.location.href = data.url; // Redirect to the Google login page
+                    window.location.href = data.url;
                 } else { 
+                    console.error('OAuth error:', data);
                     document.body.innerHTML = '<p>Failed to get Google login URL. Please try again later.</p>';
                 }
             } catch (error) {
+                console.error('Request error:', error);
                 document.body.innerHTML = '<p>Failed to redirect to Google login. Please try again later.</p>';
             }
         }

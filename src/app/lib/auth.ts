@@ -1,12 +1,12 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { prisma } from "./prisma"; 
+import { prisma } from "./prisma";
 import { envVariables } from "../../config/env";
 import { UserRole, UserStatus } from "../../generated/prisma/enums";
 import ms from "ms";
-import { emailOTP } from "better-auth/plugins";
+import { emailOTP, oAuthProxy } from "better-auth/plugins";
 import { sendEmail } from "../utils/email";
-import { waitUntil } from '@vercel/functions';
+import { waitUntil } from "@vercel/functions";
 
 const parseMs = (value: string) => ms(value as import("ms").StringValue);
 
@@ -47,7 +47,6 @@ export const auth = betterAuth({
     requireEmailVerification: false,
     autoSignIn: true,
 
-
     async sendResetPassword({ user, token }) {
       const resetLink = `${envVariables.FRONTEND_URL}/reset-password/${token}`;
 
@@ -63,10 +62,10 @@ export const auth = betterAuth({
           },
         }).catch((err) => {
           console.error("Background reset password email failed:", err);
-        })
+        }),
       );
     },
-    expiresIn: 5 * 60, 
+    expiresIn: 5 * 60,
   },
 
   session: {
@@ -81,12 +80,22 @@ export const auth = betterAuth({
     },
   },
 
+  cookies: {
+    sessionToken: {
+      name: "better-auth.session_token",
+      options: {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+      },
+    },
+  },
+
   plugins: [
     emailOTP({
       overrideDefaultEmailVerification: true,
 
       async sendVerificationOTP({ email, otp, type }) {
-      
         const user = await prisma.user.findUnique({
           where: { email },
         });
@@ -96,7 +105,6 @@ export const auth = betterAuth({
           return;
         }
 
-      
         if (user.role === UserRole.SUPER_ADMIN) return;
 
         let subject = "Verify Your Email";
@@ -106,13 +114,10 @@ export const auth = betterAuth({
           otp: otp,
         };
 
-      
         if (type === "forget-password") {
           subject = "Reset Your Password";
-       
         }
 
-     
         waitUntil(
           sendEmail({
             to: email,
@@ -121,12 +126,13 @@ export const auth = betterAuth({
             templateData: templateData,
           }).catch((err) => {
             console.error(`Background ${type} email failed:`, err);
-          })
+          }),
         );
       },
       expiresIn: 5 * 60,
       otpLength: 6,
     }),
+    oAuthProxy(),
   ],
 
   socialProviders: {
