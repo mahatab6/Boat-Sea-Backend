@@ -27,6 +27,9 @@ interface EnvConfig {
   CLOUDINARY_CLOUD_NAME: string;
   CLOUDINARY_API_KEY: string;
   CLOUDINARY_API_SECRET: string;
+  Open_Router_Api_key: string;
+  OPENROUTER_EMBEDDING_MODEL: string;
+  OPENROUTER_LLM_MODEL: string;
 }
 
 const loadEnvVariables = (): EnvConfig => {
@@ -53,6 +56,9 @@ const loadEnvVariables = (): EnvConfig => {
     "CLOUDINARY_CLOUD_NAME",
     "CLOUDINARY_API_KEY",
     "CLOUDINARY_API_SECRET",
+    "Open_Router_Api_key",
+    "OPENROUTER_EMBEDDING_MODEL",
+    "OPENROUTER_LLM_MODEL",
   ];
 
   requireEnvVariables.forEach((variable) => {
@@ -88,6 +94,9 @@ const loadEnvVariables = (): EnvConfig => {
     CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME as string,
     CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY as string,
     CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET as string,
+    Open_Router_Api_key: process.env.Open_Router_Api_key as string,
+    OPENROUTER_EMBEDDING_MODEL: process.env.OPENROUTER_EMBEDDING_MODEL as string,
+    OPENROUTER_LLM_MODEL: process.env.OPENROUTER_LLM_MODEL as string,
   };
 };
 
