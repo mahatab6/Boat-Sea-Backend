@@ -296,7 +296,7 @@ const getMe = async (userId: string) => {
   return result;
 };
 
-const goolgeLoginSuccess = async (session: Record<string, any>) => {
+const googleLoginSuccess = async (session: Record<string, any>) => {
   const isCustomerExists = await prisma.user.findUnique({
     where: {
       id: session.user.id,
@@ -354,7 +354,7 @@ export const AuthService = {
   refreshToken,
   logout,
   forgotPassword,
-  goolgeLoginSuccess,
+  googleLoginSuccess,
   getMe,
   resetPassword,
   resendVerificationEmail,

@@ -30,6 +30,7 @@ interface EnvConfig {
   Open_Router_Api_key: string;
   OPENROUTER_EMBEDDING_MODEL: string;
   OPENROUTER_LLM_MODEL: string;
+  Google_CallBack_URL: string;
 }
 
 const loadEnvVariables = (): EnvConfig => {
@@ -59,6 +60,7 @@ const loadEnvVariables = (): EnvConfig => {
     "Open_Router_Api_key",
     "OPENROUTER_EMBEDDING_MODEL",
     "OPENROUTER_LLM_MODEL",
+    "Google_CallBack_URL",
   ];
 
   requireEnvVariables.forEach((variable) => {
@@ -97,6 +99,7 @@ const loadEnvVariables = (): EnvConfig => {
     Open_Router_Api_key: process.env.Open_Router_Api_key as string,
     OPENROUTER_EMBEDDING_MODEL: process.env.OPENROUTER_EMBEDDING_MODEL as string,
     OPENROUTER_LLM_MODEL: process.env.OPENROUTER_LLM_MODEL as string,
+    Google_CallBack_URL: process.env.Google_CallBack_URL as string,
   };
 };
 

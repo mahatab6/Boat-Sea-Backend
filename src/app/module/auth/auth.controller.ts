@@ -38,7 +38,7 @@ const register = catchAsync(async (req: Request, res: Response) => {
     success: true,
     message: "Account created successfully",
     data: {
-      accessToken, 
+      accessToken,
       refreshToken,
       user,
     },
@@ -46,27 +46,27 @@ const register = catchAsync(async (req: Request, res: Response) => {
 });
 
 
-const login = catchAsync( async (req: Request, res: Response) => {
-    const payload = req.body;
-    const result = await AuthService.login(payload);
+const login = catchAsync(async (req: Request, res: Response) => {
+  const payload = req.body;
+  const result = await AuthService.login(payload);
 
-    const {accessToken, refreshToken, token, ...rest} = result;
+  const { accessToken, refreshToken, token, ...rest } = result;
 
-    tokenUtils.setAccessTokenCookie(res, accessToken);
-    tokenUtils.setRefreshTokenCookie(res, refreshToken);
-    tokenUtils.setBetterAuthCookie(res, token as string);
+  tokenUtils.setAccessTokenCookie(res, accessToken);
+  tokenUtils.setRefreshTokenCookie(res, refreshToken);
+  tokenUtils.setBetterAuthCookie(res, token as string);
 
-    sendResponse(res, {
-        httpStatusCode: 201,
-        success: true,
-        message: "Login successfully",
-        data: {
-            accessToken,
-            refreshToken,
-            token,
-            ...rest
-        }
-    })
+  sendResponse(res, {
+    httpStatusCode: 201,
+    success: true,
+    message: "Login successfully",
+    data: {
+      accessToken,
+      refreshToken,
+      token,
+      ...rest
+    }
+  })
 })
 
 const verifyEmail = catchAsync(async (req: Request, res: Response) => {
@@ -108,40 +108,40 @@ const refreshToken = catchAsync(async (req: Request, res: Response) => {
 });
 
 const logout = catchAsync(async (req: Request, res: Response) => {
-    const sessionToken = cookieUtils.getCookie(req, "better-auth.session_token");
-    await AuthService.logout(sessionToken);
+  const sessionToken = cookieUtils.getCookie(req, "better-auth.session_token");
+  await AuthService.logout(sessionToken);
 
-    cookieUtils.clearCookie(res, "accessToken", {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-        path: "/",
-    });
-    cookieUtils.clearCookie(res, "refreshToken", {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-        path: "/",
-    });
-    cookieUtils.clearCookie(res, "better-auth.session_token", {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-        path: "/",
-    });
+  cookieUtils.clearCookie(res, "accessToken", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    path: "/",
+  });
+  cookieUtils.clearCookie(res, "refreshToken", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    path: "/",
+  });
+  cookieUtils.clearCookie(res, "better-auth.session_token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    path: "/",
+  });
 
-    sendResponse(res, {
-        httpStatusCode: status.OK,
-        success: true,
-        message: "Logged out successfully",
-        data: { success: true },
-    });
+  sendResponse(res, {
+    httpStatusCode: status.OK,
+    success: true,
+    message: "Logged out successfully",
+    data: { success: true },
+  });
 });
 
 
 const forgotPassword = catchAsync(async (req: Request, res: Response) => {
-    const email = req.body.email?.toLowerCase().trim();
-  
+  const email = req.body.email?.toLowerCase().trim();
+
   if (!email) {
     throw new AppErrors(status.BAD_REQUEST, "Email is required");
   }
@@ -173,65 +173,68 @@ const resetPassword = catchAsync(async (req: Request, res: Response) => {
 });
 
 
-const googleLogin = catchAsync ( async (req:Request, res: Response) => {
-    const redirectPath = req.query.redirect || "/dashboard";
-    
+const googleLogin = catchAsync(async (req: Request, res: Response) => {
+  const redirectPath = req.query.redirect || "/dashboard";
 
-    const encodedRedirectPath = encodeURIComponent(redirectPath as string);
 
-    const callbackURL = `${envVariables.BETTER_AUTH_URL}/api/v1/auth/google/success?redirect=${encodedRedirectPath}`;
+  const encodedRedirectPath = encodeURIComponent(redirectPath as string);
 
-    res.render("googleRedirect", { callbackURL, betterAuthUrl: envVariables.BETTER_AUTH_URL });
+  const backendUrl = envVariables.BETTER_AUTH_URL.includes("/api/auth") 
+    ? envVariables.BETTER_AUTH_URL.split("/api/auth")[0] 
+    : envVariables.BETTER_AUTH_URL;
+  const callbackURL = `${backendUrl}/api/v1/auth/google/success?redirect=${encodedRedirectPath}`;
+
+  res.render("googleRedirect", { callbackURL });
 
 })
 
-const goolgeLoginSuccess = catchAsync ( async (req:Request, res: Response) => {
-    const redirectPath = req.query.redirect as string || "/dashboard";
-    
-    const sessionToken = req.cookies["better-auth.session_token"];
+const googleLoginSuccess = catchAsync(async (req: Request, res: Response) => {
+  const redirectPath = req.query.redirect as string || "/dashboard";
 
-    if (!sessionToken) { 
-        return res.redirect(`${envVariables.FRONTEND_URL}/login?error=oauth_failed`);
-    }
+  const sessionToken = req.cookies["better-auth.session_token"];
 
-    const session = await auth.api.getSession({
-        headers: {
-            "Cookie": `better-auth.session_token=${sessionToken}`,
-        },
-    });
+  if (!sessionToken) {
+    return res.redirect(`${envVariables.FRONTEND_URL}/login?error=oauth_failed`);
+  }
 
-     if (!session) {
-        return res.redirect(`${envVariables.FRONTEND_URL}/login?error=no_session_found`);
-    }
+  const session = await auth.api.getSession({
+    headers: {
+      "Cookie": `better-auth.session_token=${sessionToken}`,
+    },
+  });
 
-    if (session && !session.user) {
-        return res.redirect(`${envVariables.FRONTEND_URL}/login?error=oauth_failed`);
-    }
+  if (!session) {
+    return res.redirect(`${envVariables.FRONTEND_URL}/login?error=no_session_found`);
+  }
 
-    const result = await AuthService.goolgeLoginSuccess(session)
+  if (session && !session.user) {
+    return res.redirect(`${envVariables.FRONTEND_URL}/login?error=oauth_failed`);
+  }
 
-    const { accessToken, refreshToken } = result;
-    
-    tokenUtils.setAccessTokenCookie(res, accessToken);
-    tokenUtils.setRefreshTokenCookie(res, refreshToken);
+  const result = await AuthService.googleLoginSuccess(session)
 
-    const isValidRedirect = redirectPath.startsWith("/") && !redirectPath.startsWith("//");
-    const finalRedirect = isValidRedirect ? `${envVariables.FRONTEND_URL}${redirectPath}` : envVariables.FRONTEND_URL;
-    res.redirect(finalRedirect);
+  const { accessToken, refreshToken } = result;
+
+  tokenUtils.setAccessTokenCookie(res, accessToken);
+  tokenUtils.setRefreshTokenCookie(res, refreshToken);
+
+  const isValidRedirect = redirectPath.startsWith("/") && !redirectPath.startsWith("//");
+  const finalRedirect = isValidRedirect ? `${envVariables.FRONTEND_URL}${redirectPath}` : envVariables.FRONTEND_URL;
+  res.redirect(finalRedirect);
 })
 
-const handleAuthError = catchAsync ( async (req:Request, res: Response) => {
-    const error = req.query.error as string || "oauth_failed";
-    res.redirect(`${envVariables.FRONTEND_URL}/login?error=${error}`);
-}) 
+const handleAuthError = catchAsync(async (req: Request, res: Response) => {
+  const error = req.query.error as string || "oauth_failed";
+  res.redirect(`${envVariables.FRONTEND_URL}/login?error=${error}`);
+})
 
 const getMe = catchAsync(async (req: Request, res: Response) => {
 
-    const userId = req.user?.id;
-   
-    const result = await AuthService.getMe(userId as string)
+  const userId = req.user?.id;
 
-    sendResponse(res, {
+  const result = await AuthService.getMe(userId as string)
+
+  sendResponse(res, {
     httpStatusCode: status.OK,
     success: true,
     message: "get your user Info",
@@ -258,16 +261,16 @@ const resendVerificationEmail = catchAsync(
 
 
 export const AuthController = {
-    register,
-    login,
-    verifyEmail,
-    refreshToken,
-    logout,
-    forgotPassword,
-    googleLogin,
-    goolgeLoginSuccess,
-    handleAuthError,
-    getMe,
-    resetPassword,
-    resendVerificationEmail
+  register,
+  login,
+  verifyEmail,
+  refreshToken,
+  logout,
+  forgotPassword,
+  googleLogin,
+  googleLoginSuccess,
+  handleAuthError,
+  getMe,
+  resetPassword,
+  resendVerificationEmail
 }

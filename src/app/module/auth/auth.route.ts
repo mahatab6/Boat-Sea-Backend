@@ -9,13 +9,13 @@ import { UserRole } from "../../../generated/prisma/enums";
 
 const router = Router();
 
-router.post("/register",validateRequest(registerZodSchema), AuthController.register);
+router.post("/register", validateRequest(registerZodSchema), AuthController.register);
 
 router.post("/verify-email", AuthController.verifyEmail);
 
-router.post("/resend-verification-email",validateRequest(resendVerificationEmailZodSchema), AuthController.resendVerificationEmail);
+router.post("/resend-verification-email", validateRequest(resendVerificationEmailZodSchema), AuthController.resendVerificationEmail);
 
-router.post("/login",validateRequest(loginZodSchema), AuthController.login);
+router.post("/login", validateRequest(loginZodSchema), AuthController.login);
 
 router.post('/refresh-token', AuthController.refreshToken);
 
@@ -28,7 +28,7 @@ router.post('/forgot-password', AuthController.forgotPassword);
 router.get('/me', checkAuth(UserRole.CUSTOMER, UserRole.BOAT_OWNER, UserRole.ADMIN, UserRole.SUPER_ADMIN), AuthController.getMe)
 
 router.get('/login/google', AuthController.googleLogin)
-router.get('/google/success', AuthController.goolgeLoginSuccess)
+router.get('/google/success', AuthController.googleLoginSuccess)
 router.get('/oauth/error', AuthController.handleAuthError)
 
 

@@ -394,6 +394,7 @@ export const ModelName = {
   License: 'License',
   Notification: 'Notification',
   Payments: 'Payments',
+  DocumentEmbedding: 'DocumentEmbedding',
   Review: 'Review',
   Route: 'Route',
   Schedule: 'Schedule',
@@ -414,7 +415,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "boat" | "boat_Images" | "booking" | "license" | "notification" | "payments" | "review" | "route" | "schedule" | "seat" | "ticket"
+    modelProps: "user" | "session" | "account" | "verification" | "boat" | "boat_Images" | "booking" | "license" | "notification" | "payments" | "documentEmbedding" | "review" | "route" | "schedule" | "seat" | "ticket"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1158,6 +1159,64 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    DocumentEmbedding: {
+      payload: Prisma.$DocumentEmbeddingPayload<ExtArgs>
+      fields: Prisma.DocumentEmbeddingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DocumentEmbeddingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentEmbeddingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DocumentEmbeddingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentEmbeddingPayload>
+        }
+        findFirst: {
+          args: Prisma.DocumentEmbeddingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentEmbeddingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DocumentEmbeddingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentEmbeddingPayload>
+        }
+        findMany: {
+          args: Prisma.DocumentEmbeddingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentEmbeddingPayload>[]
+        }
+        delete: {
+          args: Prisma.DocumentEmbeddingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentEmbeddingPayload>
+        }
+        update: {
+          args: Prisma.DocumentEmbeddingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentEmbeddingPayload>
+        }
+        deleteMany: {
+          args: Prisma.DocumentEmbeddingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DocumentEmbeddingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DocumentEmbeddingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DocumentEmbeddingPayload>[]
+        }
+        aggregate: {
+          args: Prisma.DocumentEmbeddingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDocumentEmbedding>
+        }
+        groupBy: {
+          args: Prisma.DocumentEmbeddingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DocumentEmbeddingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DocumentEmbeddingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DocumentEmbeddingCountAggregateOutputType> | number
+        }
+      }
+    }
     Review: {
       payload: Prisma.$ReviewPayload<ExtArgs>
       fields: Prisma.ReviewFieldRefs
@@ -1746,6 +1805,25 @@ export const PaymentsScalarFieldEnum = {
 export type PaymentsScalarFieldEnum = (typeof PaymentsScalarFieldEnum)[keyof typeof PaymentsScalarFieldEnum]
 
 
+export const DocumentEmbeddingScalarFieldEnum = {
+  id: 'id',
+  chunkKey: 'chunkKey',
+  chunkIndex: 'chunkIndex',
+  sourceType: 'sourceType',
+  sourceId: 'sourceId',
+  sourceLabel: 'sourceLabel',
+  content: 'content',
+  tokenCount: 'tokenCount',
+  metadata: 'metadata',
+  isDeleted: 'isDeleted',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DocumentEmbeddingScalarFieldEnum = (typeof DocumentEmbeddingScalarFieldEnum)[keyof typeof DocumentEmbeddingScalarFieldEnum]
+
+
 export const ReviewScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -1838,6 +1916,14 @@ export const JsonNullValueInput = {
 } as const
 
 export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -2206,6 +2292,7 @@ export type GlobalOmitConfig = {
   license?: Prisma.LicenseOmit
   notification?: Prisma.NotificationOmit
   payments?: Prisma.PaymentsOmit
+  documentEmbedding?: Prisma.DocumentEmbeddingOmit
   review?: Prisma.ReviewOmit
   route?: Prisma.RouteOmit
   schedule?: Prisma.ScheduleOmit

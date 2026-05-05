@@ -11,32 +11,31 @@ import { IndexRoutes } from "./app/routes/routes";
 
 const app: Application = express()
 
+app.set("trust proxy", 1);
+
 app.use(cors({
-    origin: [envVariables.FRONTEND_URL, "http://localhost:3000"],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+  origin: [envVariables.FRONTEND_URL, "http://localhost:3000"],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }))
 
 
 
 app.post(
-    '/webhook',
-    express.raw({ type: 'application/json' }), 
-    PaymentController.handleStripeWebhookEvent
+  '/webhook',
+  express.raw({ type: 'application/json' }),
+  PaymentController.handleStripeWebhookEvent
 );
 
-
-app.use('/api/auth', toNodeHandler(auth))
-
-
+app.set('view engine', 'ejs');
+app.set('views', path.join(process.cwd(), 'src/app/templates'));
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }))
-app.set('view engine', 'ejs');
-app.set('views', path.join(process.cwd(), 'src/app/templates'));
 
+app.all("/api/auth/*splat", toNodeHandler(auth));
 
 app.use("/api/v1", IndexRoutes)
 

@@ -13,6 +13,7 @@ const parseMs = (value: string) => ms(value as import("ms").StringValue);
 export const auth = betterAuth({
   baseURL: envVariables.BETTER_AUTH_URL,
   secret: envVariables.BETTER_AUTH_SECRET,
+  trustedOrigins: [envVariables.FRONTEND_URL],
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
@@ -73,6 +74,7 @@ export const auth = betterAuth({
     updateAge: ms("1d") / 1000,
     cookieOptions: {
       sameSite: "none",
+      secure: true,
     },
     cookieCache: {
       enabled: true,
@@ -87,6 +89,7 @@ export const auth = betterAuth({
         httpOnly: true,
         secure: true,
         sameSite: "none",
+        path: "/",
       },
     },
   },
@@ -139,12 +142,39 @@ export const auth = betterAuth({
     google: {
       clientId: envVariables.Client_ID,
       clientSecret: envVariables.Client_Secret,
+      prompt: "select_account consent",
+      accessType: "offline",
       mapProfileToUser: () => ({
         role: UserRole.CUSTOMER,
         status: UserStatus.ACTIVE,
         isDeleted: false,
         deletedAt: null,
       }),
+    },
+  },
+
+  redirectURIs: {
+    signIn: `${envVariables.BETTER_AUTH_URL}/api/v1/auth/google/success`,
+  },
+
+  advanced: {
+    cookies: {
+      state: {
+        attributes: {
+          secure: true,
+          sameSite: "none",
+          httpOnly: true,
+          path: "/",
+        },
+      },
+      sessionToken: {
+        attributes: {
+          secure: true,
+          sameSite: "none",
+          httpOnly: true,
+          path: "/",
+        },
+      },
     },
   },
 });

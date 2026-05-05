@@ -92,6 +92,11 @@ export type Notification = Prisma.NotificationModel
  */
 export type Payments = Prisma.PaymentsModel
 /**
+ * Model DocumentEmbedding
+ * 
+ */
+export type DocumentEmbedding = Prisma.DocumentEmbeddingModel
+/**
  * Model Review
  * 
  */
