@@ -89,7 +89,10 @@ const indexByType = catchAsync(async (req: Request, res: Response) => {
 const removeBySource = catchAsync(async (req: Request, res: Response) => {
   const { sourceType, sourceId } = req.params;
 
-  const result = await RagService.removeBySource(sourceType as string, sourceId as string);
+  const result = await RagService.removeBySource(
+    sourceType as string,
+    sourceId as string,
+  );
 
   sendResponse(res, {
     httpStatusCode: status.OK,
